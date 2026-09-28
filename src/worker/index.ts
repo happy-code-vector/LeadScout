@@ -1,6 +1,8 @@
 import "dotenv/config";
 import { log } from "../lib/logger";
 import { drainQueue, pruneOldJobs, recoverStaleJobs } from "../lib/queue";
+import "./jobs";
+import { recoverOrphanedRuns } from "./jobs";
 
 /**
  * LeadScout background worker. Polls the Job table on SQLite — no external
@@ -16,8 +18,9 @@ function sleep(ms: number): Promise<void> {
 async function main() {
   const recovered = await recoverStaleJobs();
   const pruned = await pruneOldJobs();
-  if (recovered || pruned) {
-    log.info("worker startup cleanup", { recovered, pruned });
+  const orphanedRuns = await recoverOrphanedRuns();
+  if (recovered || pruned || orphanedRuns) {
+    log.info("worker startup cleanup", { recovered, pruned, orphanedRuns });
   }
 
   log.info("worker started", { pollIntervalMs: POLL_INTERVAL_MS });

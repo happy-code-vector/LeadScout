@@ -1,0 +1,4164 @@
+{
+  "places": [
+    {
+      "textQuery": "plumber",
+      "id": "mock_park-slope_nostrand-plumbers_624744",
+      "displayName": "Nostrand Plumbers",
+      "formattedAddress": "497 Coney Island Ave, Park Slope, Brooklyn, NY 11215",
+      "addressComponents": [
+        {
+          "types": [
+            "sublocality_level_1"
+          ],
+          "longText": "Park Slope",
+          "shortText": "Park Slope"
+        },
+        {
+          "types": [
+            "locality"
+          ],
+          "longText": "New York",
+          "shortText": "New York"
+        },
+        {
+          "types": [
+            "administrative_area_level_1"
+          ],
+          "longText": "New York",
+          "shortText": "NY"
+        },
+        {
+          "types": [
+            "postal_code"
+          ],
+          "longText": "11215",
+          "shortText": "11215"
+        }
+      ],
+      "location": {
+        "latitude": 40.6710110375192,
+        "longitude": -73.98051709441002
+      },
+      "types": [
+        "plumber",
+        "point_of_interest",
+        "establishment"
+      ],
+      "primaryType": "plumber",
+      "nationalPhoneNumber": "+1 347 555 0152",
+      "websiteUri": null,
+      "rating": 3.6,
+      "userRatingCount": 246,
+      "businessStatus": "OPERATIONAL",
+      "googleMapsUri": "https://www.google.com/maps/place/?q=place_id:mock_307001513"
+    },
+    {
+      "textQuery": "plumber",
+      "id": "mock_park-slope_manhattan-plumbing_592323",
+      "displayName": "Manhattan Plumbing",
+      "formattedAddress": "20 5th Ave, Park Slope, Brooklyn, NY 11215",
+      "addressComponents": [
+        {
+          "types": [
+            "sublocality_level_1"
+          ],
+          "longText": "Park Slope",
+          "shortText": "Park Slope"
+        },
+        {
+          "types": [
+            "locality"
+          ],
+          "longText": "New York",
+          "shortText": "New York"
+        },
+        {
+          "types": [
+            "administrative_area_level_1"
+          ],
+          "longText": "New York",
+          "shortText": "NY"
+        },
+        {
+          "types": [
+            "postal_code"
+          ],
+          "longText": "11215",
+          "shortText": "11215"
+        }
+      ],
+      "location": {
+        "latitude": 40.66697253837948,
+        "longitude": -73.97999270512257
+      },
+      "types": [
+        "plumber",
+        "point_of_interest",
+        "establishment"
+      ],
+      "primaryType": "plumber",
+      "nationalPhoneNumber": "+1 718 555 0146",
+      "websiteUri": "https://old-copyright-2016.manhattan-plumbing.test",
+      "rating": 3.3,
+      "userRatingCount": 51,
+      "businessStatus": "OPERATIONAL",
+      "googleMapsUri": "https://www.google.com/maps/place/?q=place_id:mock_530335606"
+    },
+    {
+      "textQuery": "plumber",
+      "id": "mock_park-slope_kensington-plumbers_51392",
+      "displayName": "Kensington Plumbers",
+      "formattedAddress": "2267 Bushwick Ave, Park Slope, Brooklyn, NY 11215",
+      "addressComponents": [
+        {
+          "types": [
+            "sublocality_level_1"
+          ],
+          "longText": "Park Slope",
+          "shortText": "Park Slope"
+        },
+        {
+          "types": [
+            "locality"
+          ],
+          "longText": "New York",
+          "shortText": "New York"
+        },
+        {
+          "types": [
+            "administrative_area_level_1"
+          ],
+          "longText": "New York",
+          "shortText": "NY"
+        },
+        {
+          "types": [
+            "postal_code"
+          ],
+          "longText": "11215",
+          "shortText": "11215"
+        }
+      ],
+      "location": {
+        "latitude": 40.66527123609325,
+        "longitude": -73.9832699476555
+      },
+      "types": [
+        "plumber",
+        "point_of_interest",
+        "establishment"
+      ],
+      "primaryType": "plumber",
+      "nationalPhoneNumber": "+1 347 555 0131",
+      "websiteUri": "https://facebook.com/kensington-plumbers",
+      "rating": 3.6,
+      "userRatingCount": 180,
+      "businessStatus": "OPERATIONAL",
+      "googleMapsUri": "https://www.google.com/maps/place/?q=place_id:mock_303629634"
+    },
+    {
+      "textQuery": "plumber",
+      "id": "mock_park-slope_clinton-plumbing_659859",
+      "displayName": "Clinton Plumbing",
+      "formattedAddress": "802 Manhattan Ave, Park Slope, Brooklyn, NY 11215",
+      "addressComponents": [
+        {
+          "types": [
+            "sublocality_level_1"
+          ],
+          "longText": "Park Slope",
+          "shortText": "Park Slope"
+        },
+        {
+          "types": [
+            "locality"
+          ],
+          "longText": "New York",
+          "shortText": "New York"
+        },
+        {
+          "types": [
+            "administrative_area_level_1"
+          ],
+          "longText": "New York",
+          "shortText": "NY"
+        },
+        {
+          "types": [
+            "postal_code"
+          ],
+          "longText": "11215",
+          "shortText": "11215"
+        }
+      ],
+      "location": {
+        "latitude": 40.67238621372729,
+        "longitude": -73.97641289080725
+      },
+      "types": [
+        "plumber",
+        "point_of_interest",
+        "establishment"
+      ],
+      "primaryType": "plumber",
+      "nationalPhoneNumber": "+1 929 555 0129",
+      "websiteUri": null,
+      "rating": 4.8,
+      "userRatingCount": 24,
+      "businessStatus": "OPERATIONAL",
+      "googleMapsUri": "https://www.google.com/maps/place/?q=place_id:mock_431137497"
+    },
+    {
+      "textQuery": "plumber",
+      "id": "mock_park-slope_ace-plumbing-heating_77582",
+      "displayName": "Ace Plumbing & Heating",
+      "formattedAddress": "1015 Franklin Ave, Park Slope, Brooklyn, NY 11215",
+      "addressComponents": [
+        {
+          "types": [
+            "sublocality_level_1"
+          ],
+          "longText": "Park Slope",
+          "shortText": "Park Slope"
+        },
+        {
+          "types": [
+            "locality"
+          ],
+          "longText": "New York",
+          "shortText": "New York"
+        },
+        {
+          "types": [
+            "administrative_area_level_1"
+          ],
+          "longText": "New York",
+          "shortText": "NY"
+        },
+        {
+          "types": [
+            "postal_code"
+          ],
+          "longText": "11215",
+          "shortText": "11215"
+        }
+      ],
+      "location": {
+        "latitude": 40.67442294550826,
+        "longitude": -73.98362701592268
+      },
+      "types": [
+        "plumber",
+        "point_of_interest",
+        "establishment"
+      ],
+      "primaryType": "plumber",
+      "nationalPhoneNumber": "+1 929 555 0147",
+      "websiteUri": "https://modern-fresh.ace-plumbing-heating.test",
+      "rating": 3.7,
+      "userRatingCount": 197,
+      "businessStatus": "OPERATIONAL",
+      "googleMapsUri": "https://www.google.com/maps/place/?q=place_id:mock_520316353"
+    },
+    {
+      "textQuery": "plumber",
+      "id": "mock_park-slope_lexington-plumbers_596239",
+      "displayName": "Lexington Plumbers",
+      "formattedAddress": "2565 Nostrand Ave, Park Slope, Brooklyn, NY 11215",
+      "addressComponents": [
+        {
+          "types": [
+            "sublocality_level_1"
+          ],
+          "longText": "Park Slope",
+          "shortText": "Park Slope"
+        },
+        {
+          "types": [
+            "locality"
+          ],
+          "longText": "New York",
+          "shortText": "New York"
+        },
+        {
+          "types": [
+            "administrative_area_level_1"
+          ],
+          "longText": "New York",
+          "shortText": "NY"
+        },
+        {
+          "types": [
+            "postal_code"
+          ],
+          "longText": "11215",
+          "shortText": "11215"
+        }
+      ],
+      "location": {
+        "latitude": 40.67321891758125,
+        "longitude": -73.98379407426575
+      },
+      "types": [
+        "plumber",
+        "point_of_interest",
+        "establishment"
+      ],
+      "primaryType": "plumber",
+      "nationalPhoneNumber": "+1 929 555 0142",
+      "websiteUri": "https://no-contact.lexington-plumbers.test",
+      "rating": 3.7,
+      "userRatingCount": 125,
+      "businessStatus": "OPERATIONAL",
+      "googleMapsUri": "https://www.google.com/maps/place/?q=place_id:mock_695065205"
+    },
+    {
+      "textQuery": "plumber",
+      "id": "mock_park-slope_lafayette-plumbing-co_785942",
+      "displayName": "Lafayette Plumbing Co.",
+      "formattedAddress": "835 Coney Island Ave, Park Slope, Brooklyn, NY 11215",
+      "addressComponents": [
+        {
+          "types": [
+            "sublocality_level_1"
+          ],
+          "longText": "Park Slope",
+          "shortText": "Park Slope"
+        },
+        {
+          "types": [
+            "locality"
+          ],
+          "longText": "New York",
+          "shortText": "New York"
+        },
+        {
+          "types": [
+            "administrative_area_level_1"
+          ],
+          "longText": "New York",
+          "shortText": "NY"
+        },
+        {
+          "types": [
+            "postal_code"
+          ],
+          "longText": "11215",
+          "shortText": "11215"
+        }
+      ],
+      "location": {
+        "latitude": 40.67494011487811,
+        "longitude": -73.97609801869606
+      },
+      "types": [
+        "plumber",
+        "point_of_interest",
+        "establishment"
+      ],
+      "primaryType": "plumber",
+      "nationalPhoneNumber": "+1 718 555 0109",
+      "websiteUri": "https://no-contact.lafayette-plumbing-co.test",
+      "rating": 4,
+      "userRatingCount": 230,
+      "businessStatus": "OPERATIONAL",
+      "googleMapsUri": "https://www.google.com/maps/place/?q=place_id:mock_972746416"
+    },
+    {
+      "textQuery": "plumber",
+      "id": "mock_park-slope_clinton-plumbing_206954",
+      "displayName": "Clinton Plumbing",
+      "formattedAddress": "1161 Graham Ave, Park Slope, Brooklyn, NY 11215",
+      "addressComponents": [
+        {
+          "types": [
+            "sublocality_level_1"
+          ],
+          "longText": "Park Slope",
+          "shortText": "Park Slope"
+        },
+        {
+          "types": [
+            "locality"
+          ],
+          "longText": "New York",
+          "shortText": "New York"
+        },
+        {
+          "types": [
+            "administrative_area_level_1"
+          ],
+          "longText": "New York",
+          "shortText": "NY"
+        },
+        {
+          "types": [
+            "postal_code"
+          ],
+          "longText": "11215",
+          "shortText": "11215"
+        }
+      ],
+      "location": {
+        "latitude": 40.66678394845687,
+        "longitude": -73.97790570347104
+      },
+      "types": [
+        "plumber",
+        "point_of_interest",
+        "establishment"
+      ],
+      "primaryType": "plumber",
+      "nationalPhoneNumber": "+1 929 555 0116",
+      "websiteUri": "https://no-contact.clinton-plumbing.test",
+      "rating": 3.8,
+      "userRatingCount": 221,
+      "businessStatus": "OPERATIONAL",
+      "googleMapsUri": "https://www.google.com/maps/place/?q=place_id:mock_131392802"
+    },
+    {
+      "textQuery": "plumber",
+      "id": "mock_park-slope_prospect-plumbing-heating_603932",
+      "displayName": "Prospect Plumbing & Heating",
+      "formattedAddress": "1782 Ralph Ave, Park Slope, Brooklyn, NY 11215",
+      "addressComponents": [
+        {
+          "types": [
+            "sublocality_level_1"
+          ],
+          "longText": "Park Slope",
+          "shortText": "Park Slope"
+        },
+        {
+          "types": [
+            "locality"
+          ],
+          "longText": "New York",
+          "shortText": "New York"
+        },
+        {
+          "types": [
+            "administrative_area_level_1"
+          ],
+          "longText": "New York",
+          "shortText": "NY"
+        },
+        {
+          "types": [
+            "postal_code"
+          ],
+          "longText": "11215",
+          "shortText": "11215"
+        }
+      ],
+      "location": {
+        "latitude": 40.6736370218941,
+        "longitude": -73.98130289610941
+      },
+      "types": [
+        "plumber",
+        "point_of_interest",
+        "establishment"
+      ],
+      "primaryType": "plumber",
+      "nationalPhoneNumber": "+1 718 555 0186",
+      "websiteUri": "https://no-viewport.prospect-plumbing-heating.test",
+      "rating": 3.3,
+      "userRatingCount": 197,
+      "businessStatus": "OPERATIONAL",
+      "googleMapsUri": "https://www.google.com/maps/place/?q=place_id:mock_291492116"
+    },
+    {
+      "textQuery": "plumber",
+      "id": "mock_park-slope_clinton-plumbing-heating_170834",
+      "displayName": "Clinton Plumbing & Heating",
+      "formattedAddress": "2781 Bushwick Ave, Park Slope, Brooklyn, NY 11215",
+      "addressComponents": [
+        {
+          "types": [
+            "sublocality_level_1"
+          ],
+          "longText": "Park Slope",
+          "shortText": "Park Slope"
+        },
+        {
+          "types": [
+            "locality"
+          ],
+          "longText": "New York",
+          "shortText": "New York"
+        },
+        {
+          "types": [
+            "administrative_area_level_1"
+          ],
+          "longText": "New York",
+          "shortText": "NY"
+        },
+        {
+          "types": [
+            "postal_code"
+          ],
+          "longText": "11215",
+          "shortText": "11215"
+        }
+      ],
+      "location": {
+        "latitude": 40.66775484684156,
+        "longitude": -73.9816340012406
+      },
+      "types": [
+        "plumber",
+        "point_of_interest",
+        "establishment"
+      ],
+      "primaryType": "plumber",
+      "nationalPhoneNumber": "+1 718 555 0156",
+      "websiteUri": "https://no-viewport.clinton-plumbing-heating.test",
+      "rating": 3.9,
+      "userRatingCount": 121,
+      "businessStatus": "OPERATIONAL",
+      "googleMapsUri": "https://www.google.com/maps/place/?q=place_id:mock_686136790"
+    },
+    {
+      "textQuery": "plumber",
+      "id": "mock_park-slope_eastern-plumbers_235407",
+      "displayName": "Eastern Plumbers",
+      "formattedAddress": "1391 Nostrand Ave, Park Slope, Brooklyn, NY 11215",
+      "addressComponents": [
+        {
+          "types": [
+            "sublocality_level_1"
+          ],
+          "longText": "Park Slope",
+          "shortText": "Park Slope"
+        },
+        {
+          "types": [
+            "locality"
+          ],
+          "longText": "New York",
+          "shortText": "New York"
+        },
+        {
+          "types": [
+            "administrative_area_level_1"
+          ],
+          "longText": "New York",
+          "shortText": "NY"
+        },
+        {
+          "types": [
+            "postal_code"
+          ],
+          "longText": "11215",
+          "shortText": "11215"
+        }
+      ],
+      "location": {
+        "latitude": 40.668985135846306,
+        "longitude": -73.98163879200118
+      },
+      "types": [
+        "plumber",
+        "point_of_interest",
+        "establishment"
+      ],
+      "primaryType": "plumber",
+      "nationalPhoneNumber": "+1 718 555 0160",
+      "websiteUri": "https://parked-forsale.eastern-plumbers.test",
+      "rating": 3.7,
+      "userRatingCount": 187,
+      "businessStatus": "OPERATIONAL",
+      "googleMapsUri": "https://www.google.com/maps/place/?q=place_id:mock_169304593"
+    },
+    {
+      "textQuery": "plumber",
+      "id": "mock_park-slope_dumont-plumbing-heating_481534",
+      "displayName": "Dumont Plumbing & Heating",
+      "formattedAddress": "128 Kingston Ave, Park Slope, Brooklyn, NY 11215",
+      "addressComponents": [
+        {
+          "types": [
+            "sublocality_level_1"
+          ],
+          "longText": "Park Slope",
+          "shortText": "Park Slope"
+        },
+        {
+          "types": [
+            "locality"
+          ],
+          "longText": "New York",
+          "shortText": "New York"
+        },
+        {
+          "types": [
+            "administrative_area_level_1"
+          ],
+          "longText": "New York",
+          "shortText": "NY"
+        },
+        {
+          "types": [
+            "postal_code"
+          ],
+          "longText": "11215",
+          "shortText": "11215"
+        }
+      ],
+      "location": {
+        "latitude": 40.67194986196235,
+        "longitude": -73.98185775564052
+      },
+      "types": [
+        "plumber",
+        "point_of_interest",
+        "establishment"
+      ],
+      "primaryType": "plumber",
+      "nationalPhoneNumber": "+1 929 555 0157",
+      "websiteUri": null,
+      "rating": 4.8,
+      "userRatingCount": 227,
+      "businessStatus": "OPERATIONAL",
+      "googleMapsUri": "https://www.google.com/maps/place/?q=place_id:mock_154142474"
+    },
+    {
+      "textQuery": "plumber",
+      "id": "mock_park-slope_third-plumbers_208409",
+      "displayName": "Third Plumbers",
+      "formattedAddress": "1265 Kingston Ave, Park Slope, Brooklyn, NY 11215",
+      "addressComponents": [
+        {
+          "types": [
+            "sublocality_level_1"
+          ],
+          "longText": "Park Slope",
+          "shortText": "Park Slope"
+        },
+        {
+          "types": [
+            "locality"
+          ],
+          "longText": "New York",
+          "shortText": "New York"
+        },
+        {
+          "types": [
+            "administrative_area_level_1"
+          ],
+          "longText": "New York",
+          "shortText": "NY"
+        },
+        {
+          "types": [
+            "postal_code"
+          ],
+          "longText": "11215",
+          "shortText": "11215"
+        }
+      ],
+      "location": {
+        "latitude": 40.67367630352266,
+        "longitude": -73.97974324779585
+      },
+      "types": [
+        "plumber",
+        "point_of_interest",
+        "establishment"
+      ],
+      "primaryType": "plumber",
+      "nationalPhoneNumber": "+1 347 555 0114",
+      "websiteUri": "https://dead-tls.third-plumbers.test",
+      "rating": 4.9,
+      "userRatingCount": 137,
+      "businessStatus": "OPERATIONAL",
+      "googleMapsUri": "https://www.google.com/maps/place/?q=place_id:mock_843192817"
+    },
+    {
+      "textQuery": "plumber",
+      "id": "mock_park-slope_bridges-plumbing-heating_815977",
+      "displayName": "Bridges Plumbing & Heating",
+      "formattedAddress": "1423 Graham Ave, Park Slope, Brooklyn, NY 11215",
+      "addressComponents": [
+        {
+          "types": [
+            "sublocality_level_1"
+          ],
+          "longText": "Park Slope",
+          "shortText": "Park Slope"
+        },
+        {
+          "types": [
+            "locality"
+          ],
+          "longText": "New York",
+          "shortText": "New York"
+        },
+        {
+          "types": [
+            "administrative_area_level_1"
+          ],
+          "longText": "New York",
+          "shortText": "NY"
+        },
+        {
+          "types": [
+            "postal_code"
+          ],
+          "longText": "11215",
+          "shortText": "11215"
+        }
+      ],
+      "location": {
+        "latitude": 40.672436206592245,
+        "longitude": -73.98446455371798
+      },
+      "types": [
+        "plumber",
+        "point_of_interest",
+        "establishment"
+      ],
+      "primaryType": "plumber",
+      "nationalPhoneNumber": "+1 929 555 0166",
+      "websiteUri": "https://modern-fresh.bridges-plumbing-heating.test",
+      "rating": 4.7,
+      "userRatingCount": 167,
+      "businessStatus": "OPERATIONAL",
+      "googleMapsUri": "https://www.google.com/maps/place/?q=place_id:mock_446906724"
+    },
+    {
+      "textQuery": "plumber",
+      "id": "mock_park-slope_union-plumbing-co_365750",
+      "displayName": "Union Plumbing Co.",
+      "formattedAddress": "1756 5th Ave, Park Slope, Brooklyn, NY 11215",
+      "addressComponents": [
+        {
+          "types": [
+            "sublocality_level_1"
+          ],
+          "longText": "Park Slope",
+          "shortText": "Park Slope"
+        },
+        {
+          "types": [
+            "locality"
+          ],
+          "longText": "New York",
+          "shortText": "New York"
+        },
+        {
+          "types": [
+            "administrative_area_level_1"
+          ],
+          "longText": "New York",
+          "shortText": "NY"
+        },
+        {
+          "types": [
+            "postal_code"
+          ],
+          "longText": "11215",
+          "shortText": "11215"
+        }
+      ],
+      "location": {
+        "latitude": 40.673783801675306,
+        "longitude": -73.9781901113782
+      },
+      "types": [
+        "plumber",
+        "point_of_interest",
+        "establishment"
+      ],
+      "primaryType": "plumber",
+      "nationalPhoneNumber": "+1 718 555 0132",
+      "websiteUri": "https://no-viewport.union-plumbing-co.test",
+      "rating": 4.3,
+      "userRatingCount": 203,
+      "businessStatus": "OPERATIONAL",
+      "googleMapsUri": "https://www.google.com/maps/place/?q=place_id:mock_879464714"
+    },
+    {
+      "textQuery": "plumber",
+      "id": "mock_park-slope_crown-plumbing-heating_440984",
+      "displayName": "Crown Plumbing & Heating",
+      "formattedAddress": "398 Bushwick Ave, Park Slope, Brooklyn, NY 11215",
+      "addressComponents": [
+        {
+          "types": [
+            "sublocality_level_1"
+          ],
+          "longText": "Park Slope",
+          "shortText": "Park Slope"
+        },
+        {
+          "types": [
+            "locality"
+          ],
+          "longText": "New York",
+          "shortText": "New York"
+        },
+        {
+          "types": [
+            "administrative_area_level_1"
+          ],
+          "longText": "New York",
+          "shortText": "NY"
+        },
+        {
+          "types": [
+            "postal_code"
+          ],
+          "longText": "11215",
+          "shortText": "11215"
+        }
+      ],
+      "location": {
+        "latitude": 40.66966247691773,
+        "longitude": -73.9779252241901
+      },
+      "types": [
+        "plumber",
+        "point_of_interest",
+        "establishment"
+      ],
+      "primaryType": "plumber",
+      "nationalPhoneNumber": "+1 929 555 0104",
+      "websiteUri": null,
+      "rating": 4.5,
+      "userRatingCount": 219,
+      "businessStatus": "OPERATIONAL",
+      "googleMapsUri": "https://www.google.com/maps/place/?q=place_id:mock_666356889"
+    },
+    {
+      "textQuery": "plumber",
+      "id": "mock_park-slope_greenwood-plumbing-co_147645",
+      "displayName": "Greenwood Plumbing Co.",
+      "formattedAddress": "1195 Broadway, Park Slope, Brooklyn, NY 11215",
+      "addressComponents": [
+        {
+          "types": [
+            "sublocality_level_1"
+          ],
+          "longText": "Park Slope",
+          "shortText": "Park Slope"
+        },
+        {
+          "types": [
+            "locality"
+          ],
+          "longText": "New York",
+          "shortText": "New York"
+        },
+        {
+          "types": [
+            "administrative_area_level_1"
+          ],
+          "longText": "New York",
+          "shortText": "NY"
+        },
+        {
+          "types": [
+            "postal_code"
+          ],
+          "longText": "11215",
+          "shortText": "11215"
+        }
+      ],
+      "location": {
+        "latitude": 40.670178047788795,
+        "longitude": -73.98056456228252
+      },
+      "types": [
+        "plumber",
+        "point_of_interest",
+        "establishment"
+      ],
+      "primaryType": "plumber",
+      "nationalPhoneNumber": "+1 718 555 0132",
+      "websiteUri": null,
+      "rating": 4.1,
+      "userRatingCount": 153,
+      "businessStatus": "OPERATIONAL",
+      "googleMapsUri": "https://www.google.com/maps/place/?q=place_id:mock_437189310"
+    },
+    {
+      "textQuery": "plumber",
+      "id": "mock_park-slope_union-plumbing-heating_98791",
+      "displayName": "Union Plumbing & Heating",
+      "formattedAddress": "203 Ocean Ave, Park Slope, Brooklyn, NY 11215",
+      "addressComponents": [
+        {
+          "types": [
+            "sublocality_level_1"
+          ],
+          "longText": "Park Slope",
+          "shortText": "Park Slope"
+        },
+        {
+          "types": [
+            "locality"
+          ],
+          "longText": "New York",
+          "shortText": "New York"
+        },
+        {
+          "types": [
+            "administrative_area_level_1"
+          ],
+          "longText": "New York",
+          "shortText": "NY"
+        },
+        {
+          "types": [
+            "postal_code"
+          ],
+          "longText": "11215",
+          "shortText": "11215"
+        }
+      ],
+      "location": {
+        "latitude": 40.666348253537436,
+        "longitude": -73.98496235426515
+      },
+      "types": [
+        "plumber",
+        "point_of_interest",
+        "establishment"
+      ],
+      "primaryType": "plumber",
+      "nationalPhoneNumber": "+1 718 555 0186",
+      "websiteUri": "https://instagram.com/union-plumbing-heating",
+      "rating": 3.8,
+      "userRatingCount": 64,
+      "businessStatus": "OPERATIONAL",
+      "googleMapsUri": "https://www.google.com/maps/place/?q=place_id:mock_564050243"
+    },
+    {
+      "textQuery": "plumber",
+      "id": "mock_park-slope_nostrand-plumbers_176832",
+      "displayName": "Nostrand Plumbers",
+      "formattedAddress": "2231 7th Ave, Park Slope, Brooklyn, NY 11215",
+      "addressComponents": [
+        {
+          "types": [
+            "sublocality_level_1"
+          ],
+          "longText": "Park Slope",
+          "shortText": "Park Slope"
+        },
+        {
+          "types": [
+            "locality"
+          ],
+          "longText": "New York",
+          "shortText": "New York"
+        },
+        {
+          "types": [
+            "administrative_area_level_1"
+          ],
+          "longText": "New York",
+          "shortText": "NY"
+        },
+        {
+          "types": [
+            "postal_code"
+          ],
+          "longText": "11215",
+          "shortText": "11215"
+        }
+      ],
+      "location": {
+        "latitude": 40.665946172678375,
+        "longitude": -73.97533607292686
+      },
+      "types": [
+        "plumber",
+        "point_of_interest",
+        "establishment"
+      ],
+      "primaryType": "plumber",
+      "nationalPhoneNumber": "+1 718 555 0154",
+      "websiteUri": "https://plain-old-2014.nostrand-plumbers.test",
+      "rating": 3.3,
+      "userRatingCount": 73,
+      "businessStatus": "OPERATIONAL",
+      "googleMapsUri": "https://www.google.com/maps/place/?q=place_id:mock_668364910"
+    },
+    {
+      "textQuery": "plumber",
+      "id": "mock_park-slope_flatbush-plumbing-heating_204966",
+      "displayName": "Flatbush Plumbing & Heating",
+      "formattedAddress": "952 18th Ave, Park Slope, Brooklyn, NY 11215",
+      "addressComponents": [
+        {
+          "types": [
+            "sublocality_level_1"
+          ],
+          "longText": "Park Slope",
+          "shortText": "Park Slope"
+        },
+        {
+          "types": [
+            "locality"
+          ],
+          "longText": "New York",
+          "shortText": "New York"
+        },
+        {
+          "types": [
+            "administrative_area_level_1"
+          ],
+          "longText": "New York",
+          "shortText": "NY"
+        },
+        {
+          "types": [
+            "postal_code"
+          ],
+          "longText": "11215",
+          "shortText": "11215"
+        }
+      ],
+      "location": {
+        "latitude": 40.67061001383001,
+        "longitude": -73.97523353775264
+      },
+      "types": [
+        "plumber",
+        "point_of_interest",
+        "establishment"
+      ],
+      "primaryType": "plumber",
+      "nationalPhoneNumber": "+1 929 555 0128",
+      "websiteUri": "https://plain-old-2014.flatbush-plumbing-heating.test",
+      "rating": 3.7,
+      "userRatingCount": 145,
+      "businessStatus": "OPERATIONAL",
+      "googleMapsUri": "https://www.google.com/maps/place/?q=place_id:mock_935346664"
+    },
+    {
+      "textQuery": "plumber",
+      "id": "mock_park-slope_dumont-plumbers_554286",
+      "displayName": "Dumont Plumbers",
+      "formattedAddress": "1388 Bushwick Ave, Park Slope, Brooklyn, NY 11215",
+      "addressComponents": [
+        {
+          "types": [
+            "sublocality_level_1"
+          ],
+          "longText": "Park Slope",
+          "shortText": "Park Slope"
+        },
+        {
+          "types": [
+            "locality"
+          ],
+          "longText": "New York",
+          "shortText": "New York"
+        },
+        {
+          "types": [
+            "administrative_area_level_1"
+          ],
+          "longText": "New York",
+          "shortText": "NY"
+        },
+        {
+          "types": [
+            "postal_code"
+          ],
+          "longText": "11215",
+          "shortText": "11215"
+        }
+      ],
+      "location": {
+        "latitude": 40.671849806050304,
+        "longitude": -73.97931463894435
+      },
+      "types": [
+        "plumber",
+        "point_of_interest",
+        "establishment"
+      ],
+      "primaryType": "plumber",
+      "nationalPhoneNumber": "+1 929 555 0174",
+      "websiteUri": "https://parked-forsale.dumont-plumbers.test",
+      "rating": 4.9,
+      "userRatingCount": 214,
+      "businessStatus": "OPERATIONAL",
+      "googleMapsUri": "https://www.google.com/maps/place/?q=place_id:mock_631553952"
+    },
+    {
+      "textQuery": "plumber",
+      "id": "mock_park-slope_third-plumbing-co_532860",
+      "displayName": "Third Plumbing Co.",
+      "formattedAddress": "894 Ocean Ave, Park Slope, Brooklyn, NY 11215",
+      "addressComponents": [
+        {
+          "types": [
+            "sublocality_level_1"
+          ],
+          "longText": "Park Slope",
+          "shortText": "Park Slope"
+        },
+        {
+          "types": [
+            "locality"
+          ],
+          "longText": "New York",
+          "shortText": "New York"
+        },
+        {
+          "types": [
+            "administrative_area_level_1"
+          ],
+          "longText": "New York",
+          "shortText": "NY"
+        },
+        {
+          "types": [
+            "postal_code"
+          ],
+          "longText": "11215",
+          "shortText": "11215"
+        }
+      ],
+      "location": {
+        "latitude": 40.6716791999829,
+        "longitude": -73.9763531510625
+      },
+      "types": [
+        "plumber",
+        "point_of_interest",
+        "establishment"
+      ],
+      "primaryType": "plumber",
+      "nationalPhoneNumber": "+1 347 555 0187",
+      "websiteUri": "https://yelp.com/third-plumbing-co",
+      "rating": 4.7,
+      "userRatingCount": 193,
+      "businessStatus": "OPERATIONAL",
+      "googleMapsUri": "https://www.google.com/maps/place/?q=place_id:mock_286740075"
+    },
+    {
+      "textQuery": "plumber",
+      "id": "mock_park-slope_midwood-plumbing-co_846731",
+      "displayName": "Midwood Plumbing Co.",
+      "formattedAddress": "2161 Coney Island Ave, Park Slope, Brooklyn, NY 11215",
+      "addressComponents": [
+        {
+          "types": [
+            "sublocality_level_1"
+          ],
+          "longText": "Park Slope",
+          "shortText": "Park Slope"
+        },
+        {
+          "types": [
+            "locality"
+          ],
+          "longText": "New York",
+          "shortText": "New York"
+        },
+        {
+          "types": [
+            "administrative_area_level_1"
+          ],
+          "longText": "New York",
+          "shortText": "NY"
+        },
+        {
+          "types": [
+            "postal_code"
+          ],
+          "longText": "11215",
+          "shortText": "11215"
+        }
+      ],
+      "location": {
+        "latitude": 40.67461443558102,
+        "longitude": -73.98013355110771
+      },
+      "types": [
+        "plumber",
+        "point_of_interest",
+        "establishment"
+      ],
+      "primaryType": "plumber",
+      "nationalPhoneNumber": "+1 347 555 0173",
+      "websiteUri": "https://no-viewport.midwood-plumbing-co.test",
+      "rating": 4,
+      "userRatingCount": 20,
+      "businessStatus": "OPERATIONAL",
+      "googleMapsUri": "https://www.google.com/maps/place/?q=place_id:mock_893215473"
+    },
+    {
+      "textQuery": "plumber",
+      "id": "mock_park-slope_manhattan-plumbing-co_167592",
+      "displayName": "Manhattan Plumbing Co.",
+      "formattedAddress": "2011 Flatbush Ave, Park Slope, Brooklyn, NY 11215",
+      "addressComponents": [
+        {
+          "types": [
+            "sublocality_level_1"
+          ],
+          "longText": "Park Slope",
+          "shortText": "Park Slope"
+        },
+        {
+          "types": [
+            "locality"
+          ],
+          "longText": "New York",
+          "shortText": "New York"
+        },
+        {
+          "types": [
+            "administrative_area_level_1"
+          ],
+          "longText": "New York",
+          "shortText": "NY"
+        },
+        {
+          "types": [
+            "postal_code"
+          ],
+          "longText": "11215",
+          "shortText": "11215"
+        }
+      ],
+      "location": {
+        "latitude": 40.67175253534689,
+        "longitude": -73.98078875889536
+      },
+      "types": [
+        "plumber",
+        "point_of_interest",
+        "establishment"
+      ],
+      "primaryType": "plumber",
+      "nationalPhoneNumber": "+1 718 555 0151",
+      "websiteUri": null,
+      "rating": 3.8,
+      "userRatingCount": 231,
+      "businessStatus": "OPERATIONAL",
+      "googleMapsUri": "https://www.google.com/maps/place/?q=place_id:mock_683349898"
+    },
+    {
+      "textQuery": "plumber",
+      "id": "mock_park-slope_park-plumbing-co_888140",
+      "displayName": "Park Plumbing Co.",
+      "formattedAddress": "762 Nostrand Ave, Park Slope, Brooklyn, NY 11215",
+      "addressComponents": [
+        {
+          "types": [
+            "sublocality_level_1"
+          ],
+          "longText": "Park Slope",
+          "shortText": "Park Slope"
+        },
+        {
+          "types": [
+            "locality"
+          ],
+          "longText": "New York",
+          "shortText": "New York"
+        },
+        {
+          "types": [
+            "administrative_area_level_1"
+          ],
+          "longText": "New York",
+          "shortText": "NY"
+        },
+        {
+          "types": [
+            "postal_code"
+          ],
+          "longText": "11215",
+          "shortText": "11215"
+        }
+      ],
+      "location": {
+        "latitude": 40.665847495186604,
+        "longitude": -73.98467189355287
+      },
+      "types": [
+        "plumber",
+        "point_of_interest",
+        "establishment"
+      ],
+      "primaryType": "plumber",
+      "nationalPhoneNumber": "+1 718 555 0184",
+      "websiteUri": "https://modern-fresh.park-plumbing-co.test",
+      "rating": 4.3,
+      "userRatingCount": 67,
+      "businessStatus": "OPERATIONAL",
+      "googleMapsUri": "https://www.google.com/maps/place/?q=place_id:mock_278732396"
+    },
+    {
+      "textQuery": "plumber",
+      "id": "mock_park-slope_kensington-plumbing_918614",
+      "displayName": "Kensington Plumbing",
+      "formattedAddress": "1661 Flatbush Ave, Park Slope, Brooklyn, NY 11215",
+      "addressComponents": [
+        {
+          "types": [
+            "sublocality_level_1"
+          ],
+          "longText": "Park Slope",
+          "shortText": "Park Slope"
+        },
+        {
+          "types": [
+            "locality"
+          ],
+          "longText": "New York",
+          "shortText": "New York"
+        },
+        {
+          "types": [
+            "administrative_area_level_1"
+          ],
+          "longText": "New York",
+          "shortText": "NY"
+        },
+        {
+          "types": [
+            "postal_code"
+          ],
+          "longText": "11215",
+          "shortText": "11215"
+        }
+      ],
+      "location": {
+        "latitude": 40.66760130010545,
+        "longitude": -73.9777954579424
+      },
+      "types": [
+        "plumber",
+        "point_of_interest",
+        "establishment"
+      ],
+      "primaryType": "plumber",
+      "nationalPhoneNumber": "+1 718 555 0110",
+      "websiteUri": "https://parked-forsale.kensington-plumbing.test",
+      "rating": 3.3,
+      "userRatingCount": 95,
+      "businessStatus": "OPERATIONAL",
+      "googleMapsUri": "https://www.google.com/maps/place/?q=place_id:mock_229928727"
+    },
+    {
+      "textQuery": "plumber",
+      "id": "mock_park-slope_eastern-plumbers_375879",
+      "displayName": "Eastern Plumbers",
+      "formattedAddress": "1821 Court St, Park Slope, Brooklyn, NY 11215",
+      "addressComponents": [
+        {
+          "types": [
+            "sublocality_level_1"
+          ],
+          "longText": "Park Slope",
+          "shortText": "Park Slope"
+        },
+        {
+          "types": [
+            "locality"
+          ],
+          "longText": "New York",
+          "shortText": "New York"
+        },
+        {
+          "types": [
+            "administrative_area_level_1"
+          ],
+          "longText": "New York",
+          "shortText": "NY"
+        },
+        {
+          "types": [
+            "postal_code"
+          ],
+          "longText": "11215",
+          "shortText": "11215"
+        }
+      ],
+      "location": {
+        "latitude": 40.67490385763347,
+        "longitude": -73.9791880065971
+      },
+      "types": [
+        "plumber",
+        "point_of_interest",
+        "establishment"
+      ],
+      "primaryType": "plumber",
+      "nationalPhoneNumber": "+1 929 555 0103",
+      "websiteUri": "https://dead-tls.eastern-plumbers.test",
+      "rating": 4.1,
+      "userRatingCount": 38,
+      "businessStatus": "OPERATIONAL",
+      "googleMapsUri": "https://www.google.com/maps/place/?q=place_id:mock_772554369"
+    },
+    {
+      "textQuery": "plumber",
+      "id": "mock_park-slope_kensington-plumbers_552118",
+      "displayName": "Kensington Plumbers",
+      "formattedAddress": "2664 Manhattan Ave, Park Slope, Brooklyn, NY 11215",
+      "addressComponents": [
+        {
+          "types": [
+            "sublocality_level_1"
+          ],
+          "longText": "Park Slope",
+          "shortText": "Park Slope"
+        },
+        {
+          "types": [
+            "locality"
+          ],
+          "longText": "New York",
+          "shortText": "New York"
+        },
+        {
+          "types": [
+            "administrative_area_level_1"
+          ],
+          "longText": "New York",
+          "shortText": "NY"
+        },
+        {
+          "types": [
+            "postal_code"
+          ],
+          "longText": "11215",
+          "shortText": "11215"
+        }
+      ],
+      "location": {
+        "latitude": 40.669316273543515,
+        "longitude": -73.9762962941639
+      },
+      "types": [
+        "plumber",
+        "point_of_interest",
+        "establishment"
+      ],
+      "primaryType": "plumber",
+      "nationalPhoneNumber": "+1 718 555 0117",
+      "websiteUri": null,
+      "rating": 4.5,
+      "userRatingCount": 67,
+      "businessStatus": "OPERATIONAL",
+      "googleMapsUri": "https://www.google.com/maps/place/?q=place_id:mock_659886942"
+    },
+    {
+      "textQuery": "plumber",
+      "id": "mock_park-slope_tillary-plumbing-heating_957520",
+      "displayName": "Tillary Plumbing & Heating",
+      "formattedAddress": "1465 Bushwick Ave, Park Slope, Brooklyn, NY 11215",
+      "addressComponents": [
+        {
+          "types": [
+            "sublocality_level_1"
+          ],
+          "longText": "Park Slope",
+          "shortText": "Park Slope"
+        },
+        {
+          "types": [
+            "locality"
+          ],
+          "longText": "New York",
+          "shortText": "New York"
+        },
+        {
+          "types": [
+            "administrative_area_level_1"
+          ],
+          "longText": "New York",
+          "shortText": "NY"
+        },
+        {
+          "types": [
+            "postal_code"
+          ],
+          "longText": "11215",
+          "shortText": "11215"
+        }
+      ],
+      "location": {
+        "latitude": 40.67102787996176,
+        "longitude": -73.97944569489918
+      },
+      "types": [
+        "plumber",
+        "point_of_interest",
+        "establishment"
+      ],
+      "primaryType": "plumber",
+      "nationalPhoneNumber": "+1 718 555 0173",
+      "websiteUri": null,
+      "rating": 3.3,
+      "userRatingCount": 91,
+      "businessStatus": "OPERATIONAL",
+      "googleMapsUri": "https://www.google.com/maps/place/?q=place_id:mock_761001532"
+    },
+    {
+      "textQuery": "plumber",
+      "id": "mock_park-slope_carroll-plumbing-co_852499",
+      "displayName": "Carroll Plumbing Co.",
+      "formattedAddress": "1803 7th Ave, Park Slope, Brooklyn, NY 11215",
+      "addressComponents": [
+        {
+          "types": [
+            "sublocality_level_1"
+          ],
+          "longText": "Park Slope",
+          "shortText": "Park Slope"
+        },
+        {
+          "types": [
+            "locality"
+          ],
+          "longText": "New York",
+          "shortText": "New York"
+        },
+        {
+          "types": [
+            "administrative_area_level_1"
+          ],
+          "longText": "New York",
+          "shortText": "NY"
+        },
+        {
+          "types": [
+            "postal_code"
+          ],
+          "longText": "11215",
+          "shortText": "11215"
+        }
+      ],
+      "location": {
+        "latitude": 40.667510355364065,
+        "longitude": -73.97637224023929
+      },
+      "types": [
+        "plumber",
+        "point_of_interest",
+        "establishment"
+      ],
+      "primaryType": "plumber",
+      "nationalPhoneNumber": "+1 718 555 0150",
+      "websiteUri": null,
+      "rating": 4.9,
+      "userRatingCount": 59,
+      "businessStatus": "OPERATIONAL",
+      "googleMapsUri": "https://www.google.com/maps/place/?q=place_id:mock_508701289"
+    },
+    {
+      "textQuery": "plumber",
+      "id": "mock_park-slope_bridges-plumbing_204875",
+      "displayName": "Bridges Plumbing",
+      "formattedAddress": "2741 Broadway, Park Slope, Brooklyn, NY 11215",
+      "addressComponents": [
+        {
+          "types": [
+            "sublocality_level_1"
+          ],
+          "longText": "Park Slope",
+          "shortText": "Park Slope"
+        },
+        {
+          "types": [
+            "locality"
+          ],
+          "longText": "New York",
+          "shortText": "New York"
+        },
+        {
+          "types": [
+            "administrative_area_level_1"
+          ],
+          "longText": "New York",
+          "shortText": "NY"
+        },
+        {
+          "types": [
+            "postal_code"
+          ],
+          "longText": "11215",
+          "shortText": "11215"
+        }
+      ],
+      "location": {
+        "latitude": 40.67119631188456,
+        "longitude": -73.98015465235571
+      },
+      "types": [
+        "plumber",
+        "point_of_interest",
+        "establishment"
+      ],
+      "primaryType": "plumber",
+      "nationalPhoneNumber": "+1 929 555 0182",
+      "websiteUri": null,
+      "rating": 4,
+      "userRatingCount": 135,
+      "businessStatus": "OPERATIONAL",
+      "googleMapsUri": "https://www.google.com/maps/place/?q=place_id:mock_499340127"
+    },
+    {
+      "textQuery": "plumber",
+      "id": "mock_park-slope_fourth-plumbing-co_665852",
+      "displayName": "Fourth Plumbing Co.",
+      "formattedAddress": "711 7th Ave, Park Slope, Brooklyn, NY 11215",
+      "addressComponents": [
+        {
+          "types": [
+            "sublocality_level_1"
+          ],
+          "longText": "Park Slope",
+          "shortText": "Park Slope"
+        },
+        {
+          "types": [
+            "locality"
+          ],
+          "longText": "New York",
+          "shortText": "New York"
+        },
+        {
+          "types": [
+            "administrative_area_level_1"
+          ],
+          "longText": "New York",
+          "shortText": "NY"
+        },
+        {
+          "types": [
+            "postal_code"
+          ],
+          "longText": "11215",
+          "shortText": "11215"
+        }
+      ],
+      "location": {
+        "latitude": 40.66534817539854,
+        "longitude": -73.97638306183275
+      },
+      "types": [
+        "plumber",
+        "point_of_interest",
+        "establishment"
+      ],
+      "primaryType": "plumber",
+      "nationalPhoneNumber": "+1 929 555 0149",
+      "websiteUri": null,
+      "rating": 4.5,
+      "userRatingCount": 184,
+      "businessStatus": "OPERATIONAL",
+      "googleMapsUri": "https://www.google.com/maps/place/?q=place_id:mock_53757657"
+    },
+    {
+      "textQuery": "plumber",
+      "id": "mock_park-slope_kings-plumbing-co_708283",
+      "displayName": "Kings Plumbing Co.",
+      "formattedAddress": "1336 5th Ave, Park Slope, Brooklyn, NY 11215",
+      "addressComponents": [
+        {
+          "types": [
+            "sublocality_level_1"
+          ],
+          "longText": "Park Slope",
+          "shortText": "Park Slope"
+        },
+        {
+          "types": [
+            "locality"
+          ],
+          "longText": "New York",
+          "shortText": "New York"
+        },
+        {
+          "types": [
+            "administrative_area_level_1"
+          ],
+          "longText": "New York",
+          "shortText": "NY"
+        },
+        {
+          "types": [
+            "postal_code"
+          ],
+          "longText": "11215",
+          "shortText": "11215"
+        }
+      ],
+      "location": {
+        "latitude": 40.67086673269281,
+        "longitude": -73.97951071308692
+      },
+      "types": [
+        "plumber",
+        "point_of_interest",
+        "establishment"
+      ],
+      "primaryType": "plumber",
+      "nationalPhoneNumber": "+1 929 555 0144",
+      "websiteUri": "https://old-copyright-2016.kings-plumbing-co.test",
+      "rating": 3.5,
+      "userRatingCount": 103,
+      "businessStatus": "OPERATIONAL",
+      "googleMapsUri": "https://www.google.com/maps/place/?q=place_id:mock_931121579"
+    },
+    {
+      "textQuery": "plumber",
+      "id": "mock_park-slope_greenwood-plumbers_468344",
+      "displayName": "Greenwood Plumbers",
+      "formattedAddress": "137 Grand St, Park Slope, Brooklyn, NY 11215",
+      "addressComponents": [
+        {
+          "types": [
+            "sublocality_level_1"
+          ],
+          "longText": "Park Slope",
+          "shortText": "Park Slope"
+        },
+        {
+          "types": [
+            "locality"
+          ],
+          "longText": "New York",
+          "shortText": "New York"
+        },
+        {
+          "types": [
+            "administrative_area_level_1"
+          ],
+          "longText": "New York",
+          "shortText": "NY"
+        },
+        {
+          "types": [
+            "postal_code"
+          ],
+          "longText": "11215",
+          "shortText": "11215"
+        }
+      ],
+      "location": {
+        "latitude": 40.66779015246546,
+        "longitude": -73.97881896048085
+      },
+      "types": [
+        "plumber",
+        "point_of_interest",
+        "establishment"
+      ],
+      "primaryType": "plumber",
+      "nationalPhoneNumber": "+1 718 555 0156",
+      "websiteUri": "https://instagram.com/greenwood-plumbers",
+      "rating": 4.4,
+      "userRatingCount": 166,
+      "businessStatus": "OPERATIONAL",
+      "googleMapsUri": "https://www.google.com/maps/place/?q=place_id:mock_833122292"
+    },
+    {
+      "textQuery": "plumber",
+      "id": "mock_park-slope_atlas-plumbers_610114",
+      "displayName": "Atlas Plumbers",
+      "formattedAddress": "1449 Ocean Ave, Park Slope, Brooklyn, NY 11215",
+      "addressComponents": [
+        {
+          "types": [
+            "sublocality_level_1"
+          ],
+          "longText": "Park Slope",
+          "shortText": "Park Slope"
+        },
+        {
+          "types": [
+            "locality"
+          ],
+          "longText": "New York",
+          "shortText": "New York"
+        },
+        {
+          "types": [
+            "administrative_area_level_1"
+          ],
+          "longText": "New York",
+          "shortText": "NY"
+        },
+        {
+          "types": [
+            "postal_code"
+          ],
+          "longText": "11215",
+          "shortText": "11215"
+        }
+      ],
+      "location": {
+        "latitude": 40.66979288902832,
+        "longitude": -73.9849174193549
+      },
+      "types": [
+        "plumber",
+        "point_of_interest",
+        "establishment"
+      ],
+      "primaryType": "plumber",
+      "nationalPhoneNumber": "+1 347 555 0148",
+      "websiteUri": "https://plain-old-2014.atlas-plumbers.test",
+      "rating": 4.9,
+      "userRatingCount": 274,
+      "businessStatus": "OPERATIONAL",
+      "googleMapsUri": "https://www.google.com/maps/place/?q=place_id:mock_811654171"
+    },
+    {
+      "textQuery": "plumber",
+      "id": "mock_park-slope_baxter-plumbing-heating_679187",
+      "displayName": "Baxter Plumbing & Heating",
+      "formattedAddress": "2780 Lenox Rd, Park Slope, Brooklyn, NY 11215",
+      "addressComponents": [
+        {
+          "types": [
+            "sublocality_level_1"
+          ],
+          "longText": "Park Slope",
+          "shortText": "Park Slope"
+        },
+        {
+          "types": [
+            "locality"
+          ],
+          "longText": "New York",
+          "shortText": "New York"
+        },
+        {
+          "types": [
+            "administrative_area_level_1"
+          ],
+          "longText": "New York",
+          "shortText": "NY"
+        },
+        {
+          "types": [
+            "postal_code"
+          ],
+          "longText": "11215",
+          "shortText": "11215"
+        }
+      ],
+      "location": {
+        "latitude": 40.674574276122726,
+        "longitude": -73.97688742575468
+      },
+      "types": [
+        "plumber",
+        "point_of_interest",
+        "establishment"
+      ],
+      "primaryType": "plumber",
+      "nationalPhoneNumber": "+1 718 555 0103",
+      "websiteUri": "https://business.site/baxter-plumbing-heating",
+      "rating": 4.6,
+      "userRatingCount": 127,
+      "businessStatus": "OPERATIONAL",
+      "googleMapsUri": "https://www.google.com/maps/place/?q=place_id:mock_655726232"
+    },
+    {
+      "textQuery": "plumber",
+      "id": "mock_park-slope_park-plumbing-co_620884",
+      "displayName": "Park Plumbing Co.",
+      "formattedAddress": "150 Kingston Ave, Park Slope, Brooklyn, NY 11215",
+      "addressComponents": [
+        {
+          "types": [
+            "sublocality_level_1"
+          ],
+          "longText": "Park Slope",
+          "shortText": "Park Slope"
+        },
+        {
+          "types": [
+            "locality"
+          ],
+          "longText": "New York",
+          "shortText": "New York"
+        },
+        {
+          "types": [
+            "administrative_area_level_1"
+          ],
+          "longText": "New York",
+          "shortText": "NY"
+        },
+        {
+          "types": [
+            "postal_code"
+          ],
+          "longText": "11215",
+          "shortText": "11215"
+        }
+      ],
+      "location": {
+        "latitude": 40.66750534758204,
+        "longitude": -73.98343857944477
+      },
+      "types": [
+        "plumber",
+        "point_of_interest",
+        "establishment"
+      ],
+      "primaryType": "plumber",
+      "nationalPhoneNumber": "+1 347 555 0113",
+      "websiteUri": null,
+      "rating": 4.9,
+      "userRatingCount": 114,
+      "businessStatus": "OPERATIONAL",
+      "googleMapsUri": "https://www.google.com/maps/place/?q=place_id:mock_739478134"
+    },
+    {
+      "textQuery": "plumber",
+      "id": "mock_park-slope_crown-plumbers_841953",
+      "displayName": "Crown Plumbers",
+      "formattedAddress": "1662 Graham Ave, Park Slope, Brooklyn, NY 11215",
+      "addressComponents": [
+        {
+          "types": [
+            "sublocality_level_1"
+          ],
+          "longText": "Park Slope",
+          "shortText": "Park Slope"
+        },
+        {
+          "types": [
+            "locality"
+          ],
+          "longText": "New York",
+          "shortText": "New York"
+        },
+        {
+          "types": [
+            "administrative_area_level_1"
+          ],
+          "longText": "New York",
+          "shortText": "NY"
+        },
+        {
+          "types": [
+            "postal_code"
+          ],
+          "longText": "11215",
+          "shortText": "11215"
+        }
+      ],
+      "location": {
+        "latitude": 40.66516034182161,
+        "longitude": -73.97815865647979
+      },
+      "types": [
+        "plumber",
+        "point_of_interest",
+        "establishment"
+      ],
+      "primaryType": "plumber",
+      "nationalPhoneNumber": "+1 718 555 0189",
+      "websiteUri": "https://yelp.com/crown-plumbers",
+      "rating": 4,
+      "userRatingCount": 148,
+      "businessStatus": "OPERATIONAL",
+      "googleMapsUri": "https://www.google.com/maps/place/?q=place_id:mock_172680131"
+    },
+    {
+      "textQuery": "plumber",
+      "id": "mock_park-slope_rogers-plumbing_588840",
+      "displayName": "Rogers Plumbing",
+      "formattedAddress": "1220 Atlantic Ave, Park Slope, Brooklyn, NY 11215",
+      "addressComponents": [
+        {
+          "types": [
+            "sublocality_level_1"
+          ],
+          "longText": "Park Slope",
+          "shortText": "Park Slope"
+        },
+        {
+          "types": [
+            "locality"
+          ],
+          "longText": "New York",
+          "shortText": "New York"
+        },
+        {
+          "types": [
+            "administrative_area_level_1"
+          ],
+          "longText": "New York",
+          "shortText": "NY"
+        },
+        {
+          "types": [
+            "postal_code"
+          ],
+          "longText": "11215",
+          "shortText": "11215"
+        }
+      ],
+      "location": {
+        "latitude": 40.67094552014488,
+        "longitude": -73.98425433989148
+      },
+      "types": [
+        "plumber",
+        "point_of_interest",
+        "establishment"
+      ],
+      "primaryType": "plumber",
+      "nationalPhoneNumber": "+1 929 555 0159",
+      "websiteUri": "https://no-contact.rogers-plumbing.test",
+      "rating": 3.5,
+      "userRatingCount": 190,
+      "businessStatus": "OPERATIONAL",
+      "googleMapsUri": "https://www.google.com/maps/place/?q=place_id:mock_566763374"
+    },
+    {
+      "textQuery": "plumber",
+      "id": "mock_park-slope_riverside-plumbers_909589",
+      "displayName": "Riverside Plumbers",
+      "formattedAddress": "10 5th Ave, Park Slope, Brooklyn, NY 11215",
+      "addressComponents": [
+        {
+          "types": [
+            "sublocality_level_1"
+          ],
+          "longText": "Park Slope",
+          "shortText": "Park Slope"
+        },
+        {
+          "types": [
+            "locality"
+          ],
+          "longText": "New York",
+          "shortText": "New York"
+        },
+        {
+          "types": [
+            "administrative_area_level_1"
+          ],
+          "longText": "New York",
+          "shortText": "NY"
+        },
+        {
+          "types": [
+            "postal_code"
+          ],
+          "longText": "11215",
+          "shortText": "11215"
+        }
+      ],
+      "location": {
+        "latitude": 40.67046591743594,
+        "longitude": -73.97869761507958
+      },
+      "types": [
+        "plumber",
+        "point_of_interest",
+        "establishment"
+      ],
+      "primaryType": "plumber",
+      "nationalPhoneNumber": "+1 718 555 0105",
+      "websiteUri": null,
+      "rating": 4.1,
+      "userRatingCount": 16,
+      "businessStatus": "OPERATIONAL",
+      "googleMapsUri": "https://www.google.com/maps/place/?q=place_id:mock_634032489"
+    },
+    {
+      "textQuery": "plumber",
+      "id": "mock_park-slope_eastern-plumbers_626163",
+      "displayName": "Eastern Plumbers",
+      "formattedAddress": "563 Bushwick Ave, Park Slope, Brooklyn, NY 11215",
+      "addressComponents": [
+        {
+          "types": [
+            "sublocality_level_1"
+          ],
+          "longText": "Park Slope",
+          "shortText": "Park Slope"
+        },
+        {
+          "types": [
+            "locality"
+          ],
+          "longText": "New York",
+          "shortText": "New York"
+        },
+        {
+          "types": [
+            "administrative_area_level_1"
+          ],
+          "longText": "New York",
+          "shortText": "NY"
+        },
+        {
+          "types": [
+            "postal_code"
+          ],
+          "longText": "11215",
+          "shortText": "11215"
+        }
+      ],
+      "location": {
+        "latitude": 40.665016456302254,
+        "longitude": -73.98094286361942
+      },
+      "types": [
+        "plumber",
+        "point_of_interest",
+        "establishment"
+      ],
+      "primaryType": "plumber",
+      "nationalPhoneNumber": "+1 929 555 0173",
+      "websiteUri": "https://old-copyright-2016.eastern-plumbers.test",
+      "rating": 4.2,
+      "userRatingCount": 116,
+      "businessStatus": "OPERATIONAL",
+      "googleMapsUri": "https://www.google.com/maps/place/?q=place_id:mock_411217573"
+    },
+    {
+      "textQuery": "plumber",
+      "id": "mock_park-slope_park-plumbing-heating_431023",
+      "displayName": "Park Plumbing & Heating",
+      "formattedAddress": "2054 Graham Ave, Park Slope, Brooklyn, NY 11215",
+      "addressComponents": [
+        {
+          "types": [
+            "sublocality_level_1"
+          ],
+          "longText": "Park Slope",
+          "shortText": "Park Slope"
+        },
+        {
+          "types": [
+            "locality"
+          ],
+          "longText": "New York",
+          "shortText": "New York"
+        },
+        {
+          "types": [
+            "administrative_area_level_1"
+          ],
+          "longText": "New York",
+          "shortText": "NY"
+        },
+        {
+          "types": [
+            "postal_code"
+          ],
+          "longText": "11215",
+          "shortText": "11215"
+        }
+      ],
+      "location": {
+        "latitude": 40.67090389775578,
+        "longitude": -73.98305393260205
+      },
+      "types": [
+        "plumber",
+        "point_of_interest",
+        "establishment"
+      ],
+      "primaryType": "plumber",
+      "nationalPhoneNumber": "+1 347 555 0127",
+      "websiteUri": "https://modern-fresh.park-plumbing-heating.test",
+      "rating": 4.3,
+      "userRatingCount": 274,
+      "businessStatus": "OPERATIONAL",
+      "googleMapsUri": "https://www.google.com/maps/place/?q=place_id:mock_693173783"
+    },
+    {
+      "textQuery": "plumber",
+      "id": "mock_park-slope_tillary-plumbing_982661",
+      "displayName": "Tillary Plumbing",
+      "formattedAddress": "660 Broadway, Park Slope, Brooklyn, NY 11215",
+      "addressComponents": [
+        {
+          "types": [
+            "sublocality_level_1"
+          ],
+          "longText": "Park Slope",
+          "shortText": "Park Slope"
+        },
+        {
+          "types": [
+            "locality"
+          ],
+          "longText": "New York",
+          "shortText": "New York"
+        },
+        {
+          "types": [
+            "administrative_area_level_1"
+          ],
+          "longText": "New York",
+          "shortText": "NY"
+        },
+        {
+          "types": [
+            "postal_code"
+          ],
+          "longText": "11215",
+          "shortText": "11215"
+        }
+      ],
+      "location": {
+        "latitude": 40.66843354843324,
+        "longitude": -73.9759078434389
+      },
+      "types": [
+        "plumber",
+        "point_of_interest",
+        "establishment"
+      ],
+      "primaryType": "plumber",
+      "nationalPhoneNumber": "+1 929 555 0114",
+      "websiteUri": null,
+      "rating": 3.2,
+      "userRatingCount": 182,
+      "businessStatus": "OPERATIONAL",
+      "googleMapsUri": "https://www.google.com/maps/place/?q=place_id:mock_988724927"
+    },
+    {
+      "textQuery": "plumber",
+      "id": "mock_park-slope_union-plumbing-heating_287752",
+      "displayName": "Union Plumbing & Heating",
+      "formattedAddress": "864 18th Ave, Park Slope, Brooklyn, NY 11215",
+      "addressComponents": [
+        {
+          "types": [
+            "sublocality_level_1"
+          ],
+          "longText": "Park Slope",
+          "shortText": "Park Slope"
+        },
+        {
+          "types": [
+            "locality"
+          ],
+          "longText": "New York",
+          "shortText": "New York"
+        },
+        {
+          "types": [
+            "administrative_area_level_1"
+          ],
+          "longText": "New York",
+          "shortText": "NY"
+        },
+        {
+          "types": [
+            "postal_code"
+          ],
+          "longText": "11215",
+          "shortText": "11215"
+        }
+      ],
+      "location": {
+        "latitude": 40.667506059042644,
+        "longitude": -73.97536825376795
+      },
+      "types": [
+        "plumber",
+        "point_of_interest",
+        "establishment"
+      ],
+      "primaryType": "plumber",
+      "nationalPhoneNumber": "+1 347 555 0150",
+      "websiteUri": "https://yelp.com/union-plumbing-heating",
+      "rating": 3.7,
+      "userRatingCount": 142,
+      "businessStatus": "OPERATIONAL",
+      "googleMapsUri": "https://www.google.com/maps/place/?q=place_id:mock_445960399"
+    },
+    {
+      "textQuery": "plumber",
+      "id": "mock_park-slope_nostrand-plumbers_443750",
+      "displayName": "Nostrand Plumbers",
+      "formattedAddress": "1518 Graham Ave, Park Slope, Brooklyn, NY 11215",
+      "addressComponents": [
+        {
+          "types": [
+            "sublocality_level_1"
+          ],
+          "longText": "Park Slope",
+          "shortText": "Park Slope"
+        },
+        {
+          "types": [
+            "locality"
+          ],
+          "longText": "New York",
+          "shortText": "New York"
+        },
+        {
+          "types": [
+            "administrative_area_level_1"
+          ],
+          "longText": "New York",
+          "shortText": "NY"
+        },
+        {
+          "types": [
+            "postal_code"
+          ],
+          "longText": "11215",
+          "shortText": "11215"
+        }
+      ],
+      "location": {
+        "latitude": 40.66676239400171,
+        "longitude": -73.97929682206595
+      },
+      "types": [
+        "plumber",
+        "point_of_interest",
+        "establishment"
+      ],
+      "primaryType": "plumber",
+      "nationalPhoneNumber": "+1 347 555 0187",
+      "websiteUri": "https://dead-tls.nostrand-plumbers.test",
+      "rating": 4.2,
+      "userRatingCount": 184,
+      "businessStatus": "OPERATIONAL",
+      "googleMapsUri": "https://www.google.com/maps/place/?q=place_id:mock_408757464"
+    },
+    {
+      "textQuery": "plumber",
+      "id": "mock_park-slope_flatbush-plumbing_649047",
+      "displayName": "Flatbush Plumbing",
+      "formattedAddress": "921 Bedford Ave, Park Slope, Brooklyn, NY 11215",
+      "addressComponents": [
+        {
+          "types": [
+            "sublocality_level_1"
+          ],
+          "longText": "Park Slope",
+          "shortText": "Park Slope"
+        },
+        {
+          "types": [
+            "locality"
+          ],
+          "longText": "New York",
+          "shortText": "New York"
+        },
+        {
+          "types": [
+            "administrative_area_level_1"
+          ],
+          "longText": "New York",
+          "shortText": "NY"
+        },
+        {
+          "types": [
+            "postal_code"
+          ],
+          "longText": "11215",
+          "shortText": "11215"
+        }
+      ],
+      "location": {
+        "latitude": 40.66673072214238,
+        "longitude": -73.98494587065652
+      },
+      "types": [
+        "plumber",
+        "point_of_interest",
+        "establishment"
+      ],
+      "primaryType": "plumber",
+      "nationalPhoneNumber": "+1 718 555 0101",
+      "websiteUri": null,
+      "rating": 4,
+      "userRatingCount": 195,
+      "businessStatus": "OPERATIONAL",
+      "googleMapsUri": "https://www.google.com/maps/place/?q=place_id:mock_708377611"
+    },
+    {
+      "textQuery": "plumber",
+      "id": "mock_park-slope_eastern-plumbing_84302",
+      "displayName": "Eastern Plumbing",
+      "formattedAddress": "986 Court St, Park Slope, Brooklyn, NY 11215",
+      "addressComponents": [
+        {
+          "types": [
+            "sublocality_level_1"
+          ],
+          "longText": "Park Slope",
+          "shortText": "Park Slope"
+        },
+        {
+          "types": [
+            "locality"
+          ],
+          "longText": "New York",
+          "shortText": "New York"
+        },
+        {
+          "types": [
+            "administrative_area_level_1"
+          ],
+          "longText": "New York",
+          "shortText": "NY"
+        },
+        {
+          "types": [
+            "postal_code"
+          ],
+          "longText": "11215",
+          "shortText": "11215"
+        }
+      ],
+      "location": {
+        "latitude": 40.667151894927954,
+        "longitude": -73.98221219531027
+      },
+      "types": [
+        "plumber",
+        "point_of_interest",
+        "establishment"
+      ],
+      "primaryType": "plumber",
+      "nationalPhoneNumber": "+1 347 555 0160",
+      "websiteUri": "https://business.site/eastern-plumbing",
+      "rating": 4.7,
+      "userRatingCount": 240,
+      "businessStatus": "OPERATIONAL",
+      "googleMapsUri": "https://www.google.com/maps/place/?q=place_id:mock_465780642"
+    },
+    {
+      "textQuery": "plumber",
+      "id": "mock_park-slope_riverside-plumbing_901779",
+      "displayName": "Riverside Plumbing",
+      "formattedAddress": "2633 Bushwick Ave, Park Slope, Brooklyn, NY 11215",
+      "addressComponents": [
+        {
+          "types": [
+            "sublocality_level_1"
+          ],
+          "longText": "Park Slope",
+          "shortText": "Park Slope"
+        },
+        {
+          "types": [
+            "locality"
+          ],
+          "longText": "New York",
+          "shortText": "New York"
+        },
+        {
+          "types": [
+            "administrative_area_level_1"
+          ],
+          "longText": "New York",
+          "shortText": "NY"
+        },
+        {
+          "types": [
+            "postal_code"
+          ],
+          "longText": "11215",
+          "shortText": "11215"
+        }
+      ],
+      "location": {
+        "latitude": 40.66674228856107,
+        "longitude": -73.97838650044054
+      },
+      "types": [
+        "plumber",
+        "point_of_interest",
+        "establishment"
+      ],
+      "primaryType": "plumber",
+      "nationalPhoneNumber": "+1 718 555 0140",
+      "websiteUri": "https://facebook.com/riverside-plumbing",
+      "rating": 3.3,
+      "userRatingCount": 240,
+      "businessStatus": "OPERATIONAL",
+      "googleMapsUri": "https://www.google.com/maps/place/?q=place_id:mock_534506703"
+    },
+    {
+      "textQuery": "plumber",
+      "id": "mock_park-slope_lafayette-plumbers_87977",
+      "displayName": "Lafayette Plumbers",
+      "formattedAddress": "1893 Court St, Park Slope, Brooklyn, NY 11215",
+      "addressComponents": [
+        {
+          "types": [
+            "sublocality_level_1"
+          ],
+          "longText": "Park Slope",
+          "shortText": "Park Slope"
+        },
+        {
+          "types": [
+            "locality"
+          ],
+          "longText": "New York",
+          "shortText": "New York"
+        },
+        {
+          "types": [
+            "administrative_area_level_1"
+          ],
+          "longText": "New York",
+          "shortText": "NY"
+        },
+        {
+          "types": [
+            "postal_code"
+          ],
+          "longText": "11215",
+          "shortText": "11215"
+        }
+      ],
+      "location": {
+        "latitude": 40.670227390488144,
+        "longitude": -73.9790190140833
+      },
+      "types": [
+        "plumber",
+        "point_of_interest",
+        "establishment"
+      ],
+      "primaryType": "plumber",
+      "nationalPhoneNumber": "+1 929 555 0151",
+      "websiteUri": "https://modern-fresh.lafayette-plumbers.test",
+      "rating": 3.9,
+      "userRatingCount": 196,
+      "businessStatus": "OPERATIONAL",
+      "googleMapsUri": "https://www.google.com/maps/place/?q=place_id:mock_440651059"
+    },
+    {
+      "textQuery": "plumber",
+      "id": "mock_park-slope_midwood-plumbing-co_589750",
+      "displayName": "Midwood Plumbing Co.",
+      "formattedAddress": "2441 Ralph Ave, Park Slope, Brooklyn, NY 11215",
+      "addressComponents": [
+        {
+          "types": [
+            "sublocality_level_1"
+          ],
+          "longText": "Park Slope",
+          "shortText": "Park Slope"
+        },
+        {
+          "types": [
+            "locality"
+          ],
+          "longText": "New York",
+          "shortText": "New York"
+        },
+        {
+          "types": [
+            "administrative_area_level_1"
+          ],
+          "longText": "New York",
+          "shortText": "NY"
+        },
+        {
+          "types": [
+            "postal_code"
+          ],
+          "longText": "11215",
+          "shortText": "11215"
+        }
+      ],
+      "location": {
+        "latitude": 40.66824484990211,
+        "longitude": -73.98128171887248
+      },
+      "types": [
+        "plumber",
+        "point_of_interest",
+        "establishment"
+      ],
+      "primaryType": "plumber",
+      "nationalPhoneNumber": "+1 347 555 0187",
+      "websiteUri": null,
+      "rating": 4.4,
+      "userRatingCount": 160,
+      "businessStatus": "OPERATIONAL",
+      "googleMapsUri": "https://www.google.com/maps/place/?q=place_id:mock_997089110"
+    },
+    {
+      "textQuery": "plumber",
+      "id": "mock_park-slope_bridges-plumbing-heating_765719",
+      "displayName": "Bridges Plumbing & Heating",
+      "formattedAddress": "144 Broadway, Park Slope, Brooklyn, NY 11215",
+      "addressComponents": [
+        {
+          "types": [
+            "sublocality_level_1"
+          ],
+          "longText": "Park Slope",
+          "shortText": "Park Slope"
+        },
+        {
+          "types": [
+            "locality"
+          ],
+          "longText": "New York",
+          "shortText": "New York"
+        },
+        {
+          "types": [
+            "administrative_area_level_1"
+          ],
+          "longText": "New York",
+          "shortText": "NY"
+        },
+        {
+          "types": [
+            "postal_code"
+          ],
+          "longText": "11215",
+          "shortText": "11215"
+        }
+      ],
+      "location": {
+        "latitude": 40.6672168899863,
+        "longitude": -73.98070990086998
+      },
+      "types": [
+        "plumber",
+        "point_of_interest",
+        "establishment"
+      ],
+      "primaryType": "plumber",
+      "nationalPhoneNumber": "+1 347 555 0111",
+      "websiteUri": null,
+      "rating": 3.8,
+      "userRatingCount": 279,
+      "businessStatus": "OPERATIONAL",
+      "googleMapsUri": "https://www.google.com/maps/place/?q=place_id:mock_438605794"
+    },
+    {
+      "textQuery": "plumber",
+      "id": "mock_park-slope_madison-plumbing-co_117952",
+      "displayName": "Madison Plumbing Co.",
+      "formattedAddress": "746 18th Ave, Park Slope, Brooklyn, NY 11215",
+      "addressComponents": [
+        {
+          "types": [
+            "sublocality_level_1"
+          ],
+          "longText": "Park Slope",
+          "shortText": "Park Slope"
+        },
+        {
+          "types": [
+            "locality"
+          ],
+          "longText": "New York",
+          "shortText": "New York"
+        },
+        {
+          "types": [
+            "administrative_area_level_1"
+          ],
+          "longText": "New York",
+          "shortText": "NY"
+        },
+        {
+          "types": [
+            "postal_code"
+          ],
+          "longText": "11215",
+          "shortText": "11215"
+        }
+      ],
+      "location": {
+        "latitude": 40.66848530912539,
+        "longitude": -73.97750627229455
+      },
+      "types": [
+        "plumber",
+        "point_of_interest",
+        "establishment"
+      ],
+      "primaryType": "plumber",
+      "nationalPhoneNumber": "+1 718 555 0111",
+      "websiteUri": "https://no-contact.madison-plumbing-co.test",
+      "rating": 4.5,
+      "userRatingCount": 161,
+      "businessStatus": "OPERATIONAL",
+      "googleMapsUri": "https://www.google.com/maps/place/?q=place_id:mock_619631922"
+    },
+    {
+      "textQuery": "plumber",
+      "id": "mock_park-slope_clinton-plumbers_394831",
+      "displayName": "Clinton Plumbers",
+      "formattedAddress": "2722 7th Ave, Park Slope, Brooklyn, NY 11215",
+      "addressComponents": [
+        {
+          "types": [
+            "sublocality_level_1"
+          ],
+          "longText": "Park Slope",
+          "shortText": "Park Slope"
+        },
+        {
+          "types": [
+            "locality"
+          ],
+          "longText": "New York",
+          "shortText": "New York"
+        },
+        {
+          "types": [
+            "administrative_area_level_1"
+          ],
+          "longText": "New York",
+          "shortText": "NY"
+        },
+        {
+          "types": [
+            "postal_code"
+          ],
+          "longText": "11215",
+          "shortText": "11215"
+        }
+      ],
+      "location": {
+        "latitude": 40.67376055558212,
+        "longitude": -73.98310252786614
+      },
+      "types": [
+        "plumber",
+        "point_of_interest",
+        "establishment"
+      ],
+      "primaryType": "plumber",
+      "nationalPhoneNumber": "+1 347 555 0144",
+      "websiteUri": "https://facebook.com/clinton-plumbers",
+      "rating": 4,
+      "userRatingCount": 112,
+      "businessStatus": "CLOSED_PERMANENTLY",
+      "googleMapsUri": "https://www.google.com/maps/place/?q=place_id:mock_962315863"
+    },
+    {
+      "textQuery": "plumber",
+      "id": "mock_park-slope_carroll-plumbing-heating_887361",
+      "displayName": "Carroll Plumbing & Heating",
+      "formattedAddress": "1932 Smith St, Park Slope, Brooklyn, NY 11215",
+      "addressComponents": [
+        {
+          "types": [
+            "sublocality_level_1"
+          ],
+          "longText": "Park Slope",
+          "shortText": "Park Slope"
+        },
+        {
+          "types": [
+            "locality"
+          ],
+          "longText": "New York",
+          "shortText": "New York"
+        },
+        {
+          "types": [
+            "administrative_area_level_1"
+          ],
+          "longText": "New York",
+          "shortText": "NY"
+        },
+        {
+          "types": [
+            "postal_code"
+          ],
+          "longText": "11215",
+          "shortText": "11215"
+        }
+      ],
+      "location": {
+        "latitude": 40.67265639183111,
+        "longitude": -73.9827025581873
+      },
+      "types": [
+        "plumber",
+        "point_of_interest",
+        "establishment"
+      ],
+      "primaryType": "plumber",
+      "nationalPhoneNumber": "+1 929 555 0178",
+      "websiteUri": "https://dead-tls.carroll-plumbing-heating.test",
+      "rating": 4.1,
+      "userRatingCount": 230,
+      "businessStatus": "OPERATIONAL",
+      "googleMapsUri": "https://www.google.com/maps/place/?q=place_id:mock_1650076"
+    },
+    {
+      "textQuery": "plumber",
+      "id": "mock_park-slope_cobble-plumbers_632987",
+      "displayName": "Cobble Plumbers",
+      "formattedAddress": "387 7th Ave, Park Slope, Brooklyn, NY 11215",
+      "addressComponents": [
+        {
+          "types": [
+            "sublocality_level_1"
+          ],
+          "longText": "Park Slope",
+          "shortText": "Park Slope"
+        },
+        {
+          "types": [
+            "locality"
+          ],
+          "longText": "New York",
+          "shortText": "New York"
+        },
+        {
+          "types": [
+            "administrative_area_level_1"
+          ],
+          "longText": "New York",
+          "shortText": "NY"
+        },
+        {
+          "types": [
+            "postal_code"
+          ],
+          "longText": "11215",
+          "shortText": "11215"
+        }
+      ],
+      "location": {
+        "latitude": 40.67341520943446,
+        "longitude": -73.97591916041448
+      },
+      "types": [
+        "plumber",
+        "point_of_interest",
+        "establishment"
+      ],
+      "primaryType": "plumber",
+      "nationalPhoneNumber": "+1 347 555 0101",
+      "websiteUri": "https://parked-forsale.cobble-plumbers.test",
+      "rating": 4.4,
+      "userRatingCount": 222,
+      "businessStatus": "CLOSED_PERMANENTLY",
+      "googleMapsUri": "https://www.google.com/maps/place/?q=place_id:mock_847412583"
+    },
+    {
+      "textQuery": "plumber",
+      "id": "mock_park-slope_baxter-plumbing-co_205554",
+      "displayName": "Baxter Plumbing Co.",
+      "formattedAddress": "775 5th Ave, Park Slope, Brooklyn, NY 11215",
+      "addressComponents": [
+        {
+          "types": [
+            "sublocality_level_1"
+          ],
+          "longText": "Park Slope",
+          "shortText": "Park Slope"
+        },
+        {
+          "types": [
+            "locality"
+          ],
+          "longText": "New York",
+          "shortText": "New York"
+        },
+        {
+          "types": [
+            "administrative_area_level_1"
+          ],
+          "longText": "New York",
+          "shortText": "NY"
+        },
+        {
+          "types": [
+            "postal_code"
+          ],
+          "longText": "11215",
+          "shortText": "11215"
+        }
+      ],
+      "location": {
+        "latitude": 40.667263459104575,
+        "longitude": -73.97974443732295
+      },
+      "types": [
+        "plumber",
+        "point_of_interest",
+        "establishment"
+      ],
+      "primaryType": "plumber",
+      "nationalPhoneNumber": "+1 929 555 0189",
+      "websiteUri": "https://plain-old-2014.baxter-plumbing-co.test",
+      "rating": 3.3,
+      "userRatingCount": 259,
+      "businessStatus": "OPERATIONAL",
+      "googleMapsUri": "https://www.google.com/maps/place/?q=place_id:mock_952443259"
+    },
+    {
+      "textQuery": "plumber",
+      "id": "mock_park-slope_empire-plumbing-heating_600263",
+      "displayName": "Empire Plumbing & Heating",
+      "formattedAddress": "797 Manhattan Ave, Park Slope, Brooklyn, NY 11215",
+      "addressComponents": [
+        {
+          "types": [
+            "sublocality_level_1"
+          ],
+          "longText": "Park Slope",
+          "shortText": "Park Slope"
+        },
+        {
+          "types": [
+            "locality"
+          ],
+          "longText": "New York",
+          "shortText": "New York"
+        },
+        {
+          "types": [
+            "administrative_area_level_1"
+          ],
+          "longText": "New York",
+          "shortText": "NY"
+        },
+        {
+          "types": [
+            "postal_code"
+          ],
+          "longText": "11215",
+          "shortText": "11215"
+        }
+      ],
+      "location": {
+        "latitude": 40.67449524823809,
+        "longitude": -73.9773155093775
+      },
+      "types": [
+        "plumber",
+        "point_of_interest",
+        "establishment"
+      ],
+      "primaryType": "plumber",
+      "nationalPhoneNumber": "+1 347 555 0106",
+      "websiteUri": "https://plain-old-2014.empire-plumbing-heating.test",
+      "rating": 3.3,
+      "userRatingCount": 247,
+      "businessStatus": "OPERATIONAL",
+      "googleMapsUri": "https://www.google.com/maps/place/?q=place_id:mock_623954473"
+    },
+    {
+      "textQuery": "plumber",
+      "id": "mock_park-slope_fourth-plumbing-heating_230909",
+      "displayName": "Fourth Plumbing & Heating",
+      "formattedAddress": "296 Graham Ave, Park Slope, Brooklyn, NY 11215",
+      "addressComponents": [
+        {
+          "types": [
+            "sublocality_level_1"
+          ],
+          "longText": "Park Slope",
+          "shortText": "Park Slope"
+        },
+        {
+          "types": [
+            "locality"
+          ],
+          "longText": "New York",
+          "shortText": "New York"
+        },
+        {
+          "types": [
+            "administrative_area_level_1"
+          ],
+          "longText": "New York",
+          "shortText": "NY"
+        },
+        {
+          "types": [
+            "postal_code"
+          ],
+          "longText": "11215",
+          "shortText": "11215"
+        }
+      ],
+      "location": {
+        "latitude": 40.66917471133172,
+        "longitude": -73.97691838485886
+      },
+      "types": [
+        "plumber",
+        "point_of_interest",
+        "establishment"
+      ],
+      "primaryType": "plumber",
+      "nationalPhoneNumber": "+1 347 555 0192",
+      "websiteUri": null,
+      "rating": 4.1,
+      "userRatingCount": 119,
+      "businessStatus": "OPERATIONAL",
+      "googleMapsUri": "https://www.google.com/maps/place/?q=place_id:mock_352082039"
+    },
+    {
+      "textQuery": "plumber",
+      "id": "mock_park-slope_manhattan-plumbing-heating_485588",
+      "displayName": "Manhattan Plumbing & Heating",
+      "formattedAddress": "1822 Lenox Rd, Park Slope, Brooklyn, NY 11215",
+      "addressComponents": [
+        {
+          "types": [
+            "sublocality_level_1"
+          ],
+          "longText": "Park Slope",
+          "shortText": "Park Slope"
+        },
+        {
+          "types": [
+            "locality"
+          ],
+          "longText": "New York",
+          "shortText": "New York"
+        },
+        {
+          "types": [
+            "administrative_area_level_1"
+          ],
+          "longText": "New York",
+          "shortText": "NY"
+        },
+        {
+          "types": [
+            "postal_code"
+          ],
+          "longText": "11215",
+          "shortText": "11215"
+        }
+      ],
+      "location": {
+        "latitude": 40.6692903128406,
+        "longitude": -73.97775673664175
+      },
+      "types": [
+        "plumber",
+        "point_of_interest",
+        "establishment"
+      ],
+      "primaryType": "plumber",
+      "nationalPhoneNumber": "+1 718 555 0164",
+      "websiteUri": "https://dead-tls.manhattan-plumbing-heating.test",
+      "rating": 4,
+      "userRatingCount": 182,
+      "businessStatus": "OPERATIONAL",
+      "googleMapsUri": "https://www.google.com/maps/place/?q=place_id:mock_194667143"
+    },
+    {
+      "textQuery": "plumber",
+      "id": "mock_park-slope_tillary-plumbing-co_270897",
+      "displayName": "Tillary Plumbing Co.",
+      "formattedAddress": "2537 Ralph Ave, Park Slope, Brooklyn, NY 11215",
+      "addressComponents": [
+        {
+          "types": [
+            "sublocality_level_1"
+          ],
+          "longText": "Park Slope",
+          "shortText": "Park Slope"
+        },
+        {
+          "types": [
+            "locality"
+          ],
+          "longText": "New York",
+          "shortText": "New York"
+        },
+        {
+          "types": [
+            "administrative_area_level_1"
+          ],
+          "longText": "New York",
+          "shortText": "NY"
+        },
+        {
+          "types": [
+            "postal_code"
+          ],
+          "longText": "11215",
+          "shortText": "11215"
+        }
+      ],
+      "location": {
+        "latitude": 40.67478905903175,
+        "longitude": -73.97577930504455
+      },
+      "types": [
+        "plumber",
+        "point_of_interest",
+        "establishment"
+      ],
+      "primaryType": "plumber",
+      "nationalPhoneNumber": "+1 929 555 0109",
+      "websiteUri": "https://business.site/tillary-plumbing-co",
+      "rating": 3.8,
+      "userRatingCount": 202,
+      "businessStatus": "OPERATIONAL",
+      "googleMapsUri": "https://www.google.com/maps/place/?q=place_id:mock_957255160"
+    },
+    {
+      "textQuery": "plumber",
+      "id": "mock_park-slope_greenwood-plumbing_207145",
+      "displayName": "Greenwood Plumbing",
+      "formattedAddress": "837 5th Ave, Park Slope, Brooklyn, NY 11215",
+      "addressComponents": [
+        {
+          "types": [
+            "sublocality_level_1"
+          ],
+          "longText": "Park Slope",
+          "shortText": "Park Slope"
+        },
+        {
+          "types": [
+            "locality"
+          ],
+          "longText": "New York",
+          "shortText": "New York"
+        },
+        {
+          "types": [
+            "administrative_area_level_1"
+          ],
+          "longText": "New York",
+          "shortText": "NY"
+        },
+        {
+          "types": [
+            "postal_code"
+          ],
+          "longText": "11215",
+          "shortText": "11215"
+        }
+      ],
+      "location": {
+        "latitude": 40.66561857111752,
+        "longitude": -73.97551234378246
+      },
+      "types": [
+        "plumber",
+        "point_of_interest",
+        "establishment"
+      ],
+      "primaryType": "plumber",
+      "nationalPhoneNumber": "+1 929 555 0126",
+      "websiteUri": "https://yelp.com/greenwood-plumbing",
+      "rating": 3.5,
+      "userRatingCount": 72,
+      "businessStatus": "CLOSED_PERMANENTLY",
+      "googleMapsUri": "https://www.google.com/maps/place/?q=place_id:mock_797508884"
+    },
+    {
+      "textQuery": "plumber",
+      "id": "mock_park-slope_greenwood-plumbing_781832",
+      "displayName": "Greenwood Plumbing",
+      "formattedAddress": "945 Coney Island Ave, Park Slope, Brooklyn, NY 11215",
+      "addressComponents": [
+        {
+          "types": [
+            "sublocality_level_1"
+          ],
+          "longText": "Park Slope",
+          "shortText": "Park Slope"
+        },
+        {
+          "types": [
+            "locality"
+          ],
+          "longText": "New York",
+          "shortText": "New York"
+        },
+        {
+          "types": [
+            "administrative_area_level_1"
+          ],
+          "longText": "New York",
+          "shortText": "NY"
+        },
+        {
+          "types": [
+            "postal_code"
+          ],
+          "longText": "11215",
+          "shortText": "11215"
+        }
+      ],
+      "location": {
+        "latitude": 40.66589532353217,
+        "longitude": -73.97766666400246
+      },
+      "types": [
+        "plumber",
+        "point_of_interest",
+        "establishment"
+      ],
+      "primaryType": "plumber",
+      "nationalPhoneNumber": "+1 929 555 0163",
+      "websiteUri": "https://no-contact.greenwood-plumbing.test",
+      "rating": 4.3,
+      "userRatingCount": 134,
+      "businessStatus": "OPERATIONAL",
+      "googleMapsUri": "https://www.google.com/maps/place/?q=place_id:mock_598364164"
+    },
+    {
+      "textQuery": "plumber",
+      "id": "mock_park-slope_fifth-plumbing-co_644527",
+      "displayName": "Fifth Plumbing Co.",
+      "formattedAddress": "824 Lenox Rd, Park Slope, Brooklyn, NY 11215",
+      "addressComponents": [
+        {
+          "types": [
+            "sublocality_level_1"
+          ],
+          "longText": "Park Slope",
+          "shortText": "Park Slope"
+        },
+        {
+          "types": [
+            "locality"
+          ],
+          "longText": "New York",
+          "shortText": "New York"
+        },
+        {
+          "types": [
+            "administrative_area_level_1"
+          ],
+          "longText": "New York",
+          "shortText": "NY"
+        },
+        {
+          "types": [
+            "postal_code"
+          ],
+          "longText": "11215",
+          "shortText": "11215"
+        }
+      ],
+      "location": {
+        "latitude": 40.67481932063354,
+        "longitude": -73.98201270359569
+      },
+      "types": [
+        "plumber",
+        "point_of_interest",
+        "establishment"
+      ],
+      "primaryType": "plumber",
+      "nationalPhoneNumber": "+1 347 555 0167",
+      "websiteUri": "https://facebook.com/fifth-plumbing-co",
+      "rating": 4.9,
+      "userRatingCount": 243,
+      "businessStatus": "OPERATIONAL",
+      "googleMapsUri": "https://www.google.com/maps/place/?q=place_id:mock_594821901"
+    },
+    {
+      "textQuery": "plumber",
+      "id": "mock_park-slope_crown-plumbers_129704",
+      "displayName": "Crown Plumbers",
+      "formattedAddress": "178 Franklin Ave, Park Slope, Brooklyn, NY 11215",
+      "addressComponents": [
+        {
+          "types": [
+            "sublocality_level_1"
+          ],
+          "longText": "Park Slope",
+          "shortText": "Park Slope"
+        },
+        {
+          "types": [
+            "locality"
+          ],
+          "longText": "New York",
+          "shortText": "New York"
+        },
+        {
+          "types": [
+            "administrative_area_level_1"
+          ],
+          "longText": "New York",
+          "shortText": "NY"
+        },
+        {
+          "types": [
+            "postal_code"
+          ],
+          "longText": "11215",
+          "shortText": "11215"
+        }
+      ],
+      "location": {
+        "latitude": 40.67008404765278,
+        "longitude": -73.98111409699078
+      },
+      "types": [
+        "plumber",
+        "point_of_interest",
+        "establishment"
+      ],
+      "primaryType": "plumber",
+      "nationalPhoneNumber": "+1 718 555 0159",
+      "websiteUri": null,
+      "rating": 3.6,
+      "userRatingCount": 48,
+      "businessStatus": "OPERATIONAL",
+      "googleMapsUri": "https://www.google.com/maps/place/?q=place_id:mock_968972731"
+    },
+    {
+      "textQuery": "plumber",
+      "id": "mock_flatbush_smith-plumbing-co_722850",
+      "displayName": "Smith Plumbing Co.",
+      "formattedAddress": "1028 Grand St, Flatbush, Brooklyn, NY 11231",
+      "addressComponents": [
+        {
+          "types": [
+            "sublocality_level_1"
+          ],
+          "longText": "Flatbush",
+          "shortText": "Flatbush"
+        },
+        {
+          "types": [
+            "locality"
+          ],
+          "longText": "New York",
+          "shortText": "New York"
+        },
+        {
+          "types": [
+            "administrative_area_level_1"
+          ],
+          "longText": "New York",
+          "shortText": "NY"
+        },
+        {
+          "types": [
+            "postal_code"
+          ],
+          "longText": "11231",
+          "shortText": "11231"
+        }
+      ],
+      "location": {
+        "latitude": 40.6418322678376,
+        "longitude": -73.89380689970683
+      },
+      "types": [
+        "plumber",
+        "point_of_interest",
+        "establishment"
+      ],
+      "primaryType": "plumber",
+      "nationalPhoneNumber": "+1 929 555 0125",
+      "websiteUri": null,
+      "rating": 4,
+      "userRatingCount": 70,
+      "businessStatus": "OPERATIONAL",
+      "googleMapsUri": "https://www.google.com/maps/place/?q=place_id:mock_635628799"
+    },
+    {
+      "textQuery": "plumber",
+      "id": "mock_kensington_kings-plumbing_86092",
+      "displayName": "Kings Plumbing",
+      "formattedAddress": "2556 Coney Island Ave, Kensington, Brooklyn, NY 11224",
+      "addressComponents": [
+        {
+          "types": [
+            "sublocality_level_1"
+          ],
+          "longText": "Kensington",
+          "shortText": "Kensington"
+        },
+        {
+          "types": [
+            "locality"
+          ],
+          "longText": "New York",
+          "shortText": "New York"
+        },
+        {
+          "types": [
+            "administrative_area_level_1"
+          ],
+          "longText": "New York",
+          "shortText": "NY"
+        },
+        {
+          "types": [
+            "postal_code"
+          ],
+          "longText": "11224",
+          "shortText": "11224"
+        }
+      ],
+      "location": {
+        "latitude": 40.60673802639125,
+        "longitude": -73.86040737377945
+      },
+      "types": [
+        "plumber",
+        "point_of_interest",
+        "establishment"
+      ],
+      "primaryType": "plumber",
+      "nationalPhoneNumber": "+1 929 555 0140",
+      "websiteUri": "https://dead-tls.kings-plumbing.test",
+      "rating": 4.6,
+      "userRatingCount": 67,
+      "businessStatus": "OPERATIONAL",
+      "googleMapsUri": "https://www.google.com/maps/place/?q=place_id:mock_839077586"
+    },
+    {
+      "textQuery": "plumber",
+      "id": "mock_flatbush_lafayette-plumbing-co_567726",
+      "displayName": "Lafayette Plumbing Co.",
+      "formattedAddress": "133 Broadway, Flatbush, Brooklyn, NY 11216",
+      "addressComponents": [
+        {
+          "types": [
+            "sublocality_level_1"
+          ],
+          "longText": "Flatbush",
+          "shortText": "Flatbush"
+        },
+        {
+          "types": [
+            "locality"
+          ],
+          "longText": "New York",
+          "shortText": "New York"
+        },
+        {
+          "types": [
+            "administrative_area_level_1"
+          ],
+          "longText": "New York",
+          "shortText": "NY"
+        },
+        {
+          "types": [
+            "postal_code"
+          ],
+          "longText": "11216",
+          "shortText": "11216"
+        }
+      ],
+      "location": {
+        "latitude": 40.626668507019055,
+        "longitude": -73.92233443242498
+      },
+      "types": [
+        "plumber",
+        "point_of_interest",
+        "establishment"
+      ],
+      "primaryType": "plumber",
+      "nationalPhoneNumber": "+1 718 555 0128",
+      "websiteUri": "https://modern-fresh.lafayette-plumbing-co.test",
+      "rating": 3.3,
+      "userRatingCount": 245,
+      "businessStatus": "OPERATIONAL",
+      "googleMapsUri": "https://www.google.com/maps/place/?q=place_id:mock_287684096"
+    },
+    {
+      "textQuery": "plumber",
+      "id": "mock_bedford-stuyvesant_cobble-plumbing-heating_753885",
+      "displayName": "Cobble Plumbing & Heating",
+      "formattedAddress": "2508 Atlantic Ave, Bedford-Stuyvesant, Brooklyn, NY 11212",
+      "addressComponents": [
+        {
+          "types": [
+            "sublocality_level_1"
+          ],
+          "longText": "Bedford-Stuyvesant",
+          "shortText": "Bedford-Stuyvesant"
+        },
+        {
+          "types": [
+            "locality"
+          ],
+          "longText": "New York",
+          "shortText": "New York"
+        },
+        {
+          "types": [
+            "administrative_area_level_1"
+          ],
+          "longText": "New York",
+          "shortText": "NY"
+        },
+        {
+          "types": [
+            "postal_code"
+          ],
+          "longText": "11212",
+          "shortText": "11212"
+        }
+      ],
+      "location": {
+        "latitude": 40.72938291940605,
+        "longitude": -73.90433249257738
+      },
+      "types": [
+        "plumber",
+        "point_of_interest",
+        "establishment"
+      ],
+      "primaryType": "plumber",
+      "nationalPhoneNumber": "+1 347 555 0197",
+      "websiteUri": "https://no-contact.cobble-plumbing-heating.test",
+      "rating": 4,
+      "userRatingCount": 166,
+      "businessStatus": "OPERATIONAL",
+      "googleMapsUri": "https://www.google.com/maps/place/?q=place_id:mock_489162684"
+    },
+    {
+      "textQuery": "plumber",
+      "id": "mock_sunset-park_smith-plumbing_174203",
+      "displayName": "Smith Plumbing",
+      "formattedAddress": "1734 Coney Island Ave, Sunset Park, Brooklyn, NY 1129",
+      "addressComponents": [
+        {
+          "types": [
+            "sublocality_level_1"
+          ],
+          "longText": "Sunset Park",
+          "shortText": "Sunset Park"
+        },
+        {
+          "types": [
+            "locality"
+          ],
+          "longText": "New York",
+          "shortText": "New York"
+        },
+        {
+          "types": [
+            "administrative_area_level_1"
+          ],
+          "longText": "New York",
+          "shortText": "NY"
+        },
+        {
+          "types": [
+            "postal_code"
+          ],
+          "longText": "1129",
+          "shortText": "1129"
+        }
+      ],
+      "location": {
+        "latitude": 40.64087499035057,
+        "longitude": -73.93693234718405
+      },
+      "types": [
+        "plumber",
+        "point_of_interest",
+        "establishment"
+      ],
+      "primaryType": "plumber",
+      "nationalPhoneNumber": "+1 718 555 0113",
+      "websiteUri": null,
+      "rating": 4.1,
+      "userRatingCount": 211,
+      "businessStatus": "OPERATIONAL",
+      "googleMapsUri": "https://www.google.com/maps/place/?q=place_id:mock_29239328"
+    },
+    {
+      "textQuery": "plumber",
+      "id": "mock_kensington_manhattan-plumbing-heating_170640",
+      "displayName": "Manhattan Plumbing & Heating",
+      "formattedAddress": "1573 5th Ave, Kensington, Brooklyn, NY 11219",
+      "addressComponents": [
+        {
+          "types": [
+            "sublocality_level_1"
+          ],
+          "longText": "Kensington",
+          "shortText": "Kensington"
+        },
+        {
+          "types": [
+            "locality"
+          ],
+          "longText": "New York",
+          "shortText": "New York"
+        },
+        {
+          "types": [
+            "administrative_area_level_1"
+          ],
+          "longText": "New York",
+          "shortText": "NY"
+        },
+        {
+          "types": [
+            "postal_code"
+          ],
+          "longText": "11219",
+          "shortText": "11219"
+        }
+      ],
+      "location": {
+        "latitude": 40.64482066616882,
+        "longitude": -74.01670058706776
+      },
+      "types": [
+        "plumber",
+        "point_of_interest",
+        "establishment"
+      ],
+      "primaryType": "plumber",
+      "nationalPhoneNumber": "+1 929 555 0152",
+      "websiteUri": "https://modern-fresh.manhattan-plumbing-heating.test",
+      "rating": 4.5,
+      "userRatingCount": 146,
+      "businessStatus": "OPERATIONAL",
+      "googleMapsUri": "https://www.google.com/maps/place/?q=place_id:mock_272162475"
+    },
+    {
+      "textQuery": "plumber",
+      "id": "mock_crown-heights_manhattan-plumbing-co_858305",
+      "displayName": "Manhattan Plumbing Co.",
+      "formattedAddress": "2047 18th Ave, Crown Heights, Brooklyn, NY 1125",
+      "addressComponents": [
+        {
+          "types": [
+            "sublocality_level_1"
+          ],
+          "longText": "Crown Heights",
+          "shortText": "Crown Heights"
+        },
+        {
+          "types": [
+            "locality"
+          ],
+          "longText": "New York",
+          "shortText": "New York"
+        },
+        {
+          "types": [
+            "administrative_area_level_1"
+          ],
+          "longText": "New York",
+          "shortText": "NY"
+        },
+        {
+          "types": [
+            "postal_code"
+          ],
+          "longText": "1125",
+          "shortText": "1125"
+        }
+      ],
+      "location": {
+        "latitude": 40.60034801654751,
+        "longitude": -73.87675114843995
+      },
+      "types": [
+        "plumber",
+        "point_of_interest",
+        "establishment"
+      ],
+      "primaryType": "plumber",
+      "nationalPhoneNumber": "+1 929 555 0172",
+      "websiteUri": "https://plain-old-2014.manhattan-plumbing-co.test",
+      "rating": 4.7,
+      "userRatingCount": 101,
+      "businessStatus": "OPERATIONAL",
+      "googleMapsUri": "https://www.google.com/maps/place/?q=place_id:mock_59682352"
+    },
+    {
+      "textQuery": "plumber",
+      "id": "mock_bedford-stuyvesant_park-plumbers_300036",
+      "displayName": "Park Plumbers",
+      "formattedAddress": "2737 Broadway, Bedford-Stuyvesant, Brooklyn, NY 11237",
+      "addressComponents": [
+        {
+          "types": [
+            "sublocality_level_1"
+          ],
+          "longText": "Bedford-Stuyvesant",
+          "shortText": "Bedford-Stuyvesant"
+        },
+        {
+          "types": [
+            "locality"
+          ],
+          "longText": "New York",
+          "shortText": "New York"
+        },
+        {
+          "types": [
+            "administrative_area_level_1"
+          ],
+          "longText": "New York",
+          "shortText": "NY"
+        },
+        {
+          "types": [
+            "postal_code"
+          ],
+          "longText": "11237",
+          "shortText": "11237"
+        }
+      ],
+      "location": {
+        "latitude": 40.646107685924505,
+        "longitude": -73.91178709241795
+      },
+      "types": [
+        "plumber",
+        "point_of_interest",
+        "establishment"
+      ],
+      "primaryType": "plumber",
+      "nationalPhoneNumber": "+1 347 555 0124",
+      "websiteUri": "https://old-copyright-2016.park-plumbers.test",
+      "rating": 4.9,
+      "userRatingCount": 212,
+      "businessStatus": "OPERATIONAL",
+      "googleMapsUri": "https://www.google.com/maps/place/?q=place_id:mock_811951680"
+    },
+    {
+      "textQuery": "plumber",
+      "id": "mock_flatbush_empire-plumbers_739225",
+      "displayName": "Empire Plumbers",
+      "formattedAddress": "1563 Court St, Flatbush, Brooklyn, NY 11223",
+      "addressComponents": [
+        {
+          "types": [
+            "sublocality_level_1"
+          ],
+          "longText": "Flatbush",
+          "shortText": "Flatbush"
+        },
+        {
+          "types": [
+            "locality"
+          ],
+          "longText": "New York",
+          "shortText": "New York"
+        },
+        {
+          "types": [
+            "administrative_area_level_1"
+          ],
+          "longText": "New York",
+          "shortText": "NY"
+        },
+        {
+          "types": [
+            "postal_code"
+          ],
+          "longText": "11223",
+          "shortText": "11223"
+        }
+      ],
+      "location": {
+        "latitude": 40.728970985924825,
+        "longitude": -73.8773301702179
+      },
+      "types": [
+        "plumber",
+        "point_of_interest",
+        "establishment"
+      ],
+      "primaryType": "plumber",
+      "nationalPhoneNumber": "+1 929 555 0104",
+      "websiteUri": "https://yelp.com/empire-plumbers",
+      "rating": 3.6,
+      "userRatingCount": 218,
+      "businessStatus": "OPERATIONAL",
+      "googleMapsUri": "https://www.google.com/maps/place/?q=place_id:mock_20757693"
+    },
+    {
+      "textQuery": "plumber",
+      "id": "mock_greenpoint_eastern-plumbing-co_331984",
+      "displayName": "Eastern Plumbing Co.",
+      "formattedAddress": "2515 Atlantic Ave, Greenpoint, Brooklyn, NY 11237",
+      "addressComponents": [
+        {
+          "types": [
+            "sublocality_level_1"
+          ],
+          "longText": "Greenpoint",
+          "shortText": "Greenpoint"
+        },
+        {
+          "types": [
+            "locality"
+          ],
+          "longText": "New York",
+          "shortText": "New York"
+        },
+        {
+          "types": [
+            "administrative_area_level_1"
+          ],
+          "longText": "New York",
+          "shortText": "NY"
+        },
+        {
+          "types": [
+            "postal_code"
+          ],
+          "longText": "11237",
+          "shortText": "11237"
+        }
+      ],
+      "location": {
+        "latitude": 40.58488362773554,
+        "longitude": -73.99396087479312
+      },
+      "types": [
+        "plumber",
+        "point_of_interest",
+        "establishment"
+      ],
+      "primaryType": "plumber",
+      "nationalPhoneNumber": "+1 347 555 0173",
+      "websiteUri": null,
+      "rating": 4.7,
+      "userRatingCount": 196,
+      "businessStatus": "OPERATIONAL",
+      "googleMapsUri": "https://www.google.com/maps/place/?q=place_id:mock_837672996"
+    },
+    {
+      "textQuery": "plumber",
+      "id": "mock_bedford-stuyvesant_cobble-plumbing-co_337045",
+      "displayName": "Cobble Plumbing Co.",
+      "formattedAddress": "2687 Coney Island Ave, Bedford-Stuyvesant, Brooklyn, NY 11210",
+      "addressComponents": [
+        {
+          "types": [
+            "sublocality_level_1"
+          ],
+          "longText": "Bedford-Stuyvesant",
+          "shortText": "Bedford-Stuyvesant"
+        },
+        {
+          "types": [
+            "locality"
+          ],
+          "longText": "New York",
+          "shortText": "New York"
+        },
+        {
+          "types": [
+            "administrative_area_level_1"
+          ],
+          "longText": "New York",
+          "shortText": "NY"
+        },
+        {
+          "types": [
+            "postal_code"
+          ],
+          "longText": "11210",
+          "shortText": "11210"
+        }
+      ],
+      "location": {
+        "latitude": 40.678219428935556,
+        "longitude": -73.89336244721665
+      },
+      "types": [
+        "plumber",
+        "point_of_interest",
+        "establishment"
+      ],
+      "primaryType": "plumber",
+      "nationalPhoneNumber": "+1 929 555 0115",
+      "websiteUri": "https://dead-tls.cobble-plumbing-co.test",
+      "rating": 4.4,
+      "userRatingCount": 51,
+      "businessStatus": "OPERATIONAL",
+      "googleMapsUri": "https://www.google.com/maps/place/?q=place_id:mock_508040722"
+    },
+    {
+      "textQuery": "plumber",
+      "id": "mock_flatbush_manhattan-plumbing-heating_200202",
+      "displayName": "Manhattan Plumbing & Heating",
+      "formattedAddress": "1087 7th Ave, Flatbush, Brooklyn, NY 1123",
+      "addressComponents": [
+        {
+          "types": [
+            "sublocality_level_1"
+          ],
+          "longText": "Flatbush",
+          "shortText": "Flatbush"
+        },
+        {
+          "types": [
+            "locality"
+          ],
+          "longText": "New York",
+          "shortText": "New York"
+        },
+        {
+          "types": [
+            "administrative_area_level_1"
+          ],
+          "longText": "New York",
+          "shortText": "NY"
+        },
+        {
+          "types": [
+            "postal_code"
+          ],
+          "longText": "1123",
+          "shortText": "1123"
+        }
+      ],
+      "location": {
+        "latitude": 40.710821873538656,
+        "longitude": -73.95395463828929
+      },
+      "types": [
+        "plumber",
+        "point_of_interest",
+        "establishment"
+      ],
+      "primaryType": "plumber",
+      "nationalPhoneNumber": "+1 718 555 0112",
+      "websiteUri": "https://modern-fresh.manhattan-plumbing-heating.test",
+      "rating": 3.5,
+      "userRatingCount": 68,
+      "businessStatus": "OPERATIONAL",
+      "googleMapsUri": "https://www.google.com/maps/place/?q=place_id:mock_899512562"
+    },
+    {
+      "textQuery": "plumber",
+      "id": "mock_bay-ridge_crown-plumbing-heating_535321",
+      "displayName": "Crown Plumbing & Heating",
+      "formattedAddress": "1930 7th Ave, Bay Ridge, Brooklyn, NY 11220",
+      "addressComponents": [
+        {
+          "types": [
+            "sublocality_level_1"
+          ],
+          "longText": "Bay Ridge",
+          "shortText": "Bay Ridge"
+        },
+        {
+          "types": [
+            "locality"
+          ],
+          "longText": "New York",
+          "shortText": "New York"
+        },
+        {
+          "types": [
+            "administrative_area_level_1"
+          ],
+          "longText": "New York",
+          "shortText": "NY"
+        },
+        {
+          "types": [
+            "postal_code"
+          ],
+          "longText": "11220",
+          "shortText": "11220"
+        }
+      ],
+      "location": {
+        "latitude": 40.627400289366484,
+        "longitude": -73.93551885741064
+      },
+      "types": [
+        "plumber",
+        "point_of_interest",
+        "establishment"
+      ],
+      "primaryType": "plumber",
+      "nationalPhoneNumber": "+1 929 555 0146",
+      "websiteUri": "https://business.site/crown-plumbing-heating",
+      "rating": 4.1,
+      "userRatingCount": 182,
+      "businessStatus": "OPERATIONAL",
+      "googleMapsUri": "https://www.google.com/maps/place/?q=place_id:mock_145670226"
+    },
+    {
+      "textQuery": "plumber",
+      "id": "mock_bay-ridge_kensington-plumbing-heating_70266",
+      "displayName": "Kensington Plumbing & Heating",
+      "formattedAddress": "1135 Ralph Ave, Bay Ridge, Brooklyn, NY 1129",
+      "addressComponents": [
+        {
+          "types": [
+            "sublocality_level_1"
+          ],
+          "longText": "Bay Ridge",
+          "shortText": "Bay Ridge"
+        },
+        {
+          "types": [
+            "locality"
+          ],
+          "longText": "New York",
+          "shortText": "New York"
+        },
+        {
+          "types": [
+            "administrative_area_level_1"
+          ],
+          "longText": "New York",
+          "shortText": "NY"
+        },
+        {
+          "types": [
+            "postal_code"
+          ],
+          "longText": "1129",
+          "shortText": "1129"
+        }
+      ],
+      "location": {
+        "latitude": 40.65346652768319,
+        "longitude": -73.84448968800251
+      },
+      "types": [
+        "plumber",
+        "point_of_interest",
+        "establishment"
+      ],
+      "primaryType": "plumber",
+      "nationalPhoneNumber": "+1 929 555 0133",
+      "websiteUri": "https://plain-old-2014.kensington-plumbing-heating.test",
+      "rating": 3.4,
+      "userRatingCount": 6,
+      "businessStatus": "OPERATIONAL",
+      "googleMapsUri": "https://www.google.com/maps/place/?q=place_id:mock_225508065"
+    },
+    {
+      "textQuery": "plumber",
+      "id": "mock_flatbush_midwood-plumbing-co_696896",
+      "displayName": "Midwood Plumbing Co.",
+      "formattedAddress": "621 Ocean Ave, Flatbush, Brooklyn, NY 11224",
+      "addressComponents": [
+        {
+          "types": [
+            "sublocality_level_1"
+          ],
+          "longText": "Flatbush",
+          "shortText": "Flatbush"
+        },
+        {
+          "types": [
+            "locality"
+          ],
+          "longText": "New York",
+          "shortText": "New York"
+        },
+        {
+          "types": [
+            "administrative_area_level_1"
+          ],
+          "longText": "New York",
+          "shortText": "NY"
+        },
+        {
+          "types": [
+            "postal_code"
+          ],
+          "longText": "11224",
+          "shortText": "11224"
+        }
+      ],
+      "location": {
+        "latitude": 40.633765451591465,
+        "longitude": -73.85510461858009
+      },
+      "types": [
+        "plumber",
+        "point_of_interest",
+        "establishment"
+      ],
+      "primaryType": "plumber",
+      "nationalPhoneNumber": "+1 347 555 0190",
+      "websiteUri": null,
+      "rating": 4.2,
+      "userRatingCount": 95,
+      "businessStatus": "OPERATIONAL",
+      "googleMapsUri": "https://www.google.com/maps/place/?q=place_id:mock_570923116"
+    },
+    {
+      "textQuery": "plumber",
+      "id": "mock_bedford-stuyvesant_borough-plumbing-co_364883",
+      "displayName": "Borough Plumbing Co.",
+      "formattedAddress": "1393 Nostrand Ave, Bedford-Stuyvesant, Brooklyn, NY 11215",
+      "addressComponents": [
+        {
+          "types": [
+            "sublocality_level_1"
+          ],
+          "longText": "Bedford-Stuyvesant",
+          "shortText": "Bedford-Stuyvesant"
+        },
+        {
+          "types": [
+            "locality"
+          ],
+          "longText": "New York",
+          "shortText": "New York"
+        },
+        {
+          "types": [
+            "administrative_area_level_1"
+          ],
+          "longText": "New York",
+          "shortText": "NY"
+        },
+        {
+          "types": [
+            "postal_code"
+          ],
+          "longText": "11215",
+          "shortText": "11215"
+        }
+      ],
+      "location": {
+        "latitude": 40.60310207072646,
+        "longitude": -73.93682404060849
+      },
+      "types": [
+        "plumber",
+        "point_of_interest",
+        "establishment"
+      ],
+      "primaryType": "plumber",
+      "nationalPhoneNumber": "+1 718 555 0133",
+      "websiteUri": null,
+      "rating": 4.5,
+      "userRatingCount": 12,
+      "businessStatus": "OPERATIONAL",
+      "googleMapsUri": "https://www.google.com/maps/place/?q=place_id:mock_824133335"
+    }
+  ]
+}
