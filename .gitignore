@@ -32,6 +32,12 @@ yarn-error.log*
 
 # env files (can opt-in for committing if needed)
 .env*
+!.env.example
+
+# local SQLite database (data/chains.txt IS committed)
+data/*.db
+data/*.db-shm
+data/*.db-wal
 
 # vercel
 .vercel

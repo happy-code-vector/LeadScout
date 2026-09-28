@@ -1,99 +1,16 @@
 // LeadScout data model — see spec.md "Data model (Prisma)".
+//
+// Storage note: SQLite has no enum, array, or json column types, so those
+// fields are stored as text. src/lib/domain.ts is the single source of truth
+// for allowed values (Zod-validated) and JSON encode/decode helpers.
 
 generator client {
   provider = "prisma-client-js"
 }
 
 datasource db {
-  provider = "postgresql"
+  provider = "sqlite"
   url      = env("DATABASE_URL")
-}
-
-// ---------------------------------------------------------------------------
-// Enums
-// ---------------------------------------------------------------------------
-
-enum WebsiteClass {
-  NONE
-  SOCIAL_OR_DIRECTORY
-  DEAD
-  PARKED
-  OUTDATED
-  OK
-}
-
-enum ContactType {
-  EMAIL
-  PHONE
-  POSTAL
-}
-
-enum ContactSource {
-  PLACES
-  WEBSITE
-  MANUAL
-}
-
-enum Tier {
-  A
-  B
-  C
-  D
-}
-
-enum LeadStatus {
-  NEW
-  QUEUED
-  CONTACTED
-  REPLIED
-  MEETING
-  PROPOSAL
-  WON
-  LOST
-  DO_NOT_CONTACT
-}
-
-enum CampaignMode {
-  MANUAL
-  AUTO
-}
-
-enum CampaignStatus {
-  DRAFT
-  RUNNING
-  PAUSED
-  STOPPED
-}
-
-enum Channel {
-  EMAIL
-  POSTAL
-  PHONE
-}
-
-enum OutreachStatus {
-  SCHEDULED
-  SENT
-  BOUNCED
-  REPLIED
-  UNSUBSCRIBED
-  FAILED
-}
-
-enum CallOutcome {
-  NO_ANSWER
-  VOICEMAIL
-  INTERESTED
-  NOT_INTERESTED
-  CALL_BACK
-  DO_NOT_CALL
-}
-
-enum DiscoveryStatus {
-  RUNNING
-  COMPLETED
-  FAILED
-  CAP_REACHED
 }
 
 // ---------------------------------------------------------------------------
@@ -136,14 +53,16 @@ model Area {
 }
 
 model DiscoveryRun {
-  id           String          @id @default(cuid())
-  categoryIds  String[]
-  areaIds      String[]
-  status       DiscoveryStatus @default(RUNNING)
-  requestsUsed Int             @default(0)
-  placesFound  Int             @default(0)
-  newPlaces    Int             @default(0)
-  startedAt    DateTime        @default(now())
+  id           String   @id @default(cuid())
+  // JSON string arrays: string[]
+  categoryIds  String   @default("[]")
+  areaIds      String   @default("[]")
+  // RUNNING | COMPLETED | FAILED | CAP_REACHED
+  status       String   @default("RUNNING")
+  requestsUsed Int      @default(0)
+  placesFound  Int      @default(0)
+  newPlaces    Int      @default(0)
+  startedAt    DateTime @default(now())
   finishedAt   DateTime?
   error        String?
 }
@@ -183,13 +102,14 @@ model Business {
 }
 
 model WebsiteAudit {
-  id                String      @id @default(cuid())
-  businessId        String      @unique
-  business          Business    @relation(fields: [businessId], references: [id], onDelete: Cascade)
-  checkedAt         DateTime    @default(now())
+  id                String   @id @default(cuid())
+  businessId        String   @unique
+  business          Business @relation(fields: [businessId], references: [id], onDelete: Cascade)
+  checkedAt         DateTime @default(now())
   finalUrl          String?
   httpStatus        Int?
-  websiteClass      WebsiteClass
+  // NONE | SOCIAL_OR_DIRECTORY | DEAD | PARKED | OUTDATED | OK
+  websiteClass      String
   copyrightYear     Int?
   hasViewport       Boolean?
   httpsOk           Boolean?
@@ -197,19 +117,24 @@ model WebsiteAudit {
   waybackLastChange DateTime?
   hasContactPath    Boolean?
   platform          String?
-  findings          String[]    @default([])
-  emailsFound       String[]    @default([])
+  // JSON string arrays: string[]
+  findings          String   @default("[]")
+  emailsFound       String   @default("[]")
+
+  @@index([websiteClass])
 }
 
 model Contact {
-  id         String        @id @default(cuid())
+  id         String   @id @default(cuid())
   businessId String
-  business   Business      @relation(fields: [businessId], references: [id], onDelete: Cascade)
-  type       ContactType
+  business   Business @relation(fields: [businessId], references: [id], onDelete: Cascade)
+  // EMAIL | PHONE | POSTAL
+  type       String
   value      String
-  source     ContactSource
-  verified   Boolean       @default(false)
-  createdAt  DateTime      @default(now())
+  // PLACES | WEBSITE | MANUAL
+  source     String
+  verified   Boolean  @default(false)
+  createdAt  DateTime @default(now())
 
   @@unique([businessId, type, value])
   @@index([type, value])
@@ -220,20 +145,25 @@ model Score {
   businessId   String   @unique
   business     Business @relation(fields: [businessId], references: [id], onDelete: Cascade)
   total        Int
-  tier         Tier
+  // A | B | C | D
+  tier         String
   need         Int
   viability    Int
   reachability Int
   categoryFit  Int
-  reasons      String[] @default([])
+  // JSON string array: string[]
+  reasons      String   @default("[]")
   computedAt   DateTime @default(now())
+
+  @@index([tier])
 }
 
 model Lead {
   id             String          @id @default(cuid())
   businessId     String          @unique
   business       Business        @relation(fields: [businessId], references: [id], onDelete: Cascade)
-  status         LeadStatus      @default(NEW)
+  // NEW | QUEUED | CONTACTED | REPLIED | MEETING | PROPOSAL | WON | LOST | DO_NOT_CONTACT
+  status         String          @default("NEW")
   notes          String?
   lastActivityAt DateTime        @default(now())
   createdAt      DateTime        @default(now())
@@ -245,22 +175,25 @@ model Lead {
 }
 
 model Campaign {
-  id           String         @id @default(cuid())
+  id           String          @id @default(cuid())
   name         String
-  mode         CampaignMode
-  channelOrder String[]       @default(["EMAIL", "POSTAL", "PHONE"])
-  // { tier?: string[], categoryIds?: string[], areaNames?: string[], websiteClasses?: string[] }
-  filters      Json           @default("{}")
+  // MANUAL | AUTO
+  mode         String
+  // JSON string array of EMAIL | POSTAL | PHONE
+  channelOrder String          @default("[\"EMAIL\", \"POSTAL\", \"PHONE\"]")
+  // JSON object: { tier?: string[], categoryIds?: string[], areaNames?: string[], websiteClasses?: string[] }
+  filters      String          @default("{}")
   sequenceId   String?
-  sequence     Sequence?      @relation(fields: [sequenceId], references: [id])
+  sequence     Sequence?       @relation(fields: [sequenceId], references: [id])
   mailboxId    String?
-  mailbox      Mailbox?       @relation(fields: [mailboxId], references: [id])
-  dailyLimit   Int            @default(50)
-  // { startHour: number, endHour: number, daysOfWeek: number[] } — recipient-local hours.
-  sendWindow   Json           @default("{\"startHour\": 9, \"endHour\": 16, \"daysOfWeek\": [1, 2, 3, 4, 5]}")
-  status       CampaignStatus @default(DRAFT)
-  createdAt    DateTime       @default(now())
-  updatedAt    DateTime       @updatedAt
+  mailbox      Mailbox?        @relation(fields: [mailboxId], references: [id])
+  dailyLimit   Int             @default(50)
+  // JSON object: { startHour: number, endHour: number, daysOfWeek: number[] } — recipient-local hours.
+  sendWindow   String          @default("{\"startHour\": 9, \"endHour\": 16, \"daysOfWeek\": [1, 2, 3, 4, 5]}")
+  // DRAFT | RUNNING | PAUSED | STOPPED
+  status       String          @default("DRAFT")
+  createdAt    DateTime        @default(now())
+  updatedAt    DateTime        @updatedAt
   events       OutreachEvent[]
   callTasks    CallTask[]
 
@@ -279,7 +212,8 @@ model SequenceStep {
   sequenceId String
   sequence   Sequence @relation(fields: [sequenceId], references: [id], onDelete: Cascade)
   order      Int
-  channel    Channel
+  // EMAIL | POSTAL | PHONE
+  channel    String
   delayDays  Int
   templateId String
   template   Template @relation(fields: [templateId], references: [id])
@@ -290,7 +224,8 @@ model SequenceStep {
 model Template {
   id        String          @id @default(cuid())
   name      String
-  channel   Channel
+  // EMAIL | POSTAL | PHONE
+  channel   String
   subject   String?
   body      String
   variant   String?
@@ -307,6 +242,7 @@ model Mailbox {
   imapHost          String
   imapPort          Int        @default(993)
   user              String
+  // AES-256-GCM encrypted with ENCRYPTION_KEY.
   passwordEncrypted String
   fromName          String?
   dailyLimit        Int        @default(40)
@@ -317,18 +253,21 @@ model Mailbox {
 }
 
 model OutreachEvent {
-  id           String          @id @default(cuid())
+  id           String   @id @default(cuid())
   leadId       String
-  lead         Lead            @relation(fields: [leadId], references: [id], onDelete: Cascade)
+  lead         Lead     @relation(fields: [leadId], references: [id], onDelete: Cascade)
   campaignId   String
-  campaign     Campaign        @relation(fields: [campaignId], references: [id])
-  channel      Channel
+  campaign     Campaign @relation(fields: [campaignId], references: [id])
+  // EMAIL | POSTAL | PHONE
+  channel      String
   templateId   String?
-  status       OutreachStatus
+  // SCHEDULED | SENT | BOUNCED | REPLIED | UNSUBSCRIBED | FAILED
+  status       String
   messageId    String?
   scheduledFor DateTime?
-  occurredAt   DateTime        @default(now())
-  meta         Json?
+  occurredAt   DateTime @default(now())
+  // JSON object, free-form.
+  meta         String?
 
   @@index([status, scheduledFor])
   @@index([campaignId, occurredAt])
@@ -336,17 +275,18 @@ model OutreachEvent {
 }
 
 model CallTask {
-  id          String      @id @default(cuid())
+  id          String    @id @default(cuid())
   leadId      String
-  lead        Lead        @relation(fields: [leadId], references: [id], onDelete: Cascade)
+  lead        Lead      @relation(fields: [leadId], references: [id], onDelete: Cascade)
   campaignId  String?
-  campaign    Campaign?   @relation(fields: [campaignId], references: [id])
+  campaign    Campaign? @relation(fields: [campaignId], references: [id])
   dueAt       DateTime
   script      String?
-  outcome     CallOutcome?
+  // NO_ANSWER | VOICEMAIL | INTERESTED | NOT_INTERESTED | CALL_BACK | DO_NOT_CALL
+  outcome     String?
   notes       String?
   completedAt DateTime?
-  createdAt   DateTime    @default(now())
+  createdAt   DateTime  @default(now())
 
   @@index([dueAt, completedAt])
 }
@@ -365,8 +305,8 @@ model Settings {
   id                      String   @id @default("singleton")
   senderName              String?
   senderPostalAddress     String?
-  // Shape defined by src/lib/scoring/weights.ts (ScoringWeights).
-  scoringWeights          Json
+  // JSON object; shape validated by src/lib/scoring/weights.ts.
+  scoringWeights          String   @default("{}")
   placesMonthlyRequestCap Int      @default(1000)
   auditConcurrency        Int      @default(8)
   updatedAt               DateTime @updatedAt
@@ -380,4 +320,22 @@ model ApiUsage {
   count Int    @default(0)
 
   @@unique([month, sku])
+}
+
+// Built-in background job queue, polled by the worker process.
+model Job {
+  id          String   @id @default(cuid())
+  type        String
+  // JSON object payload.
+  payload     String   @default("{}")
+  // PENDING | RUNNING | DONE | FAILED
+  status      String   @default("PENDING")
+  runAt       DateTime @default(now())
+  attempts    Int      @default(0)
+  maxAttempts Int      @default(3)
+  lastError   String?
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+
+  @@index([status, runAt])
 }

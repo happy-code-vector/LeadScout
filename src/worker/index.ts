@@ -1,31 +1,57 @@
 import "dotenv/config";
-import PgBoss from "pg-boss";
-import { env } from "../lib/env";
 import { log } from "../lib/logger";
+import { drainQueue, pruneOldJobs, recoverStaleJobs } from "../lib/queue";
 
 /**
- * LeadScout background worker. Runs pg-boss on Postgres — no Redis.
- * Jobs are registered per build phase; every job must be idempotent and
- * safe to retry (spec: Conventions).
+ * LeadScout background worker. Polls the Job table on SQLite — no external
+ * services. Jobs are registered per build phase in src/worker/jobs.ts.
  */
 
-const boss = new PgBoss({ connectionString: env.DATABASE_URL });
+const POLL_INTERVAL_MS = 2_000;
+
+function sleep(ms: number): Promise<void> {
+  return new Promise((resolve) => setTimeout(resolve, ms));
+}
 
 async function main() {
-  boss.on("error", (err) => log.error("pg-boss error", { err }));
+  const recovered = await recoverStaleJobs();
+  const pruned = await pruneOldJobs();
+  if (recovered || pruned) {
+    log.info("worker startup cleanup", { recovered, pruned });
+  }
 
-  await boss.start();
-  log.info("worker started", {
-    queues: await boss.getQueues().then((qs) => qs.map((q) => q.name)),
-  });
+  log.info("worker started", { pollIntervalMs: POLL_INTERVAL_MS });
 
+  let stopping = false;
   const shutdown = async (signal: string) => {
+    if (stopping) return;
+    stopping = true;
     log.info("worker stopping", { signal });
-    await boss.stop({ graceful: true, timeout: 10_000 });
+    // Let the current poll cycle notice `stopping`; give it a moment.
+    await sleep(POLL_INTERVAL_MS + 100);
     process.exit(0);
   };
   process.on("SIGINT", () => void shutdown("SIGINT"));
   process.on("SIGTERM", () => void shutdown("SIGTERM"));
+
+  // Housekeeping: prune finished jobs once an hour.
+  const pruneTimer = setInterval(() => {
+    void pruneOldJobs().catch((err) => log.error("prune failed", { err }));
+  }, 60 * 60_000);
+  pruneTimer.unref();
+
+  while (!stopping) {
+    try {
+      const ran = await drainQueue();
+      if (ran === 0) {
+        // claimNextJob already found nothing due; wait before polling again.
+        await sleep(POLL_INTERVAL_MS);
+      }
+    } catch (err) {
+      log.error("worker loop error", { err });
+      await sleep(POLL_INTERVAL_MS);
+    }
+  }
 }
 
 main().catch((err) => {

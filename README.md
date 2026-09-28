@@ -1,36 +1,64 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# LeadScout
 
-## Getting Started
+Finds small local businesses with no website or an outdated one, scores them
+by how likely they are to buy a website, and runs outreach in manual or
+automatic mode. First market: New York City — extensible to any US city
+without code changes.
 
-First, run the development server:
+The complete build spec lives in [`spec.md`](spec.md).
+
+## Stack
+
+- Next.js 15 (App Router) + TypeScript, Tailwind + shadcn/ui
+- SQLite + Prisma (`data/leadscout.db` — zero external services)
+- Built-in job queue (`Job` table) polled by a worker process
+- Nodemailer (SMTP) + imapflow (replies/bounces), Handlebars templates
+- Zod validation, Vitest tests
+
+## Local setup
 
 ```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
+npm i
+cp .env.example .env        # then fill ENCRYPTION_KEY + UNSUBSCRIBE_JWT_SECRET
+npm run db:migrate          # creates data/leadscout.db
+npm run db:seed             # categories, NYC boroughs, templates, settings
+npm run dev                 # web UI at http://localhost:3000
+npm run worker              # background jobs (separate terminal)
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+Dev secrets, e.g.:
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+```bash
+node -e "console.log(require('crypto').randomBytes(32).toString('base64'))"
+```
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+## Modes
 
-## Learn More
+- **Mock mode** (default): with no `GOOGLE_PLACES_API_KEY`, discovery serves
+  fixture data from `fixtures/places/*.json` — the whole app works end to end
+  with no paid keys.
+- **Live mode**: set `GOOGLE_PLACES_API_KEY`. Billed requests are capped by
+  `Settings.placesMonthlyRequestCap` (default 1,000/month, the free tier).
 
-To learn more about Next.js, take a look at the following resources:
+## Scripts
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+| Script | What it does |
+|---|---|
+| `npm run dev` / `build` / `start` | Next.js app |
+| `npm run worker` | Background worker (jobs, schedulers) |
+| `npm run db:migrate` | Create/apply Prisma migrations |
+| `npm run db:seed` | Seed reference data (idempotent) |
+| `npm test` | Vitest unit tests |
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+## Layout
 
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+```
+src/
+  app/          # routes (Dashboard, Discover, Leads, Campaigns, ...)
+  components/   # shadcn/ui + app components
+  lib/          # domain logic: discovery/, audit/, scoring/, outreach/
+  db/           # Prisma client + seed
+  worker/       # worker process + job handlers
+data/           # leadscout.db (gitignored), chains.txt
+prisma/         # schema + migrations
+```

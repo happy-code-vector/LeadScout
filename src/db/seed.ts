@@ -1,5 +1,6 @@
 import "dotenv/config";
-import { PrismaClient, Channel } from "@prisma/client";
+import { PrismaClient } from "@prisma/client";
+import type { Channel } from "../lib/domain";
 import { DEFAULT_WEIGHTS } from "../lib/scoring/weights";
 
 const prisma = new PrismaClient();
@@ -258,6 +259,14 @@ const SEQUENCES = [
 ];
 
 async function main() {
+  // WAL persists in the DB file and only needs setting once; if another
+  // process already holds the file, it has set WAL.
+  try {
+    await prisma.$queryRaw`PRAGMA journal_mode=WAL;`;
+  } catch {
+    // ignore — best effort
+  }
+
   // Categories
   for (const c of CATEGORIES) {
     await prisma.category.upsert({
@@ -325,7 +334,7 @@ async function main() {
     update: {},
     create: {
       id: "singleton",
-      scoringWeights: DEFAULT_WEIGHTS,
+      scoringWeights: JSON.stringify(DEFAULT_WEIGHTS),
       placesMonthlyRequestCap: 1000,
       auditConcurrency: 8,
     },

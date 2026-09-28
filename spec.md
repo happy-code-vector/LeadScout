@@ -9,13 +9,13 @@ This file is the source of truth. Build phase by phase (see "Build phases"). Sto
 ## Stack
 
 - Next.js 15 (App Router) + TypeScript (strict), Tailwind + shadcn/ui
-- PostgreSQL + Prisma
-- Background jobs: pg-boss (runs on Postgres, no Redis needed), in a separate worker process (`npm run worker`)
+- SQLite + Prisma (a single `data/leadscout.db` file — zero external services)
+- Background jobs: a built-in queue — a `Job` table polled by a separate worker process (`npm run worker`); idempotent jobs, retried with backoff
 - Website audits: `undici` fetch + `cheerio` (no headless browser by default); Playwright is optional, only for screenshots
 - Email: Nodemailer (SMTP send) + `imapflow` (reply and bounce detection)
 - Postal mail (optional): Lob API
 - Validation: Zod. Tests: Vitest.
-- Local dev: `docker-compose.yml` with Postgres. Deploy target: Railway or Render (web + worker + Postgres).
+- Local dev: `npm run dev` + `npm run worker`; no Docker, no external services. Deploy target: Railway or Render (web + worker sharing a persistent volume that holds the SQLite file).
 
 ## Hard rules
 
@@ -94,6 +94,9 @@ This file is the source of truth. Build phase by phase (see "Build phases"). Sto
   - `senderName`, `senderPostalAddress`, `scoringWeights` (json)
   - `placesMonthlyRequestCap` (default 1000, which keeps usage in the free tier), `auditConcurrency`
 - **ApiUsage**: `month`, `sku`, `count`, with a unique index on `(month, sku)`
+- **Job**: `type`, `payload` (JSON string), `status` (`PENDING` | `RUNNING` | `DONE` | `FAILED`), `runAt`, `attempts`, `maxAttempts`, `lastError`
+
+SQLite has no enum, array, or json column types, so those fields are stored as text. `src/lib/domain.ts` is the single source of truth for the allowed values (Zod-validated) and for the JSON encode/decode helpers.
 
 ---
 
@@ -336,7 +339,7 @@ There is no auth in phase 1 (single user, local). Before deploying, add Auth.js 
 ## Environment variables (`.env.example`)
 
 ```
-DATABASE_URL=postgresql://leadscout:leadscout@localhost:5432/leadscout
+DATABASE_URL="file:../data/leadscout.db"
 GOOGLE_PLACES_API_KEY=            # empty = mock mode
 LOB_API_KEY=                      # optional; empty disables postal channel
 ENCRYPTION_KEY=                   # 32-byte base64, for mailbox passwords
@@ -351,10 +354,10 @@ Mailbox credentials are entered in the UI, not in env vars.
 ## Build phases (stop and verify after each)
 
 1. **Scaffold.**
-   - Build: Next.js app, Prisma schema, docker-compose, seed script (categories, NYC boroughs, templates, default settings), app shell with navigation.
-   - Accept when: `docker compose up -d && npm i && npm run db:migrate && npm run db:seed && npm run dev` works and every page renders.
+   - Build: Next.js app, Prisma schema, seed script (categories, NYC boroughs, templates, default settings), app shell with navigation.
+   - Accept when: `npm i && npm run db:migrate && npm run db:seed && npm run dev` works and every page renders.
 2. **Discovery.**
-   - Build: Places client with mock mode, quadtree tiler, pg-boss worker, chain detection, Discover page.
+   - Build: Places client with mock mode, quadtree tiler, worker jobs, chain detection, Discover page.
    - Accept when: a mock run of Plumber × Brooklyn populates businesses, and unit tests pass for the tiler's subdivision logic and the request cap.
 3. **Enrichment.**
    - Build: website classifier, audit signals, email extraction, re-audit schedule.
@@ -364,13 +367,13 @@ Mailbox credentials are entered in the UI, not in env vars.
    - Accept when: the tier distribution appears on the Dashboard and the score reasons read naturally.
 5. **Outreach.**
    - Build: templates, sequences, campaigns (manual and auto), mailbox sender with warmup and limits, suppression, unsubscribe endpoint, Call Queue, CSV export.
-   - Accept when: an auto campaign against a test mailbox (use a Mailpit container in docker-compose) sends in-window, respects limits, and stops on unsubscribe.
+   - Accept when: an auto campaign against the dev SMTP sink (an in-repo `npm run maildump` server with an inbox page) sends in-window, respects limits, and stops on unsubscribe.
 6. **Replies + Analytics.**
    - Build: IMAP poller, bounce handling, Analytics page.
-   - Accept when: a simulated reply in Mailpit moves the lead to `REPLIED` and halts its sequence.
+   - Accept when: a simulated reply (a "send reply" action on the dev sink inbox, fed through the same handler as IMAP) moves the lead to `REPLIED` and halts its sequence.
 7. **Postal (optional)** and **Places 30-day refresh job.**
 8. **Deploy prep.**
-   - Build: Auth.js, Dockerfile, Railway/Render config for web + worker, and a README with setup steps.
+   - Build: Auth.js, Railway/Render config for web + worker with a persistent volume for the SQLite file, and a README with setup steps.
 
 ## Conventions
 
