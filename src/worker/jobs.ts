@@ -3,12 +3,13 @@ import { prisma } from "../lib/db";
 import { env } from "../lib/env";
 import { log } from "../lib/logger";
 import { fromJsonArray } from "../lib/domain";
-import { registerJob } from "../lib/queue";
+import { enqueue, registerJob } from "../lib/queue";
 import { BudgetGuard, CapReachedError } from "../lib/discovery/budget";
 import { PrismaUsageCounter, settingsCapProvider } from "../lib/discovery/usage";
 import { createProvider } from "../lib/discovery/places";
 import { discoverCategoryArea } from "../lib/discovery/engine";
 import { isTileFresh, refreshChainFlags, upsertPlace } from "../lib/discovery/upsert";
+import { auditBusiness, runAuditSweep } from "../lib/audit/audit";
 
 /**
  * discovery.run — walk every (category × area) of a DiscoveryRun with the
@@ -103,6 +104,9 @@ registerJob(
         data: { status: "COMPLETED", finishedAt: new Date(), ...totals },
       });
       log.info("discovery run completed", { runId, ...totals, chainsFlagged: flagged });
+
+      // Newly discovered businesses need website audits.
+      await enqueue("audit.sweep", {});
     } catch (err) {
       if (err instanceof CapReachedError) {
         // Clean stop at the budget cap (spec: stop with status CAP_REACHED).
@@ -133,6 +137,21 @@ registerJob(
 );
 
 // Importing this module registers its jobs; future phases register here too.
+
+/** Audit one business (idempotent; safe to retry). */
+registerJob(
+  "audit.business",
+  async (payload) => {
+    const { businessId } = z.object({ businessId: z.string().min(1) }).parse(payload);
+    const outcome = await auditBusiness(businessId);
+    log.info("audit done", { ...outcome });
+  },
+);
+
+/** Audit every business whose audit is missing or older than 90 days. */
+registerJob("audit.sweep", async () => {
+  await runAuditSweep();
+});
 
 /**
  * Mark discovery runs stuck in RUNNING when no active job exists for them

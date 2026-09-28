@@ -1,6 +1,6 @@
 import "dotenv/config";
 import { log } from "../lib/logger";
-import { drainQueue, pruneOldJobs, recoverStaleJobs } from "../lib/queue";
+import { drainQueue, enqueue, pruneOldJobs, recoverStaleJobs } from "../lib/queue";
 import "./jobs";
 import { recoverOrphanedRuns } from "./jobs";
 
@@ -37,11 +37,12 @@ async function main() {
   process.on("SIGINT", () => void shutdown("SIGINT"));
   process.on("SIGTERM", () => void shutdown("SIGTERM"));
 
-  // Housekeeping: prune finished jobs once an hour.
-  const pruneTimer = setInterval(() => {
+  // Housekeeping: prune finished jobs and kick the 90-day re-audit sweep hourly.
+  const housekeeping = setInterval(() => {
     void pruneOldJobs().catch((err) => log.error("prune failed", { err }));
+    void enqueue("audit.sweep", {}).catch((err) => log.error("audit sweep enqueue failed", { err }));
   }, 60 * 60_000);
-  pruneTimer.unref();
+  housekeeping.unref();
 
   while (!stopping) {
     try {
