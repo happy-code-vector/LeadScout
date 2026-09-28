@@ -38,6 +38,7 @@ yarn-error.log*
 data/*.db
 data/*.db-shm
 data/*.db-wal
+data/maildump.jsonl
 
 # vercel
 .vercel
