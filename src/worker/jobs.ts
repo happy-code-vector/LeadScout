@@ -10,6 +10,7 @@ import { createProvider } from "../lib/discovery/places";
 import { discoverCategoryArea } from "../lib/discovery/engine";
 import { isTileFresh, refreshChainFlags, upsertPlace } from "../lib/discovery/upsert";
 import { auditBusiness, runAuditSweep } from "../lib/audit/audit";
+import { rescoreAll } from "../lib/scoring/rescore";
 
 /**
  * discovery.run — walk every (category × area) of a DiscoveryRun with the
@@ -151,6 +152,13 @@ registerJob(
 /** Audit every business whose audit is missing or older than 90 days. */
 registerJob("audit.sweep", async () => {
   await runAuditSweep();
+  // Audits feed the score — rescore right after.
+  await enqueue("score.sweep", {});
+});
+
+/** Recompute scores for every business (idempotent). */
+registerJob("score.sweep", async () => {
+  await rescoreAll();
 });
 
 /**
