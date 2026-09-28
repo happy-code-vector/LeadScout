@@ -4,10 +4,11 @@ import { prisma } from "@/lib/db";
 import { enqueue } from "@/lib/queue";
 
 const bulkSchema = z.object({
-  action: z.enum(["set_status", "dnc"]),
+  action: z.enum(["set_status", "dnc", "add_to_campaign"]),
   status: z
     .enum(["NEW", "QUEUED", "CONTACTED", "REPLIED", "MEETING", "PROPOSAL", "WON", "LOST", "DO_NOT_CONTACT"])
     .optional(),
+  campaignId: z.string().min(1).optional(),
   businessIds: z.array(z.string().min(1)).min(1),
 });
 
@@ -17,7 +18,25 @@ export async function POST(request: Request) {
   if (!parsed.success) {
     return NextResponse.json({ error: parsed.error.issues[0]?.message }, { status: 400 });
   }
-  const { action, status, businessIds } = parsed.data;
+  const { action, status, campaignId, businessIds } = parsed.data;
+
+  if (action === "add_to_campaign") {
+    if (!campaignId) return NextResponse.json({ error: "campaignId required" }, { status: 400 });
+    const campaign = await prisma.campaign.findUnique({ where: { id: campaignId } });
+    if (!campaign) return NextResponse.json({ error: "campaign not found" }, { status: 404 });
+    const leads = await prisma.lead.findMany({
+      where: { businessId: { in: businessIds } },
+      select: { id: true },
+    });
+    for (const lead of leads) {
+      await prisma.campaignLead.upsert({
+        where: { campaignId_leadId: { campaignId, leadId: lead.id } },
+        update: {},
+        create: { campaignId, leadId: lead.id },
+      });
+    }
+    return NextResponse.json({ updated: leads.length });
+  }
 
   if (action === "set_status") {
     if (!status) return NextResponse.json({ error: "status required" }, { status: 400 });

@@ -170,6 +170,7 @@ model Lead {
   updatedAt      DateTime        @updatedAt
   events         OutreachEvent[]
   callTasks      CallTask[]
+  campaignLeads  CampaignLead[]
 
   @@index([status])
 }
@@ -196,6 +197,7 @@ model Campaign {
   updatedAt    DateTime        @updatedAt
   events       OutreachEvent[]
   callTasks    CallTask[]
+  campaignLeads CampaignLead[]
 
   @@index([status])
 }
@@ -252,12 +254,25 @@ model Mailbox {
   campaigns         Campaign[]
 }
 
+// Explicitly added leads (Leads bulk action "add to campaign"), on top of
+// the campaign's filter-matched pool.
+model CampaignLead {
+  id         String   @id @default(cuid())
+  campaignId String
+  campaign   Campaign @relation(fields: [campaignId], references: [id], onDelete: Cascade)
+  leadId     String
+  lead       Lead     @relation(fields: [leadId], references: [id], onDelete: Cascade)
+  addedAt    DateTime @default(now())
+
+  @@unique([campaignId, leadId])
+}
+
 model OutreachEvent {
   id           String   @id @default(cuid())
   leadId       String
   lead         Lead     @relation(fields: [leadId], references: [id], onDelete: Cascade)
   campaignId   String
-  campaign     Campaign @relation(fields: [campaignId], references: [id])
+  campaign     Campaign @relation(fields: [campaignId], references: [id], onDelete: Cascade)
   // EMAIL | POSTAL | PHONE
   channel      String
   templateId   String?

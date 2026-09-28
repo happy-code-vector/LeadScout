@@ -11,6 +11,13 @@ import { discoverCategoryArea } from "../lib/discovery/engine";
 import { isTileFresh, refreshChainFlags, upsertPlace } from "../lib/discovery/upsert";
 import { auditBusiness, runAuditSweep } from "../lib/audit/audit";
 import { rescoreAll } from "../lib/scoring/rescore";
+import {
+  CampaignValidationError,
+  scheduleLead,
+  startCampaign,
+  stopSequences,
+} from "../lib/outreach/engine";
+import { prisma as db } from "../lib/db";
 
 /**
  * discovery.run — walk every (category × area) of a DiscoveryRun with the
@@ -160,6 +167,74 @@ registerJob("audit.sweep", async () => {
 registerJob("score.sweep", async () => {
   await rescoreAll();
 });
+
+/** Start a campaign: validate, build the pool, schedule first-channel actions. */
+registerJob(
+  "campaign.start",
+  async (payload) => {
+    const { campaignId } = z.object({ campaignId: z.string().min(1) }).parse(payload);
+    try {
+      await startCampaign(campaignId);
+    } catch (err) {
+      if (err instanceof CampaignValidationError) {
+        await db.campaign.update({
+          where: { id: campaignId },
+          data: { status: "DRAFT" },
+        });
+        log.warn("campaign start rejected", { campaignId, reason: err.message });
+        return;
+      }
+      throw err;
+    }
+  },
+);
+
+/**
+ * After an email sequence runs out (or immediately when no email exists),
+ * fall through to the next available channel: postcard, then a call task.
+ * Re-validates terminal states, so stale fallthrough jobs are harmless.
+ */
+registerJob(
+  "outreach.fallthrough",
+  async (payload) => {
+    const { leadId, campaignId, fromChannel } = z
+      .object({ leadId: z.string(), campaignId: z.string(), fromChannel: z.string() })
+      .parse(payload);
+
+    const lead = await db.lead.findUnique({ where: { id: leadId } });
+    if (!lead) return;
+    if (["REPLIED", "MEETING", "PROPOSAL", "WON", "LOST", "DO_NOT_CONTACT"].includes(lead.status)) {
+      await stopSequences(leadId, `fallthrough skipped: lead ${lead.status}`);
+      return;
+    }
+
+    const terminal = await db.outreachEvent.findFirst({
+      where: {
+        leadId,
+        status: { in: ["BOUNCED", "REPLIED", "UNSUBSCRIBED"] },
+      },
+    });
+    if (terminal) {
+      await stopSequences(leadId, "fallthrough skipped: terminal event");
+      return;
+    }
+
+    const campaign = await db.campaign.findUnique({ where: { id: campaignId } });
+    if (!campaign || campaign.status !== "RUNNING") return;
+
+    // Continue walking channelOrder after the channel that just finished.
+    const order = fromJsonArray(campaign.channelOrder);
+    const idx = order.indexOf(fromChannel);
+    const rest = (idx >= 0 ? order.slice(idx + 1) : order).filter((c) => c !== "EMAIL");
+    for (const channel of rest) {
+      if (channel === "POSTAL" && !process.env.LOB_API_KEY) continue;
+      const created = await scheduleLead(campaign, leadId, [channel]);
+      if (created > 0) return;
+    }
+    // Nothing else available — expected for website-less businesses.
+    log.info("fallthrough exhausted", { leadId, campaignId });
+  },
+);
 
 /**
  * Mark discovery runs stuck in RUNNING when no active job exists for them

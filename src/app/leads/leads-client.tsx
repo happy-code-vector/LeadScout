@@ -48,6 +48,7 @@ export function LeadsClient({
   filters,
   categories,
   areas,
+  campaigns,
 }: {
   rows: LeadRow[];
   total: number;
@@ -56,6 +57,7 @@ export function LeadsClient({
   filters: { q?: string; tier?: string; category?: string; area?: string; websiteClass?: string; status?: string };
   categories: { slug: string; name: string }[];
   areas: string[];
+  campaigns: { id: string; name: string; status: string }[];
 }) {
   const router = useRouter();
   const searchParams = useSearchParams();
@@ -76,17 +78,21 @@ export function LeadsClient({
     startTransition(() => router.push(`/leads?${params.toString()}`));
   }
 
-  async function bulkAction(action: "set_status" | "dnc", status?: string) {
+  async function bulkAction(action: "set_status" | "dnc" | "add_to_campaign", status?: string, campaignId?: string) {
     if (selected.size === 0) return;
     try {
       const res = await fetch("/api/leads/bulk", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ action, status, businessIds: [...selected] }),
+        body: JSON.stringify({ action, status, campaignId, businessIds: [...selected] }),
       });
       const json = (await res.json()) as { error?: string; updated?: number };
       if (!res.ok) throw new Error(json.error ?? "bulk action failed");
-      toast.success(`${json.updated ?? selected.size} leads updated`);
+      toast.success(
+        action === "add_to_campaign"
+          ? `${json.updated ?? selected.size} leads added to the campaign`
+          : `${json.updated ?? selected.size} leads updated`,
+      );
       setSelected(new Set());
       router.refresh();
     } catch (e) {
@@ -174,6 +180,18 @@ export function LeadsClient({
               ))}
             </SelectContent>
           </Select>
+          {campaigns.length > 0 && (
+            <Select onValueChange={(v) => void bulkAction("add_to_campaign", undefined, v)}>
+              <SelectTrigger className="h-7 w-44" size="sm"><SelectValue placeholder="Add to campaign…" /></SelectTrigger>
+              <SelectContent>
+                {campaigns.map((c) => (
+                  <SelectItem key={c.id} value={c.id}>
+                    {c.name} ({c.status.toLowerCase()})
+                  </SelectItem>
+                ))}
+              </SelectContent>
+            </Select>
+          )}
           <Button variant="destructive" size="sm" onClick={() => void bulkAction("dnc")}>
             <Ban className="size-3.5" data-icon="inline-start" />
             Do not contact

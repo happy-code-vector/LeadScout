@@ -71,7 +71,7 @@ export default async function LeadsPage({
     ...(filters.status ? { lead: { status: filters.status } } : {}),
   };
 
-  const [businesses, total, categories, areas] = await Promise.all([
+  const [businesses, total, categories, areas, campaigns] = await Promise.all([
     prisma.business.findMany({
       where,
       orderBy: [{ score: { total: "desc" } }, { name: "asc" }],
@@ -88,6 +88,11 @@ export default async function LeadsPage({
     prisma.business.count({ where }),
     prisma.category.findMany({ orderBy: { name: "asc" } }),
     prisma.area.findMany({ orderBy: { name: "asc" } }),
+    prisma.campaign.findMany({
+      where: { status: { in: ["DRAFT", "RUNNING", "PAUSED"] } },
+      select: { id: true, name: true, status: true },
+      orderBy: { createdAt: "desc" },
+    }),
   ]);
 
   const rows: LeadRow[] = businesses.map((b) => {
@@ -125,6 +130,7 @@ export default async function LeadsPage({
         filters={filters}
         categories={categories.map((c) => ({ slug: c.slug, name: c.name }))}
         areas={areas.map((a) => a.name)}
+        campaigns={campaigns}
       />
     </>
   );

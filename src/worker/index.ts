@@ -1,6 +1,7 @@
 import "dotenv/config";
 import { log } from "../lib/logger";
 import { drainQueue, enqueue, pruneOldJobs, recoverStaleJobs } from "../lib/queue";
+import { processDueEmails } from "../lib/outreach/engine";
 import "./jobs";
 import { recoverOrphanedRuns } from "./jobs";
 
@@ -43,6 +44,17 @@ async function main() {
     void enqueue("audit.sweep", {}).catch((err) => log.error("audit sweep enqueue failed", { err }));
   }, 60 * 60_000);
   housekeeping.unref();
+
+  // Outreach tick: send due scheduled emails once a minute. The engine
+  // enforces send windows, warmup/daily limits, and 2–6 min spacing itself.
+  const outreachTick = setInterval(() => {
+    void processDueEmails().catch((err) => log.error("outreach tick failed", { err }));
+  }, 60_000);
+  outreachTick.unref();
+  // Run one tick shortly after startup so dev restarts don't wait a minute.
+  setTimeout(() => {
+    void processDueEmails().catch((err) => log.error("outreach tick failed", { err }));
+  }, 5_000);
 
   while (!stopping) {
     try {
