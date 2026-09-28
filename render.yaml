@@ -1,0 +1,37 @@
+# Render Blueprint: one web service running the Next.js app and the worker
+# together, with a persistent disk for the SQLite database. Both processes
+# must share one service — separate services get separate disks.
+services:
+  - type: web
+    name: leadscout
+    runtime: node
+    plan: starter
+    region: oregon
+    buildCommand: npm ci && npx prisma generate && npm run build
+    startCommand: npx tsx scripts/start-all.ts
+    disk:
+      name: leadscout-data
+      mountPath: /opt/data
+      sizeGB: 1
+    envVars:
+      - key: DATABASE_URL
+        value: "file:/opt/data/leadscout.db"
+      - key: NODE_VERSION
+        value: "20"
+      - key: AUTH_ENABLED
+        value: "true"
+      - key: APP_BASE_URL
+        value: "" # set to your Render URL, e.g. https://leadscout.onrender.com
+      - key: AUTH_SECRET
+        generateValue: true # or set your own: openssl rand -base64 32
+      - key: AUTH_ALLOWED_EMAILS
+        value: "" # comma-separated; empty allows any address that receives the link
+      - key: GOOGLE_PLACES_API_KEY
+        sync: false # empty = mock mode
+      - key: LOB_API_KEY
+        sync: false # empty disables the postal channel
+      - key: ENCRYPTION_KEY
+        sync: false # set explicitly (32-byte base64): node -e "console.log(require('crypto').randomBytes(32).toString('base64'))"
+        # Must stay stable across deploys — mailbox passwords are encrypted with it.
+      - key: UNSUBSCRIBE_JWT_SECRET
+        sync: false # set a long random string
