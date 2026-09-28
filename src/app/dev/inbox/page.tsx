@@ -1,6 +1,7 @@
 "use client";
 
 import { useCallback, useEffect, useState } from "react";
+import { toast } from "sonner";
 import { PageHeader } from "@/components/page-header";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
@@ -44,6 +45,27 @@ export default function DevInboxPage() {
   async function clear() {
     await fetch(SINK_URL, { method: "DELETE" }).catch(() => {});
     void load();
+  }
+
+  async function simulate(messageId: string, mode: "reply" | "bounce") {
+    try {
+      const res = await fetch("/api/dev/simulate-reply", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ messageId, mode }),
+      });
+      const json = (await res.json()) as { error?: string; outcome?: string };
+      if (!res.ok) throw new Error(json.error ?? "simulation failed");
+      toast.success(
+        json.outcome === "reply"
+          ? "Reply processed — lead moved to REPLIED"
+          : json.outcome === "bounce"
+            ? "Bounce processed — email suppressed"
+            : "Message matched nothing (ignored)",
+      );
+    } catch (e) {
+      toast.error(e instanceof Error ? e.message : "simulation failed");
+    }
   }
 
   const shown = messages.filter(
@@ -90,6 +112,14 @@ export default function DevInboxPage() {
                   List-Unsubscribe: {m.headers["list-unsubscribe"]}
                 </p>
               )}
+              <div className="flex gap-1.5">
+                <Button size="sm" variant="outline" onClick={() => void simulate(m.messageId, "reply")}>
+                  Send reply
+                </Button>
+                <Button size="sm" variant="outline" onClick={() => void simulate(m.messageId, "bounce")}>
+                  Simulate bounce
+                </Button>
+              </div>
               <pre className="max-h-60 overflow-y-auto whitespace-pre-wrap rounded-md bg-muted/60 p-3 font-sans">
                 {m.text}
               </pre>

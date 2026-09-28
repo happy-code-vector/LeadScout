@@ -13,6 +13,9 @@ import { stopSequences } from "./engine";
 export interface UnsubscribeClaims {
   leadId: string;
   email: string;
+  /** Standard JWT claims added at signing time. */
+  exp?: number;
+  iat?: number;
 }
 
 export function createUnsubscribeToken(leadId: string, email: string): string {

@@ -250,6 +250,8 @@ model Mailbox {
   dailyLimit        Int        @default(40)
   warmupStartDate   DateTime?
   active            Boolean    @default(true)
+  // Highest IMAP UID already processed (reply/bounce polling).
+  imapLastUid       Int        @default(0)
   createdAt         DateTime   @default(now())
   campaigns         Campaign[]
 }

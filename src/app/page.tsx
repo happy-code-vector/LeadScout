@@ -14,8 +14,9 @@ const FUNNEL = ["NEW", "QUEUED", "CONTACTED", "REPLIED", "MEETING", "PROPOSAL", 
 export default async function DashboardPage() {
   const startOfDay = new Date();
   startOfDay.setHours(0, 0, 0, 0);
+  const weekAgo = new Date(Date.now() - 7 * 24 * 60 * 60_000);
 
-  const [scores, leadStatuses, businesses, callTasksDue, repliesToday, topLeads] =
+  const [scores, leadStatuses, businesses, callTasksDue, repliesToday, topLeads, repliedLeads] =
     await Promise.all([
       prisma.score.groupBy({ by: ["tier"], _count: { tier: true } }),
       prisma.lead.groupBy({ by: ["status"], _count: { status: true } }),
@@ -27,6 +28,24 @@ export default async function DashboardPage() {
         orderBy: [{ score: { total: "desc" } }, { name: "asc" }],
         take: 8,
         include: { category: true, score: true, lead: true },
+      }),
+      // Dashboard inbox: leads that replied recently (spec).
+      prisma.lead.findMany({
+        where: {
+          status: { in: ["REPLIED", "MEETING", "PROPOSAL"] },
+          events: { some: { status: "REPLIED", occurredAt: { gte: weekAgo } } },
+        },
+        orderBy: { lastActivityAt: "desc" },
+        take: 6,
+        include: {
+          business: { select: { id: true, name: true, category: { select: { name: true } } } },
+          events: {
+            where: { status: "REPLIED" },
+            orderBy: { occurredAt: "desc" },
+            take: 1,
+            select: { occurredAt: true, meta: true },
+          },
+        },
       }),
     ]);
 
@@ -77,6 +96,34 @@ export default async function DashboardPage() {
       </div>
 
       <div className="mt-4 grid gap-4 lg:grid-cols-2">
+        {repliedLeads.length > 0 && (
+          <Card className="lg:col-span-2">
+            <CardHeader>
+              <CardTitle className="text-base">Inbox — new replies</CardTitle>
+            </CardHeader>
+            <CardContent className="space-y-1.5">
+              {repliedLeads.map((lead) => {
+                const last = lead.events[0];
+                return (
+                  <Link
+                    key={lead.id}
+                    href={`/leads/${lead.business.id}`}
+                    className="flex flex-wrap items-baseline justify-between gap-2 rounded-md px-2 py-1.5 text-sm hover:bg-muted/60"
+                  >
+                    <span>
+                      <span className="font-medium">{lead.business.name}</span>
+                      <span className="ml-2 text-muted-foreground">{lead.business.category.name}</span>
+                    </span>
+                    <span className="text-xs text-muted-foreground">
+                      {last ? new Date(last.occurredAt).toLocaleString() : ""} · {lead.status.replace(/_/g, " ")}
+                    </span>
+                  </Link>
+                );
+              })}
+            </CardContent>
+          </Card>
+        )}
+
         <Card>
           <CardHeader>
             <CardTitle className="text-base">Leads by tier ({scored} scored)</CardTitle>

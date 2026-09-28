@@ -2,6 +2,7 @@ import "dotenv/config";
 import { log } from "../lib/logger";
 import { drainQueue, enqueue, pruneOldJobs, recoverStaleJobs } from "../lib/queue";
 import { processDueEmails } from "../lib/outreach/engine";
+import { pollAllMailboxes } from "../lib/outreach/imap";
 import "./jobs";
 import { recoverOrphanedRuns } from "./jobs";
 
@@ -55,6 +56,15 @@ async function main() {
   setTimeout(() => {
     void processDueEmails().catch((err) => log.error("outreach tick failed", { err }));
   }, 5_000);
+
+  // IMAP polling for replies and bounces: every 5 minutes per mailbox (spec).
+  const imapPoll = setInterval(() => {
+    void pollAllMailboxes().catch((err) => log.error("imap poll crashed", { err }));
+  }, 5 * 60_000);
+  imapPoll.unref();
+  setTimeout(() => {
+    void pollAllMailboxes().catch((err) => log.error("imap poll crashed", { err }));
+  }, 15_000);
 
   while (!stopping) {
     try {
