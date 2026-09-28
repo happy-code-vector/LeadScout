@@ -38,6 +38,10 @@ class FakeProvider implements DiscoveryProvider {
       nextPageToken: next < capped.length ? String(next) : undefined,
     };
   }
+
+  async placeDetails(): Promise<null> {
+    return null; // not used by the engine tests
+  }
 }
 
 function makeGuard(cap: number) {
@@ -129,6 +133,9 @@ describe("discoverCategoryArea", () => {
         return req.fields === "ids"
           ? { places: [{ id: "known_1" }] }
           : { places: [{ id: "known_1", displayName: "Known" }] };
+      },
+      async placeDetails() {
+        return null;
       },
     };
     const { hooks, state } = makeHooks(new Set(["known_1"]));

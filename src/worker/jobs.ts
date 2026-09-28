@@ -17,6 +17,7 @@ import {
   startCampaign,
   stopSequences,
 } from "../lib/outreach/engine";
+import { runPlacesRefreshSweep } from "../lib/discovery/refresh";
 import { prisma as db } from "../lib/db";
 
 /**
@@ -166,6 +167,16 @@ registerJob("audit.sweep", async () => {
 /** Recompute scores for every business (idempotent). */
 registerJob("score.sweep", async () => {
   await rescoreAll();
+});
+
+/**
+ * Places 30-day refresh + retention (spec hard rule 5): refresh
+ * pipeline-leads' Places fields via Place Details (budget-guarded), clear
+ * Places-sourced fields for everyone else past 30 days.
+ */
+registerJob("places.refresh-sweep", async () => {
+  const { refreshed, cleared } = await runPlacesRefreshSweep();
+  log.info("places refresh sweep job done", { refreshed, cleared });
 });
 
 /** Start a campaign: validate, build the pool, schedule first-channel actions. */

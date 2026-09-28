@@ -70,6 +70,8 @@ export interface SearchTextPage {
 
 export interface DiscoveryProvider {
   searchText(req: SearchTextRequest): Promise<SearchTextPage>;
+  /** Place Details for refreshes (spec hard rule 5). */
+  placeDetails(placeId: string): Promise<Place | null>;
 }
 
 const PLACES_ENDPOINT = "https://places.googleapis.com/v1/places:searchText";
@@ -81,6 +83,9 @@ const REQUEST_TIMEOUT_MS = 10_000;
 export function maxPages(): number {
   return MAX_PAGES;
 }
+
+/** Place Details refresh (Enterprise field set, billed as Place Details). */
+export const SKU_PLACE_DETAILS = "place-details-enterprise";
 
 // ---------------------------------------------------------------------------
 // Real client
@@ -119,6 +124,23 @@ export class PlacesClient implements DiscoveryProvider {
       throw new Error(`Places searchText failed (${res.status}): ${text.slice(0, 500)}`);
     }
     return (await res.json()) as SearchTextPage;
+  }
+
+  async placeDetails(placeId: string): Promise<Place | null> {
+    const url = `https://places.googleapis.com/v1/places/${encodeURIComponent(placeId)}`;
+    const res = await fetch(url, {
+      headers: {
+        "X-Goog-Api-Key": this.apiKey,
+        "X-Goog-FieldMask": FIELD_MASK_ENTERPRISE,
+      },
+      signal: AbortSignal.timeout(REQUEST_TIMEOUT_MS),
+    });
+    if (res.status === 404) return null;
+    if (!res.ok) {
+      const text = await res.text().catch(() => "");
+      throw new Error(`Place Details failed (${res.status}): ${text.slice(0, 500)}`);
+    }
+    return (await res.json()) as Place;
   }
 }
 
@@ -184,6 +206,12 @@ export class MockPlacesClient implements DiscoveryProvider {
       places: page.map((p) => (req.fields === "ids" ? { id: p.id } : toPlaceShape(p))),
       nextPageToken: next < capped.length ? String(next) : undefined,
     };
+  }
+
+  async placeDetails(placeId: string): Promise<Place | null> {
+    const all = await this.all();
+    const hit = all.find((p) => p.id === placeId);
+    return hit ? toPlaceShape(hit) : null;
   }
 }
 

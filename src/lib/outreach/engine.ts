@@ -559,3 +559,44 @@ export function warmupCap(mailbox: Mailbox): number {
   const days = Math.floor((Date.now() - mailbox.warmupStartDate.getTime()) / (24 * 60 * 60_000));
   return Math.min(cap, 10 + 5 * days);
 }
+
+/** Send due postcards through Lob (postal events only exist when LOB_API_KEY is set). */
+export async function processDuePostcards(): Promise<number> {
+  if (!isPostalEnabled) return 0;
+  const { sendPostcard } = await import("./postal");
+  const due = await prisma.outreachEvent.findMany({
+    where: { status: "SCHEDULED", scheduledFor: { lte: new Date() }, channel: "POSTAL" },
+    include: { campaign: { select: { status: true } } },
+    take: 20,
+  });
+  let sent = 0;
+  for (const event of due) {
+    if (event.campaign.status !== "RUNNING") continue;
+    const lead = await prisma.lead.findUnique({
+      where: { id: event.leadId },
+      select: { status: true },
+    });
+    if (lead && ["REPLIED", "MEETING", "PROPOSAL", "WON", "LOST", "DO_NOT_CONTACT"].includes(lead.status)) {
+      await prisma.outreachEvent.delete({ where: { id: event.id } });
+      continue;
+    }
+    const result = await sendPostcard(event.leadId, event.campaignId);
+    if (!result.ok) {
+      await prisma.outreachEvent.update({
+        where: { id: event.id },
+        data: { status: "FAILED", meta: JSON.stringify({ error: result.error }) },
+      });
+    } else {
+      await prisma.outreachEvent.update({
+        where: { id: event.id },
+        data: { status: "SENT", occurredAt: new Date(), meta: JSON.stringify({ lobId: result.lobId }) },
+      });
+      await prisma.lead.update({
+        where: { id: event.leadId },
+        data: { lastActivityAt: new Date() },
+      });
+      sent += 1;
+    }
+  }
+  return sent;
+}

@@ -1,7 +1,7 @@
 import "dotenv/config";
 import { log } from "../lib/logger";
 import { drainQueue, enqueue, pruneOldJobs, recoverStaleJobs } from "../lib/queue";
-import { processDueEmails } from "../lib/outreach/engine";
+import { processDueEmails, processDuePostcards } from "../lib/outreach/engine";
 import { pollAllMailboxes } from "../lib/outreach/imap";
 import "./jobs";
 import { recoverOrphanedRuns } from "./jobs";
@@ -39,17 +39,21 @@ async function main() {
   process.on("SIGINT", () => void shutdown("SIGINT"));
   process.on("SIGTERM", () => void shutdown("SIGTERM"));
 
-  // Housekeeping: prune finished jobs and kick the 90-day re-audit sweep hourly.
+  // Housekeeping: prune finished jobs and kick the 90-day re-audit sweep and
+  // the Places 30-day refresh/retention sweep hourly.
   const housekeeping = setInterval(() => {
     void pruneOldJobs().catch((err) => log.error("prune failed", { err }));
     void enqueue("audit.sweep", {}).catch((err) => log.error("audit sweep enqueue failed", { err }));
+    void enqueue("places.refresh-sweep", {}).catch((err) => log.error("places refresh enqueue failed", { err }));
   }, 60 * 60_000);
   housekeeping.unref();
 
   // Outreach tick: send due scheduled emails once a minute. The engine
   // enforces send windows, warmup/daily limits, and 2–6 min spacing itself.
+  // Postcards (Lob) ride along on the same cadence.
   const outreachTick = setInterval(() => {
     void processDueEmails().catch((err) => log.error("outreach tick failed", { err }));
+    void processDuePostcards().catch((err) => log.error("postcard tick failed", { err }));
   }, 60_000);
   outreachTick.unref();
   // Run one tick shortly after startup so dev restarts don't wait a minute.

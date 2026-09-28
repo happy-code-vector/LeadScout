@@ -10,7 +10,7 @@ import type { AddressComponent, Place } from "./places";
 
 const FRESH_WINDOW_DAYS = 30;
 
-interface AreaFallback {
+export interface AreaFallback {
   name: string;
   city: string;
   state: string;
