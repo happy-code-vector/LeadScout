@@ -1,0 +1,383 @@
+// LeadScout data model — see spec.md "Data model (Prisma)".
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+// ---------------------------------------------------------------------------
+// Enums
+// ---------------------------------------------------------------------------
+
+enum WebsiteClass {
+  NONE
+  SOCIAL_OR_DIRECTORY
+  DEAD
+  PARKED
+  OUTDATED
+  OK
+}
+
+enum ContactType {
+  EMAIL
+  PHONE
+  POSTAL
+}
+
+enum ContactSource {
+  PLACES
+  WEBSITE
+  MANUAL
+}
+
+enum Tier {
+  A
+  B
+  C
+  D
+}
+
+enum LeadStatus {
+  NEW
+  QUEUED
+  CONTACTED
+  REPLIED
+  MEETING
+  PROPOSAL
+  WON
+  LOST
+  DO_NOT_CONTACT
+}
+
+enum CampaignMode {
+  MANUAL
+  AUTO
+}
+
+enum CampaignStatus {
+  DRAFT
+  RUNNING
+  PAUSED
+  STOPPED
+}
+
+enum Channel {
+  EMAIL
+  POSTAL
+  PHONE
+}
+
+enum OutreachStatus {
+  SCHEDULED
+  SENT
+  BOUNCED
+  REPLIED
+  UNSUBSCRIBED
+  FAILED
+}
+
+enum CallOutcome {
+  NO_ANSWER
+  VOICEMAIL
+  INTERESTED
+  NOT_INTERESTED
+  CALL_BACK
+  DO_NOT_CALL
+}
+
+enum DiscoveryStatus {
+  RUNNING
+  COMPLETED
+  FAILED
+  CAP_REACHED
+}
+
+// ---------------------------------------------------------------------------
+// Models
+// ---------------------------------------------------------------------------
+
+model Category {
+  id           String     @id @default(cuid())
+  slug         String     @unique
+  name         String
+  textQuery    String
+  // Must be a valid type from Google's Places API (New) place types table.
+  // Null when the category has no exact Google type match.
+  includedType String?
+  // 0–10: how likely businesses in this category are to buy a website.
+  propensity   Int        @default(5)
+  active       Boolean    @default(true)
+  createdAt    DateTime   @default(now())
+  businesses   Business[]
+
+  @@index([active])
+}
+
+model Area {
+  id        String   @id @default(cuid())
+  name      String
+  city      String
+  state     String
+  // Bounding box (south, west, north, east) used for Places tiling.
+  south     Float
+  west      Float
+  north     Float
+  east      Float
+  parentId  String?
+  parent    Area?    @relation("AreaTree", fields: [parentId], references: [id])
+  children  Area[]   @relation("AreaTree")
+  createdAt DateTime @default(now())
+
+  @@index([city, state])
+}
+
+model DiscoveryRun {
+  id           String          @id @default(cuid())
+  categoryIds  String[]
+  areaIds      String[]
+  status       DiscoveryStatus @default(RUNNING)
+  requestsUsed Int             @default(0)
+  placesFound  Int             @default(0)
+  newPlaces    Int             @default(0)
+  startedAt    DateTime        @default(now())
+  finishedAt   DateTime?
+  error        String?
+}
+
+model Business {
+  id              String        @id @default(cuid())
+  placeId         String        @unique
+  name            String
+  categoryId      String
+  category        Category      @relation(fields: [categoryId], references: [id])
+  address         String?
+  borough         String?
+  city            String?
+  state           String?
+  zip             String?
+  lat             Float?
+  lng             Float?
+  phone           String?
+  websiteUri      String?
+  googleMapsUri   String?
+  rating          Float?
+  reviewCount     Int?
+  businessStatus  String?
+  primaryType     String?
+  placesFetchedAt DateTime?
+  isChain         Boolean       @default(false)
+  createdAt       DateTime      @default(now())
+  audit           WebsiteAudit?
+  contacts        Contact[]
+  score           Score?
+  lead            Lead?
+
+  @@index([categoryId])
+  @@index([city, borough])
+  @@index([isChain])
+  @@index([placesFetchedAt])
+}
+
+model WebsiteAudit {
+  id                String      @id @default(cuid())
+  businessId        String      @unique
+  business          Business    @relation(fields: [businessId], references: [id], onDelete: Cascade)
+  checkedAt         DateTime    @default(now())
+  finalUrl          String?
+  httpStatus        Int?
+  websiteClass      WebsiteClass
+  copyrightYear     Int?
+  hasViewport       Boolean?
+  httpsOk           Boolean?
+  sitemapLastMod    DateTime?
+  waybackLastChange DateTime?
+  hasContactPath    Boolean?
+  platform          String?
+  findings          String[]    @default([])
+  emailsFound       String[]    @default([])
+}
+
+model Contact {
+  id         String        @id @default(cuid())
+  businessId String
+  business   Business      @relation(fields: [businessId], references: [id], onDelete: Cascade)
+  type       ContactType
+  value      String
+  source     ContactSource
+  verified   Boolean       @default(false)
+  createdAt  DateTime      @default(now())
+
+  @@unique([businessId, type, value])
+  @@index([type, value])
+}
+
+model Score {
+  id           String   @id @default(cuid())
+  businessId   String   @unique
+  business     Business @relation(fields: [businessId], references: [id], onDelete: Cascade)
+  total        Int
+  tier         Tier
+  need         Int
+  viability    Int
+  reachability Int
+  categoryFit  Int
+  reasons      String[] @default([])
+  computedAt   DateTime @default(now())
+}
+
+model Lead {
+  id             String          @id @default(cuid())
+  businessId     String          @unique
+  business       Business        @relation(fields: [businessId], references: [id], onDelete: Cascade)
+  status         LeadStatus      @default(NEW)
+  notes          String?
+  lastActivityAt DateTime        @default(now())
+  createdAt      DateTime        @default(now())
+  updatedAt      DateTime        @updatedAt
+  events         OutreachEvent[]
+  callTasks      CallTask[]
+
+  @@index([status])
+}
+
+model Campaign {
+  id           String         @id @default(cuid())
+  name         String
+  mode         CampaignMode
+  channelOrder String[]       @default(["EMAIL", "POSTAL", "PHONE"])
+  // { tier?: string[], categoryIds?: string[], areaNames?: string[], websiteClasses?: string[] }
+  filters      Json           @default("{}")
+  sequenceId   String?
+  sequence     Sequence?      @relation(fields: [sequenceId], references: [id])
+  mailboxId    String?
+  mailbox      Mailbox?       @relation(fields: [mailboxId], references: [id])
+  dailyLimit   Int            @default(50)
+  // { startHour: number, endHour: number, daysOfWeek: number[] } — recipient-local hours.
+  sendWindow   Json           @default("{\"startHour\": 9, \"endHour\": 16, \"daysOfWeek\": [1, 2, 3, 4, 5]}")
+  status       CampaignStatus @default(DRAFT)
+  createdAt    DateTime       @default(now())
+  updatedAt    DateTime       @updatedAt
+  events       OutreachEvent[]
+  callTasks    CallTask[]
+
+  @@index([status])
+}
+
+model Sequence {
+  id        String          @id @default(cuid())
+  name      String
+  steps     SequenceStep[]
+  campaigns Campaign[]
+}
+
+model SequenceStep {
+  id         String   @id @default(cuid())
+  sequenceId String
+  sequence   Sequence @relation(fields: [sequenceId], references: [id], onDelete: Cascade)
+  order      Int
+  channel    Channel
+  delayDays  Int
+  templateId String
+  template   Template @relation(fields: [templateId], references: [id])
+
+  @@unique([sequenceId, order])
+}
+
+model Template {
+  id        String          @id @default(cuid())
+  name      String
+  channel   Channel
+  subject   String?
+  body      String
+  variant   String?
+  createdAt DateTime        @default(now())
+  updatedAt DateTime        @updatedAt
+  steps     SequenceStep[]
+}
+
+model Mailbox {
+  id                String     @id @default(cuid())
+  label             String
+  smtpHost          String
+  smtpPort          Int        @default(587)
+  imapHost          String
+  imapPort          Int        @default(993)
+  user              String
+  passwordEncrypted String
+  fromName          String?
+  dailyLimit        Int        @default(40)
+  warmupStartDate   DateTime?
+  active            Boolean    @default(true)
+  createdAt         DateTime   @default(now())
+  campaigns         Campaign[]
+}
+
+model OutreachEvent {
+  id           String          @id @default(cuid())
+  leadId       String
+  lead         Lead            @relation(fields: [leadId], references: [id], onDelete: Cascade)
+  campaignId   String
+  campaign     Campaign        @relation(fields: [campaignId], references: [id])
+  channel      Channel
+  templateId   String?
+  status       OutreachStatus
+  messageId    String?
+  scheduledFor DateTime?
+  occurredAt   DateTime        @default(now())
+  meta         Json?
+
+  @@index([status, scheduledFor])
+  @@index([campaignId, occurredAt])
+  @@index([leadId, occurredAt])
+}
+
+model CallTask {
+  id          String      @id @default(cuid())
+  leadId      String
+  lead        Lead        @relation(fields: [leadId], references: [id], onDelete: Cascade)
+  campaignId  String?
+  campaign    Campaign?   @relation(fields: [campaignId], references: [id])
+  dueAt       DateTime
+  script      String?
+  outcome     CallOutcome?
+  notes       String?
+  completedAt DateTime?
+  createdAt   DateTime    @default(now())
+
+  @@index([dueAt, completedAt])
+}
+
+model Suppression {
+  id        String   @id @default(cuid())
+  // An email address, phone number, or placeId — normalized.
+  value     String   @unique
+  reason    String
+  createdAt DateTime @default(now())
+
+  @@index([reason])
+}
+
+model Settings {
+  id                      String   @id @default("singleton")
+  senderName              String?
+  senderPostalAddress     String?
+  // Shape defined by src/lib/scoring/weights.ts (ScoringWeights).
+  scoringWeights          Json
+  placesMonthlyRequestCap Int      @default(1000)
+  auditConcurrency        Int      @default(8)
+  updatedAt               DateTime @updatedAt
+}
+
+model ApiUsage {
+  id    String @id @default(cuid())
+  // Calendar month, "YYYY-MM".
+  month String
+  sku   String
+  count Int    @default(0)
+
+  @@unique([month, sku])
+}

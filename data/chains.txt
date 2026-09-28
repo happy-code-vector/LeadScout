@@ -1,0 +1,107 @@
+# National / multi-location brands. One per line; matched against normalized
+# business names during discovery (see spec: chain detection).
+# Lines starting with # are ignored.
+
+# Plumbing / HVAC / home services
+roto-rooter
+mr rooter plumbing
+benjamin franklin plumbing
+one hour heating & air
+ars rescue rooter
+sears home services
+stanley steemer
+chem-dry
+servpro
+servicemaster restore
+puroclean
+belfor
+paul davis restoration
+rainbow international
+molly maid
+maidpro
+merry maids
+two maids
+two maids & a mop
+the maids
+jani-king
+coverall
+terminix
+orkin
+ehrlich pest control
+fox pest control
+hawx pest control
+mosquito joe
+trugreen
+weed man
+lawn doctor
+brightview
+precision garage door
+overhead door
+closet factory
+
+# Auto
+jiffy lube
+meineke
+midas
+valvoline instant oil change
+firestone complete auto care
+goodyear auto service
+maaco
+aamco
+
+# Moving / junk
+two men and a truck
+all my sons moving
+college hunks hauling junk
+1-800-got-junk
+united van lines
+north american van lines
+mayflower
+allied van lines
+pods
+u-haul
+uhaul
+
+# Hair / nails / personal care
+supercuts
+great clips
+sport clips
+hair cuttery
+cost cutters
+smartstyle
+regis salon
+massage envy
+european wax center
+
+# Food / coffee (chains are not lead-gen targets)
+mcdonald's
+mcdonalds
+burger king
+wendy's
+wendys
+subway
+dunkin
+dunkin donuts
+starbucks
+chipotle
+domino's
+dominos
+pizza hut
+papa john's
+papa johns
+papa murphy's
+little caesars
+taco bell
+kfc
+popeyes
+chick-fil-a
+panera bread
+panera
+
+# Retail (not targets)
+home depot
+lowe's
+lowes
+ace hardware
+cvs
+walgreens

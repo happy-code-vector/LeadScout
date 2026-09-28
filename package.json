@@ -6,7 +6,16 @@
     "dev": "next dev --turbopack",
     "build": "next build --turbopack",
     "start": "next start",
-    "lint": "eslint"
+    "lint": "eslint",
+    "worker": "tsx watch src/worker/index.ts",
+    "worker:start": "tsx src/worker/index.ts",
+    "db:migrate": "prisma migrate dev",
+    "db:deploy": "prisma migrate deploy",
+    "db:seed": "tsx src/db/seed.ts",
+    "db:studio": "prisma studio",
+    "postinstall": "prisma generate",
+    "test": "vitest run",
+    "test:watch": "vitest"
   },
   "dependencies": {
     "@prisma/client": "^6.19.3",
@@ -14,6 +23,7 @@
     "class-variance-authority": "^0.7.1",
     "clsx": "^2.1.1",
     "cn": "^0.4.0",
+    "dotenv": "^18.0.4",
     "handlebars": "^4.7.9",
     "imapflow": "^2.1.2",
     "jsonwebtoken": "^9.0.3",
