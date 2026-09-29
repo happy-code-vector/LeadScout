@@ -11,6 +11,7 @@
     "worker:start": "tsx src/worker/index.ts",
     "maildump": "tsx scripts/maildump.ts",
     "start:all": "tsx scripts/start-all.ts",
+    "check:places": "tsx scripts/check-places.ts",
     "db:migrate": "prisma migrate dev",
     "db:deploy": "prisma migrate deploy",
     "db:seed": "tsx src/db/seed.ts",

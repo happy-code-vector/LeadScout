@@ -39,9 +39,16 @@ export interface AddressComponent {
   shortText: string;
 }
 
+/** LocalizedText as returned by the Places API (New). */
+export interface LocalizedText {
+  text: string;
+  languageCode?: string;
+}
+
 export interface Place {
   id: string;
-  displayName?: string;
+  /** LocalizedText object, not a plain string. */
+  displayName?: LocalizedText;
   formattedAddress?: string;
   addressComponents?: AddressComponent[];
   location?: { latitude: number; longitude: number };

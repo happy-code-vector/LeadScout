@@ -132,7 +132,7 @@ describe("discoverCategoryArea", () => {
       async searchText(req) {
         return req.fields === "ids"
           ? { places: [{ id: "known_1" }] }
-          : { places: [{ id: "known_1", displayName: "Known" }] };
+          : { places: [{ id: "known_1", displayName: { text: "Known" } }] };
       },
       async placeDetails() {
         return null;

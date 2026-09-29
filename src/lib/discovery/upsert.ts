@@ -47,7 +47,8 @@ export async function upsertPlace(
   area: AreaFallback,
 ): Promise<UpsertOutcome> {
   if (place.businessStatus && place.businessStatus !== "OPERATIONAL") return "skipped";
-  if (!place.displayName) return "skipped";
+  const name = place.displayName?.text?.trim();
+  if (!name) return "skipped";
 
   const { borough, city, state, zip } = parseAddressComponents(
     place.addressComponents,
@@ -62,7 +63,7 @@ export async function upsertPlace(
   const business = await prisma.business.upsert({
     where: { placeId: place.id },
     update: {
-      name: place.displayName,
+      name,
       categoryId,
       address: place.formattedAddress ?? null,
       borough,
@@ -82,7 +83,7 @@ export async function upsertPlace(
     },
     create: {
       placeId: place.id,
-      name: place.displayName,
+      name,
       categoryId,
       address: place.formattedAddress ?? null,
       borough,
