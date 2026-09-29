@@ -3,6 +3,7 @@ import { z } from "zod";
 import { prisma } from "@/lib/db";
 import { enqueue } from "@/lib/queue";
 import { toJson } from "@/lib/domain";
+import { isPlacesConfigured } from "@/lib/env";
 import { estimatedSpend, SKU_TEXT_SEARCH_ENTERPRISE } from "@/lib/discovery/budget";
 import { monthlyUsage } from "@/lib/discovery/usage";
 
@@ -12,6 +13,13 @@ const startSchema = z.object({
 });
 
 export async function POST(request: Request) {
+  if (!isPlacesConfigured) {
+    return NextResponse.json(
+      { error: "Places API key not configured — set GOOGLE_PLACES_API_KEY to run discovery" },
+      { status: 400 },
+    );
+  }
+
   const body = await request.json().catch(() => null);
   const parsed = startSchema.safeParse(body);
   if (!parsed.success) {

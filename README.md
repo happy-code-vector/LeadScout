@@ -34,13 +34,13 @@ node -e "console.log(require('crypto').randomBytes(32).toString('base64'))"
 
 ## Modes
 
-- **Mock mode** (default): with no `GOOGLE_PLACES_API_KEY`, discovery serves
-  fixture data from `fixtures/places/*.json` and website audits serve
-  `fixtures/sites/*.html` (`.test` hosts) — the whole app works end to end
-  with no paid keys and no network.
-- **Live mode**: set `GOOGLE_PLACES_API_KEY`. Billed requests are capped by
-  `Settings → Places monthly request cap` (default 1,000/month, the free
-  tier); runs stop cleanly with `CAP_REACHED`.
+- **Live only.** Discovery requires `GOOGLE_PLACES_API_KEY`. Without a key,
+  the Discover page and Settings flag it clearly and runs refuse to start —
+  no fixture or sample data is ever served at runtime. Billed requests are
+  capped by `Settings → Places monthly request cap` (default 1,000/month,
+  the free tier); runs stop cleanly with `CAP_REACHED`.
+- `fixtures/sites/*.html` exists only for the unit-test suite (`npm test`);
+  it is never read by the running app.
 
 ## Testing email flows locally
 
@@ -68,6 +68,8 @@ reply/bounce handler (the same one IMAP uses in production).
 ## Compliance guardrails (built in)
 
 - No Google Maps HTML scraping — Places API (New) behind a provider interface.
+- No mock data at runtime: a missing Places key disables discovery and is
+  flagged in the UI rather than papered over with fixtures.
 - Phone outreach is never automated — campaigns only create manual call
   tasks (TCPA).
 - Every email carries the sender's postal address, a working one-click
@@ -113,8 +115,8 @@ src/
     outreach/   # engine, sender, imap, replies, unsubscribe, postal
   db/           # Prisma client + seed
   worker/       # worker process + job handlers
-scripts/        # maildump (dev sink), start-all (deploy), fixture generator
+scripts/        # maildump (dev sink), start-all (deploy)
 data/           # leadscout.db (gitignored), chains.txt, maildump.jsonl (gitignored)
-fixtures/       # places + site HTML fixtures for mock mode
+fixtures/       # site HTML fixtures used only by the unit-test suite
 prisma/         # schema + migrations
 ```

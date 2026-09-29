@@ -1,7 +1,4 @@
-import { readdir, readFile } from "node:fs/promises";
-import path from "node:path";
 import type { Bbox } from "./tiler";
-import { containsPoint } from "./tiler";
 
 /**
  * Google Places API (New) Text Search behind a DiscoveryProvider interface
@@ -10,6 +7,9 @@ import { containsPoint } from "./tiler";
  * Two field masks (the mask sets the price tier):
  * - "ids":       places.id,nextPageToken — Text Search Essentials (IDs Only), free
  * - "enterprise": the full field list — Text Search Enterprise, billed
+ *
+ * Requires GOOGLE_PLACES_API_KEY. No key = discovery disabled and flagged —
+ * fixture data is never served at runtime (spec: Hard rules #2).
  */
 
 export const FIELD_MASK_IDS = "places.id,nextPageToken";
@@ -88,8 +88,15 @@ export function maxPages(): number {
 export const SKU_PLACE_DETAILS = "place-details-enterprise";
 
 // ---------------------------------------------------------------------------
-// Real client
+// Client
 // ---------------------------------------------------------------------------
+
+export class PlacesNotConfiguredError extends Error {
+  constructor() {
+    super("Google Places API key is not configured — set GOOGLE_PLACES_API_KEY to run discovery");
+    this.name = "PlacesNotConfiguredError";
+  }
+}
 
 export class PlacesClient implements DiscoveryProvider {
   constructor(private readonly apiKey: string) {}
@@ -144,85 +151,8 @@ export class PlacesClient implements DiscoveryProvider {
   }
 }
 
-// ---------------------------------------------------------------------------
-// Mock client — serves fixtures/places/*.json when no API key is set.
-// The whole app must work end to end with no paid keys (spec: Hard rules #2).
-// ---------------------------------------------------------------------------
-
-interface FixturePlace extends Place {
-  /** Which category textQuery this fixture place answers to. */
-  textQuery: string;
-}
-
-interface FixtureFile {
-  places: FixturePlace[];
-}
-
-export class MockPlacesClient implements DiscoveryProvider {
-  private cache: FixturePlace[] | null = null;
-
-  constructor(private readonly fixturesDir = path.join(process.cwd(), "fixtures", "places")) {}
-
-  private async all(): Promise<FixturePlace[]> {
-    if (this.cache) return this.cache;
-    let files: string[] = [];
-    try {
-      files = (await readdir(this.fixturesDir)).filter((f) => f.endsWith(".json"));
-    } catch {
-      this.cache = [];
-      return this.cache;
-    }
-    const places: FixturePlace[] = [];
-    for (const file of files) {
-      const raw = JSON.parse(await readFile(path.join(this.fixturesDir, file), "utf8")) as FixtureFile;
-      places.push(...(raw.places ?? []));
-    }
-    this.cache = places;
-    return this.cache;
-  }
-
-  async searchText(req: SearchTextRequest): Promise<SearchTextPage> {
-    const all = await this.all();
-    const q = req.textQuery.toLowerCase();
-    // Match on category text query, optional type, and bbox containment.
-    // Closed businesses are returned too — the caller skips non-OPERATIONAL.
-    const matched = all.filter((p) => {
-      if ((p.textQuery ?? "").toLowerCase() !== q) return false;
-      if (req.includedType && p.primaryType !== req.includedType && !(p.types ?? []).includes(req.includedType)) {
-        return false;
-      }
-      if (!p.location || !containsPoint(req.rectangle, p.location.latitude, p.location.longitude)) {
-        return false;
-      }
-      return true;
-    });
-
-    // Mirror the API: pages of 20, capped at 60 per query.
-    const capped = matched.slice(0, MAX_PAGES * PAGE_SIZE);
-    const cursor = req.pageToken ? Number(req.pageToken) : 0;
-    const page = capped.slice(cursor, cursor + PAGE_SIZE);
-    const next = cursor + PAGE_SIZE;
-    return {
-      places: page.map((p) => (req.fields === "ids" ? { id: p.id } : toPlaceShape(p))),
-      nextPageToken: next < capped.length ? String(next) : undefined,
-    };
-  }
-
-  async placeDetails(placeId: string): Promise<Place | null> {
-    const all = await this.all();
-    const hit = all.find((p) => p.id === placeId);
-    return hit ? toPlaceShape(hit) : null;
-  }
-}
-
-function toPlaceShape(p: FixturePlace): Place {
-  // Strip the fixture-only textQuery tag before handing the place back.
-  const rest = { ...p } as Partial<FixturePlace>;
-  delete rest.textQuery;
-  return rest as Place;
-}
-
-/** Pick the provider from the environment: real when a key is set, else mock. */
+/** Create the live provider. Throws PlacesNotConfiguredError without a key — never fakes data. */
 export function createProvider(apiKey: string): DiscoveryProvider {
-  return apiKey ? new PlacesClient(apiKey) : new MockPlacesClient();
+  if (!apiKey) throw new PlacesNotConfiguredError();
+  return new PlacesClient(apiKey);
 }

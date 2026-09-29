@@ -48,13 +48,27 @@ registerJob(
       throw new Error("run has no categories or no areas");
     }
 
+    // Defensive: the API route already blocks starts without a key, but a job
+    // queued before the key was removed should fail the run cleanly.
+    if (!env.GOOGLE_PLACES_API_KEY) {
+      await prisma.discoveryRun.update({
+        where: { id: run.id },
+        data: {
+          status: "FAILED",
+          finishedAt: new Date(),
+          error: "Places API key not configured — set GOOGLE_PLACES_API_KEY",
+        },
+      });
+      return;
+    }
+
     const provider = createProvider(env.GOOGLE_PLACES_API_KEY);
     const guard = new BudgetGuard(new PrismaUsageCounter(), settingsCapProvider);
 
     const totals = { requestsUsed: 0, placesFound: 0, newPlaces: 0 };
     log.info("discovery run started", {
       runId,
-      provider: env.GOOGLE_PLACES_API_KEY ? "places" : "mock",
+      provider: "places",
       categories: categories.length,
       areas: areas.length,
     });

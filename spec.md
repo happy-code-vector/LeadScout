@@ -20,7 +20,7 @@ This file is the source of truth. Build phase by phase (see "Build phases"). Sto
 ## Hard rules
 
 1. Do not scrape Google Maps HTML. Its selectors change constantly and scraping breaks Google's terms. Discovery uses the Google Places API (New) behind a `DiscoveryProvider` interface, so another provider can be added later.
-2. Mock mode is required. If `GOOGLE_PLACES_API_KEY` is unset, the Places client serves fixture data from `fixtures/places/*.json`. The whole app must be usable end to end with no paid keys.
+2. No mock data at runtime. If `GOOGLE_PLACES_API_KEY` is unset, discovery is disabled and clearly flagged in the UI ("Places API key not configured — set GOOGLE_PLACES_API_KEY"); starting a run returns an error instead of serving fixture data. Fixtures exist only for unit tests, never in the running app.
 3. Phone outreach is never automated. There are no auto-dialed calls, no prerecorded messages, and no automated SMS to scraped numbers, because US TCPA rules restrict them. The phone channel creates call tasks that the owner dials manually from the Call Queue.
 4. Every email follows CAN-SPAM:
    - The sender's physical postal address appears in the footer.
@@ -357,8 +357,8 @@ Mailbox credentials are entered in the UI, not in env vars.
    - Build: Next.js app, Prisma schema, seed script (categories, NYC boroughs, templates, default settings), app shell with navigation.
    - Accept when: `npm i && npm run db:migrate && npm run db:seed && npm run dev` works and every page renders.
 2. **Discovery.**
-   - Build: Places client with mock mode, quadtree tiler, worker jobs, chain detection, Discover page.
-   - Accept when: a mock run of Plumber × Brooklyn populates businesses, and unit tests pass for the tiler's subdivision logic and the request cap.
+   - Build: Places client (requires `GOOGLE_PLACES_API_KEY`; missing key is flagged, never faked), quadtree tiler, worker jobs, chain detection, Discover page.
+   - Accept when: with a key configured, a run of Plumber × Brooklyn populates businesses; without a key, the UI flags it and runs refuse to start; unit tests pass for the tiler's subdivision logic and the request cap.
 3. **Enrichment.**
    - Build: website classifier, audit signals, email extraction, re-audit schedule.
    - Accept when: tests pass against HTML fixtures, with one fixture per website class.

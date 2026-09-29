@@ -1,9 +1,9 @@
 import { prisma } from "@/lib/db";
 import { PageHeader } from "@/components/page-header";
 import { DiscoverClient, type DiscoverData } from "./discover-client";
+import { isPlacesConfigured } from "@/lib/env";
 import { estimatedSpend, SKU_TEXT_SEARCH_ENTERPRISE } from "@/lib/discovery/budget";
 import { monthlyUsage } from "@/lib/discovery/usage";
-import { env } from "@/lib/env";
 
 export const dynamic = "force-dynamic";
 
@@ -47,7 +47,7 @@ export default async function DiscoverPage() {
       startedAt: r.startedAt.toISOString(),
       finishedAt: r.finishedAt?.toISOString() ?? null,
     })),
-    mockMode: env.GOOGLE_PLACES_API_KEY === "",
+    placesConfigured: isPlacesConfigured,
   };
 
   return (

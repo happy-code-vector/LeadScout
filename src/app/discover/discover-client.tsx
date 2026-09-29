@@ -44,7 +44,7 @@ export interface DiscoverData {
     startedAt: string;
     finishedAt: string | null;
   }[];
-  mockMode: boolean;
+  placesConfigured: boolean;
 }
 
 interface RunState {
@@ -152,11 +152,19 @@ export function DiscoverClient({ data }: { data: DiscoverData }) {
 
   return (
     <div className="space-y-6">
+      {!data.placesConfigured && (
+        <p className="rounded-lg border border-destructive/40 bg-destructive/10 px-3 py-2 text-sm text-destructive">
+          <strong>Places API key not configured.</strong> Discovery is disabled until{" "}
+          <code className="rounded bg-muted px-1">GOOGLE_PLACES_API_KEY</code> is set in{" "}
+          <code className="rounded bg-muted px-1">.env</code>. Nothing is faked — no fixture data is
+          served.
+        </p>
+      )}
       <div className="flex flex-wrap items-center gap-2">
-        {data.mockMode ? (
-          <Badge variant="secondary">Mock mode — fixture data, no API calls billed</Badge>
-        ) : (
+        {data.placesConfigured ? (
           <Badge variant="default">Live Places API</Badge>
+        ) : (
+          <Badge variant="destructive">Places API key missing</Badge>
         )}
         <Badge variant="outline">
           Requests this month: {data.usage.used}/{data.usage.cap}
@@ -224,7 +232,8 @@ export function DiscoverClient({ data }: { data: DiscoverData }) {
           </div>
           <Button
             onClick={startRun}
-            disabled={busy || selectedCategories.size === 0 || selectedAreas.size === 0}
+            disabled={busy || !data.placesConfigured || selectedCategories.size === 0 || selectedAreas.size === 0}
+            title={data.placesConfigured ? undefined : "Set GOOGLE_PLACES_API_KEY first"}
           >
             <Radar className="size-4" data-icon="inline-start" />
             {busy ? "Running…" : "Run discovery"}

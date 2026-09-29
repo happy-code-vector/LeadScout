@@ -1,16 +1,7 @@
-import { readFile } from "node:fs/promises";
-import path from "node:path";
-
 /**
- * Network layer for the website audit.
- *
- * Mock mode: hosts under the reserved ".test" TLD are served from
- * fixtures/sites/ — the host's first dot-separated label names the fixture
- * (e.g. "old-copyright-2016.baxter-plumbing.test" → old-copyright-2016.html).
- * "dead-tls" hosts simulate a TLS/connection failure. This keeps the whole
- * pipeline runnable offline against the seeded fixture businesses.
- *
- * Real mode: plain fetch with a 10 s timeout and redirect following.
+ * Network layer for the website audit. Plain fetch with a 10 s timeout and
+ * redirect following — real sites only, no fixture serving at runtime
+ * (fixtures/sites is used exclusively by unit tests).
  */
 
 export const REQUEST_TIMEOUT_MS = 10_000;
@@ -28,78 +19,35 @@ export class SiteUnreachableError extends Error {
   }
 }
 
-function isMockHost(url: URL): boolean {
-  return url.hostname.endsWith(".test");
-}
+const HEADERS = {
+  "User-Agent": "Mozilla/5.0 (compatible; LeadScoutAudit/1.0)",
+  Accept: "text/html,application/xhtml+xml",
+};
 
-async function readSiteFixture(name: string): Promise<string> {
-  return readFile(path.join(process.cwd(), "fixtures", "sites", name), "utf8");
-}
-
-async function fetchMock(url: URL, kind: "page" | "sitemap" | "robots"): Promise<FetchedPage> {
-  const labels = url.hostname.replace(/\.test$/, "").split(".");
-  const kindLabel = labels[0]; // e.g. old-copyright-2016
-
-  if (kindLabel === "dead-tls") {
-    throw new SiteUnreachableError("invalid TLS certificate, no HTTP fallback");
-  }
-
-  let file: string | null = null;
-  if (kind === "sitemap") {
-    file = kindLabel === "modern-fresh" ? "modern-fresh.sitemap.xml" : null;
-  } else if (kind === "robots") {
-    file = "robots.txt";
-  } else {
-    file = `${kindLabel}.html`;
-  }
-
-  if (!file) {
-    return { finalUrl: url.toString(), status: 404, html: "" };
-  }
-  try {
-    return { finalUrl: url.toString(), status: 200, html: await readSiteFixture(file) };
-  } catch {
-    return { finalUrl: url.toString(), status: 404, html: "" };
-  }
-}
-
-async function fetchReal(url: URL): Promise<FetchedPage> {
+export async function fetchPage(url: URL): Promise<FetchedPage> {
   const res = await fetch(url, {
     redirect: "follow",
-    headers: {
-      "User-Agent": "Mozilla/5.0 (compatible; LeadScoutAudit/1.0)",
-      Accept: "text/html,application/xhtml+xml",
-    },
+    headers: HEADERS,
     signal: AbortSignal.timeout(REQUEST_TIMEOUT_MS),
   });
   const html = await res.text().catch(() => "");
   return { finalUrl: res.url || url.toString(), status: res.status, html };
 }
 
-export async function fetchPage(url: URL): Promise<FetchedPage> {
-  if (isMockHost(url)) return fetchMock(url, "page");
-  return fetchReal(url);
-}
-
 /** Returns null when the sitemap is missing or unparsable. */
 export async function fetchSitemapLastMod(origin: URL): Promise<Date | null> {
   const url = new URL("sitemap.xml", origin);
   let xml: string;
-  if (isMockHost(url)) {
-    const res = await fetchMock(url, "sitemap");
-    if (res.status !== 200 || !res.html) return null;
-    xml = res.html;
-  } else {
-    try {
-      const res = await fetch(url, {
-        redirect: "follow",
-        signal: AbortSignal.timeout(REQUEST_TIMEOUT_MS),
-      });
-      if (!res.ok) return null;
-      xml = await res.text();
-    } catch {
-      return null;
-    }
+  try {
+    const res = await fetch(url, {
+      redirect: "follow",
+      headers: HEADERS,
+      signal: AbortSignal.timeout(REQUEST_TIMEOUT_MS),
+    });
+    if (!res.ok) return null;
+    xml = await res.text();
+  } catch {
+    return null;
   }
   const dates = [...xml.matchAll(/<lastmod>([^<]+)<\/lastmod>/gi)]
     .map((m) => new Date(m[1]))
@@ -113,8 +61,6 @@ export async function fetchSitemapLastMod(origin: URL): Promise<Date | null> {
  * Returns null on any failure — it's a bonus signal, never critical.
  */
 export async function fetchWaybackLastChange(targetUrl: string): Promise<Date | null> {
-  const url = new URL(targetUrl);
-  if (isMockHost(url)) return null; // no archive for fixture sites
   const cdx = `https://web.archive.org/cdx?url=${encodeURIComponent(targetUrl)}&collapse=digest&output=json&filter=statuscode:200&limit=50`;
   try {
     const res = await fetch(cdx, { signal: AbortSignal.timeout(REQUEST_TIMEOUT_MS) });
@@ -152,18 +98,14 @@ class AllowAll implements Robots {
 }
 
 export async function fetchRobots(origin: URL): Promise<Robots> {
-  const url = new URL("robots.txt", origin);
   let text: string | null;
-  if (isMockHost(url)) {
-    const res = await fetchMock(url, "robots");
-    text = res.status === 200 ? res.html : null;
-  } else {
-    try {
-      const res = await fetch(url, { signal: AbortSignal.timeout(REQUEST_TIMEOUT_MS) });
-      text = res.ok ? await res.text() : null;
-    } catch {
-      text = null;
-    }
+  try {
+    const res = await fetch(new URL("robots.txt", origin), {
+      signal: AbortSignal.timeout(REQUEST_TIMEOUT_MS),
+    });
+    text = res.ok ? await res.text() : null;
+  } catch {
+    text = null;
   }
   if (!text) return new AllowAll();
 

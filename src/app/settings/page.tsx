@@ -1,7 +1,7 @@
 import { prisma } from "@/lib/db";
 import { PageHeader } from "@/components/page-header";
 import { SettingsClient } from "./settings-client";
-import { env, isPostalEnabled } from "@/lib/env";
+import { isPlacesConfigured, isPostalEnabled } from "@/lib/env";
 import { hasEncryptionKey } from "@/lib/crypto";
 import { DEFAULT_WEIGHTS } from "@/lib/scoring/weights";
 
@@ -43,11 +43,13 @@ export default async function SettingsPage() {
           warmupStartDate: m.warmupStartDate?.toISOString() ?? null,
         }))}
         connections={{
-          places: env.GOOGLE_PLACES_API_KEY ? "live (Places API key set)" : "mock mode (fixture data)",
+          places: isPlacesConfigured
+            ? "live — GOOGLE_PLACES_API_KEY is set"
+            : "missing — discovery is disabled until GOOGLE_PLACES_API_KEY is set (never faked)",
           encryptionKey: hasEncryptionKey() ? "ok" : "missing — mailbox passwords cannot be saved",
           smtp: mailboxes.length > 0 ? `${mailboxes.length} mailbox(es) configured` : "none configured",
           lob: isPostalEnabled ? "enabled (LOB_API_KEY set)" : "disabled (no key) — postal channel off",
-          imap: "checked per mailbox in phase 6",
+          imap: "polled every 5 minutes per mailbox",
         }}
       />
     </>
