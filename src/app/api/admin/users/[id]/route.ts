@@ -28,6 +28,12 @@ export async function POST(request: Request, { params }: { params: Promise<{ id:
     return NextResponse.json({ ok: true });
   }
 
+  const target = await prisma.user.findUnique({ where: { id }, select: { role: true } });
+  if (!target) return NextResponse.json({ error: "Not found" }, { status: 404 });
+  if (target.role === "ROOT") {
+    return NextResponse.json({ error: "Cannot delete a root account." }, { status: 403 });
+  }
+
   const deleted = await prisma.user.delete({ where: { id }, select: { id: true } }).catch(() => null);
   if (!deleted) return NextResponse.json({ error: "Not found" }, { status: 404 });
   return NextResponse.json({ ok: true });

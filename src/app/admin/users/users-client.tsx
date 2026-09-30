@@ -2,6 +2,7 @@
 
 import { useRouter } from "next/navigation";
 import { useState } from "react";
+import { toast } from "sonner";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import {
@@ -26,13 +27,18 @@ export function UsersClient({ users }: { users: Row[] }) {
 
   async function act(id: string, action: "approve" | "delete") {
     setBusyId(id);
-    await fetch(`/api/admin/users/${id}`, {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ action }),
-    });
-    setBusyId(null);
-    router.refresh();
+    try {
+      await fetch(`/api/admin/users/${id}`, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ action }),
+      });
+    } catch {
+      toast.error("Could not reach the server — try again.");
+    } finally {
+      setBusyId(null);
+      router.refresh();
+    }
   }
 
   return (
