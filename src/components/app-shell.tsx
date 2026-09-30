@@ -6,14 +6,19 @@ import {
   BarChart3,
   FileText,
   LayoutDashboard,
+  LogOut,
   Megaphone,
   Phone,
   Radar,
   Settings,
+  ShieldCheck,
   Tags,
   Users,
 } from "lucide-react";
+import { signOut } from "next-auth/react";
 import { cn } from "@/lib/utils";
+
+type ShellUser = { email: string; role?: string };
 
 const NAV = [
   { href: "/", label: "Dashboard", icon: LayoutDashboard },
@@ -27,8 +32,20 @@ const NAV = [
   { href: "/settings", label: "Settings", icon: Settings },
 ];
 
-export function AppShell({ children }: { children: React.ReactNode }) {
+export function AppShell({
+  children,
+  user = null,
+}: {
+  children: React.ReactNode;
+  user?: ShellUser | null;
+}) {
   const pathname = usePathname();
+  const nav = user?.role === "ROOT"
+    ? [
+        ...NAV,
+        { href: "/admin/users", label: "Access", icon: ShieldCheck },
+      ]
+    : NAV;
 
   return (
     <div className="flex min-h-screen">
@@ -45,7 +62,7 @@ export function AppShell({ children }: { children: React.ReactNode }) {
           </div>
         </div>
         <nav className="flex flex-1 flex-col gap-0.5 px-3 pb-4">
-          {NAV.map(({ href, label, icon: Icon }) => {
+          {nav.map(({ href, label, icon: Icon }) => {
             const active =
               href === "/" ? pathname === "/" : pathname.startsWith(href);
             return (
@@ -65,6 +82,18 @@ export function AppShell({ children }: { children: React.ReactNode }) {
             );
           })}
         </nav>
+        {user ? (
+          <div className="border-t px-4 py-3">
+            <div className="truncate text-xs text-muted-foreground">{user.email}</div>
+            <button
+              type="button"
+              onClick={() => signOut({ callbackUrl: "/signin" })}
+              className="mt-1 flex items-center gap-1.5 text-xs text-muted-foreground transition-colors hover:text-sidebar-accent-foreground"
+            >
+              <LogOut className="size-3.5" /> Sign out
+            </button>
+          </div>
+        ) : null}
         <div className="border-t px-5 py-3 text-xs text-muted-foreground">
           NYC &rarr; any US city
         </div>
