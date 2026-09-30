@@ -19,6 +19,7 @@ function run(cmd: string, args: string[]): Promise<void> {
 async function main() {
   await run("npx", ["prisma", "migrate", "deploy"]);
   await run("npm", ["run", "db:seed"]);
+  await run("npm", ["run", "db:ensure-root"]);
 
   const children = [
     spawn("npm", ["run", "start"], { stdio: "inherit", shell: true }),
