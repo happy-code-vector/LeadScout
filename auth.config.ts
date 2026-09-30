@@ -5,9 +5,10 @@ import type { NextAuthConfig } from "next-auth";
  * auth setup in src/auth.ts and the middleware.
  */
 export const authConfig = {
-  pages: {
-    signIn: "/api/auth/signin",
-  },
+  // No pages.signIn override: setting it to "/api/auth/signin" (the built-in
+  // route itself) makes Auth.js redirect the signin page to itself — an
+  // infinite redirect loop behind any proxy. Unset, GET /api/auth/signin
+  // renders the built-in email magic-link form.
   providers: [], // edge-safe; the Node-side setup adds the Email provider
   session: { strategy: "jwt" as const },
   trustHost: true,
