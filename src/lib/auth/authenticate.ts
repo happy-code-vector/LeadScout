@@ -28,10 +28,17 @@ export function evaluateLogin(user: LoginUser | null, password: string, locked: 
 /** Wired version used by the Credentials provider. */
 export async function authenticateUser(email: string, password: string): Promise<LoginResult> {
   const locked = isLocked(email);
-  const user = await prisma.user.findUnique({
+  const row = await prisma.user.findUnique({
     where: { email: email.trim().toLowerCase() },
   });
-  const result = evaluateLogin(user ?? null, password, locked);
+  // Prisma's email is nullable (String?) but LoginUser's is not — a row with
+  // a null email can never satisfy the lookup, so treat it as "no such user"
+  // (the dummy scrypt inside evaluateLogin still burns for timing safety).
+  const user: LoginUser | null =
+    row && row.email != null
+      ? { id: row.id, email: row.email, role: row.role, status: row.status, passwordHash: row.passwordHash }
+      : null;
+  const result = evaluateLogin(user, password, locked);
   if (result.ok) {
     clearFailures(email);
   } else if (result.reason !== "LOCKED") {

@@ -21,7 +21,6 @@
     "test:watch": "vitest"
   },
   "dependencies": {
-    "@auth/prisma-adapter": "^2.11.3",
     "@prisma/client": "^6.19.3",
     "@types/mailparser": "^3.4.6",
     "cheerio": "^1.2.0",
