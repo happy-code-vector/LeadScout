@@ -252,8 +252,9 @@ describe("login throttle", () => {
 
   it("locks on the 5th failure for 60s", () => {
     for (let i = 0; i < 5; i++) recordFailure("a@b.test", i * 1000);
-    expect(isLocked("a@b.test", 5_100 + 59_999)).toBe(true);
-    expect(isLocked("a@b.test", 5_100 + 60_001)).toBe(false);
+    // 5th failure lands at t=4000, so the lock spans [64000, 64000)
+    expect(isLocked("a@b.test", 4_000 + 59_999)).toBe(true);
+    expect(isLocked("a@b.test", 4_000 + 60_001)).toBe(false);
   });
 
   it("clears on success", () => {
