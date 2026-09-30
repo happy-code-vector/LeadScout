@@ -89,17 +89,19 @@ share one machine/volume):
    this repo; [`render.yaml`](render.yaml) defines the service with a 1 GB
    persistent disk at `/opt/data` and `start:all` as the start command.
    Set `APP_BASE_URL`, `ENCRYPTION_KEY`, `UNSUBSCRIBE_JWT_SECRET`, and
-   optionally `GOOGLE_PLACES_API_KEY` / `LOB_API_KEY` / `AUTH_ALLOWED_EMAILS`
+   optionally `GOOGLE_PLACES_API_KEY` / `LOB_API_KEY`
    in the dashboard. Migrations and seeding run automatically on boot.
 2. **Railway** — create one service from the repo with start command
    `npm run start:all`, attach a volume mounted at `/opt/data`, and set
    `DATABASE_URL="file:/opt/data/leadscout.db"` plus the env vars above.
 
-Auth (deploy-only): set `AUTH_ENABLED=true` and a long `AUTH_SECRET` — all
-pages then require an email magic-link sign-in (sent through the mailbox
-configured in Settings; with no mailbox, local dev logs the link instead).
-`AUTH_ALLOWED_EMAILS=a@b.com,c@d.com` restricts who may sign in.
-The unsubscribe endpoint (`/u/…`) always stays public.
+Auth (deploy-only): set `AUTH_ENABLED=true`, a long `AUTH_SECRET`, and
+`ROOT_EMAIL` + `ROOT_PASSWORD` — `start:all` seeds that root account on first
+boot (afterward the in-app password always wins and the env values are
+ignored). Sign-in is email/password. Anyone can request access at `/signup`;
+accounts stay `PENDING` until a root approves them under **Access**
+(`/admin/users`). Passwords are changed in Settings → Account. The
+unsubscribe endpoint (`/u/…`) always stays public.
 
 ## Layout
 

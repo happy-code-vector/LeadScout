@@ -332,7 +332,7 @@ Nothing is sent. The owner logs activity by hand.
     - Places request cap and audit concurrency
     - Connection status for Places, SMTP/IMAP, and Lob
 
-There is no auth in phase 1 (single user, local). Before deploying, add Auth.js with an email magic link.
+There is no auth in phase 1 (single user, local). Deployment uses Auth.js with email/password: a root account seeded from `ROOT_EMAIL`/`ROOT_PASSWORD` (DB password wins after first seed), open signup into `PENDING`, and root-only approval. See docs/superpowers/specs/2026-09-30-password-auth-design.md.
 
 ---
 
