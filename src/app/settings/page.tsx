@@ -1,6 +1,8 @@
+import { auth } from "@/auth";
 import { prisma } from "@/lib/db";
 import { PageHeader } from "@/components/page-header";
 import { SettingsClient } from "./settings-client";
+import { AccountCard } from "./account-card";
 import { isPlacesConfigured, isPostalEnabled } from "@/lib/env";
 import { hasEncryptionKey } from "@/lib/crypto";
 import { DEFAULT_WEIGHTS } from "@/lib/scoring/weights";
@@ -8,6 +10,7 @@ import { DEFAULT_WEIGHTS } from "@/lib/scoring/weights";
 export const dynamic = "force-dynamic";
 
 export default async function SettingsPage() {
+  const session = await auth();
   const settings = await prisma.settings.findUnique({ where: { id: "singleton" } });
   const mailboxes = await prisma.mailbox.findMany({
     orderBy: { createdAt: "asc" },
@@ -52,6 +55,7 @@ export default async function SettingsPage() {
           imap: "polled every 5 minutes per mailbox",
         }}
       />
+      {session?.user?.email ? <AccountCard email={session.user.email} /> : null}
     </>
   );
 }
