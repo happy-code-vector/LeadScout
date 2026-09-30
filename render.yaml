@@ -24,8 +24,6 @@ services:
         value: "" # set to your Render URL, e.g. https://leadscout.onrender.com
       - key: AUTH_SECRET
         generateValue: true # or set your own: openssl rand -base64 32
-      - key: AUTH_ALLOWED_EMAILS
-        value: "" # comma-separated; empty allows any address that receives the link
       - key: GOOGLE_PLACES_API_KEY
         sync: false # empty = mock mode
       - key: LOB_API_KEY
@@ -35,3 +33,7 @@ services:
         # Must stay stable across deploys — mailbox passwords are encrypted with it.
       - key: UNSUBSCRIBE_JWT_SECRET
         sync: false # set a long random string
+      - key: ROOT_EMAIL
+        sync: false # initial root login (read only until the password is changed in-app)
+      - key: ROOT_PASSWORD
+        sync: false # min 8 chars; ignored once root's DB password exists

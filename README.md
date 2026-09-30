@@ -88,8 +88,9 @@ share one machine/volume):
 1. **Render (recommended)** — push the repo, then *New → Blueprint* and pick
    this repo; [`render.yaml`](render.yaml) defines the service with a 1 GB
    persistent disk at `/opt/data` and `start:all` as the start command.
-   Set `APP_BASE_URL`, `ENCRYPTION_KEY`, `UNSUBSCRIBE_JWT_SECRET`, and
-   optionally `GOOGLE_PLACES_API_KEY` / `LOB_API_KEY`
+   Set `APP_BASE_URL`, `ENCRYPTION_KEY`, `UNSUBSCRIBE_JWT_SECRET`,
+   `ROOT_EMAIL` + `ROOT_PASSWORD`, and optionally
+   `GOOGLE_PLACES_API_KEY` / `LOB_API_KEY`
    in the dashboard. Migrations and seeding run automatically on boot.
 2. **Railway** — create one service from the repo with start command
    `npm run start:all`, attach a volume mounted at `/opt/data`, and set
