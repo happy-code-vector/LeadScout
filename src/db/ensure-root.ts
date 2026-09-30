@@ -13,7 +13,7 @@ import { hashPassword, passwordSchema } from "@/lib/auth/passwords";
 const EMAIL_RE = /^[^@\s]+@[^@\s]+\.[^@\s]+$/;
 
 export function deriveRootCredentials(
-  env: NodeJS.ProcessEnv,
+  env: Record<string, string | undefined>,
 ): { email: string; password: string } | "missing" | "invalid" {
   const email = (env.ROOT_EMAIL ?? "").trim().toLowerCase();
   const password = env.ROOT_PASSWORD ?? "";

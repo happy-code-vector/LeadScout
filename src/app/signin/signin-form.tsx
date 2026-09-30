@@ -20,9 +20,10 @@ export function SigninForm() {
     try {
       const res = await signIn("credentials", { email, password, redirect: false });
       if (res?.error) {
-        if (res.error.toLowerCase().includes("pending")) {
+        const code = res.code ?? "";
+        if (code === "pending") {
           setError("Your account is awaiting verification by an administrator.");
-        } else if (res.error.toLowerCase().includes("locked")) {
+        } else if (code === "locked") {
           setError("Too many failed attempts — try again in a minute.");
         } else {
           setError("Invalid email or password.");

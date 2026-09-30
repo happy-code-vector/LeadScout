@@ -345,6 +345,8 @@ LOB_API_KEY=                      # optional; empty disables postal channel
 ENCRYPTION_KEY=                   # 32-byte base64, for mailbox passwords
 UNSUBSCRIBE_JWT_SECRET=
 APP_BASE_URL=http://localhost:3000
+ROOT_EMAIL=                     # initial root login; used only until the password is changed in-app
+ROOT_PASSWORD=                  # min 8 chars; ignored once root's DB password exists
 ```
 
 Mailbox credentials are entered in the UI, not in env vars.
