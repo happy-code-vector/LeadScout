@@ -61,7 +61,11 @@ Idempotent step in `scripts/start-all.ts` (after migrate/seed), implemented as
   the edge middleware decodes it without DB access).
 - Custom `/signin` page (`pages.signIn: "/signin"` — a real page this time;
   pointing `pages.signIn` at `/api/auth/signin` caused the redirect loop fixed
-  on 2026-09-30 and must not be repeated).
+  on 2026-09-30 and must not be repeated). The middleware's unauthenticated
+  redirect targets `/signin`, and `/signin` joins `PUBLIC_PREFIXES` — otherwise
+  the page would gate itself into another redirect loop.
+- Password policy: minimum 8 characters (Zod, applied to signup, root seed,
+  and password change).
 - Login outcomes: `ACTIVE` + correct password → session; `PENDING` →
   "Your account is awaiting verification"; otherwise "Invalid email or
   password" (generic, no user enumeration).
