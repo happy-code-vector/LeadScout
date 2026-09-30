@@ -16,18 +16,23 @@ export function SignupForm() {
     e.preventDefault();
     setBusy(true);
     setError(null);
-    const res = await fetch("/api/auth/signup", {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ email, password }),
-    });
-    setBusy(false);
-    if (!res.ok) {
-      const data = (await res.json().catch(() => null)) as { error?: string } | null;
-      setError(data?.error ?? "Signup failed — please try again.");
-      return;
+    try {
+      const res = await fetch("/api/auth/signup", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ email, password }),
+      });
+      if (!res.ok) {
+        const data = (await res.json().catch(() => null)) as { error?: string } | null;
+        setError(data?.error ?? "Signup failed — please try again.");
+        return;
+      }
+      setDone(true);
+    } catch {
+      setError("Could not reach the server — check your connection and try again.");
+    } finally {
+      setBusy(false);
     }
-    setDone(true);
   }
 
   if (done) {

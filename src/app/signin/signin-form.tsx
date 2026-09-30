@@ -17,19 +17,24 @@ export function SigninForm() {
     e.preventDefault();
     setBusy(true);
     setError(null);
-    const res = await signIn("credentials", { email, password, redirect: false });
-    setBusy(false);
-    if (res?.error) {
-      if (res.error.toLowerCase().includes("pending")) {
-        setError("Your account is awaiting verification by an administrator.");
-      } else if (res.error.toLowerCase().includes("locked")) {
-        setError("Too many failed attempts — try again in a minute.");
-      } else {
-        setError("Invalid email or password.");
+    try {
+      const res = await signIn("credentials", { email, password, redirect: false });
+      if (res?.error) {
+        if (res.error.toLowerCase().includes("pending")) {
+          setError("Your account is awaiting verification by an administrator.");
+        } else if (res.error.toLowerCase().includes("locked")) {
+          setError("Too many failed attempts — try again in a minute.");
+        } else {
+          setError("Invalid email or password.");
+        }
+        return;
       }
-      return;
+      window.location.href = "/";
+    } catch {
+      setError("Could not reach the server — check your connection and try again.");
+    } finally {
+      setBusy(false);
     }
-    window.location.href = "/";
   }
 
   return (
