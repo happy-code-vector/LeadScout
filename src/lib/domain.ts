@@ -90,6 +90,14 @@ export const JOB_STATUSES = ["PENDING", "RUNNING", "DONE", "FAILED"] as const;
 export const jobStatusSchema = z.enum(JOB_STATUSES);
 export type JobStatus = z.infer<typeof jobStatusSchema>;
 
+export const USER_ROLES = ["ROOT", "USER"] as const;
+export const userRoleSchema = z.enum(USER_ROLES);
+export type UserRole = z.infer<typeof userRoleSchema>;
+
+export const USER_STATUSES = ["PENDING", "ACTIVE"] as const;
+export const userStatusSchema = z.enum(USER_STATUSES);
+export type UserStatus = z.infer<typeof userStatusSchema>;
+
 // ---------------------------------------------------------------------------
 // JSON encode/decode helpers for SQLite text columns
 // ---------------------------------------------------------------------------
