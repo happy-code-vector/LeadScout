@@ -21,9 +21,17 @@ export const CONTACT_TYPES = ["EMAIL", "PHONE", "POSTAL"] as const;
 export const contactTypeSchema = z.enum(CONTACT_TYPES);
 export type ContactType = z.infer<typeof contactTypeSchema>;
 
-export const CONTACT_SOURCES = ["PLACES", "WEBSITE", "MANUAL"] as const;
+export const CONTACT_SOURCES = ["PLACES", "WEBSITE", "MANUAL", "INBOUND"] as const;
 export const contactSourceSchema = z.enum(CONTACT_SOURCES);
 export type ContactSource = z.infer<typeof contactSourceSchema>;
+
+export const INQUIRY_SOURCES = ["CONTACT_FORM", "AUDIT_CTA"] as const;
+export const inquirySourceSchema = z.enum(INQUIRY_SOURCES);
+export type InquirySource = z.infer<typeof inquirySourceSchema>;
+
+export const INQUIRY_STATUSES = ["NEW", "CONTACTED", "CONVERTED", "DISMISSED"] as const;
+export const inquiryStatusSchema = z.enum(INQUIRY_STATUSES);
+export type InquiryStatus = z.infer<typeof inquiryStatusSchema>;
 
 export const TIERS = ["A", "B", "C", "D"] as const;
 export const tierSchema = z.enum(TIERS);

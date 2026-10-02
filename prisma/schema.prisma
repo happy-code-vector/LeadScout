@@ -94,6 +94,7 @@ model Business {
   contacts        Contact[]
   score           Score?
   lead            Lead?
+  inquiries       Inquiry[]
 
   @@index([categoryId])
   @@index([city, borough])
@@ -326,6 +327,8 @@ model Settings {
   scoringWeights          String   @default("{}")
   placesMonthlyRequestCap Int      @default(1000)
   auditConcurrency        Int      @default(8)
+  // JSON object; shape validated by src/lib/public/brand.ts.
+  publicBrand             String?
   updatedAt               DateTime @updatedAt
 }
 
@@ -368,4 +371,53 @@ model Job {
   updatedAt   DateTime @updatedAt
 
   @@index([status, runAt])
+}
+
+// Inbound submissions from the public site (contact form + audit CTA).
+model Inquiry {
+  id            String       @id @default(cuid())
+  name          String
+  email         String
+  phone         String?
+  company       String?
+  website       String?
+  message       String?
+  // CONTACT_FORM | AUDIT_CTA
+  source        String
+  auditReportId String?
+  auditReport   AuditReport? @relation(fields: [auditReportId], references: [id])
+  businessId    String?
+  business      Business?    @relation(fields: [businessId], references: [id])
+  // NEW | CONTACTED | CONVERTED | DISMISSED
+  status        String       @default("NEW")
+  convertedAt   DateTime?
+  createdAt     DateTime     @default(now())
+
+  @@index([status, createdAt])
+}
+
+// Public free-site-check report. Contains no LeadScout internals.
+model AuditReport {
+  id           String    @id @default(cuid())
+  url          String
+  finalUrl     String?
+  // NONE | SOCIAL_OR_DIRECTORY | DEAD | PARKED | OUTDATED | OK
+  websiteClass String
+  findings     String    @default("[]")
+  checkedAt    DateTime  @default(now())
+  inquiries    Inquiry[]
+}
+
+// Published win stories for the public /results page.
+model CaseStudy {
+  id         String   @id @default(cuid())
+  title      String
+  summary    String
+  // JSON array of { label: string, value: string }
+  metrics    String   @default("[]")
+  businessId String?
+  published  Boolean  @default(false)
+  order      Int      @default(0)
+  createdAt  DateTime @default(now())
+  updatedAt  DateTime @updatedAt
 }
