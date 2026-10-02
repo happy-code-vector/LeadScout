@@ -32,6 +32,7 @@ export function SettingsClient({
   placesCap: initialCap,
   auditConcurrency: initialConcurrency,
   weights: initialWeights,
+  brand: initialBrand,
   mailboxes,
   connections,
 }: {
@@ -40,6 +41,7 @@ export function SettingsClient({
   placesCap: number;
   auditConcurrency: number;
   weights: ScoringWeights;
+  brand: { name: string; tagline: string; email: string; phone: string; address: string };
   mailboxes: MailboxRow[];
   connections: Record<string, string>;
 }) {
@@ -49,6 +51,7 @@ export function SettingsClient({
   const [placesCap, setPlacesCap] = useState(initialCap);
   const [auditConcurrency, setAuditConcurrency] = useState(initialConcurrency);
   const [weights, setWeights] = useState<ScoringWeights>(initialWeights);
+  const [brand, setBrand] = useState(initialBrand);
   const [busy, setBusy] = useState("");
 
   const [mailbox, setMailbox] = useState({
@@ -173,6 +176,24 @@ export function SettingsClient({
           </div>
           <Button size="sm" disabled={busy === "sender"} onClick={() => void patch({ senderName, senderPostalAddress }, "sender", "Sender identity saved")}>
             Save identity
+          </Button>
+        </CardContent>
+      </Card>
+
+      <Card>
+        <CardHeader><CardTitle className="text-base">Public site brand</CardTitle></CardHeader>
+        <CardContent className="space-y-3">
+          <div className="grid gap-3 md:grid-cols-2">
+            {([["name", "Business name"], ["tagline", "Tagline"], ["email", "Public email"], ["phone", "Phone"], ["address", "Address"]] as const).map(([key, label]) => (
+              <div key={key} className="grid gap-1">
+                <Label htmlFor={`b-${key}`} className="text-xs">{label}</Label>
+                <Input id={`b-${key}`} className="h-8" value={brand[key]}
+                  onChange={(e) => setBrand({ ...brand, [key]: e.target.value })} />
+              </div>
+            ))}
+          </div>
+          <Button size="sm" disabled={busy === "brand"} onClick={() => void patch({ publicBrand: brand }, "brand", "Brand saved")}>
+            Save brand
           </Button>
         </CardContent>
       </Card>

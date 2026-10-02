@@ -1,6 +1,7 @@
 import "dotenv/config";
 import { PrismaClient } from "@prisma/client";
 import type { Channel } from "../lib/domain";
+import { DEFAULT_BRAND } from "../lib/public/brand";
 import { DEFAULT_WEIGHTS } from "../lib/scoring/weights";
 
 const prisma = new PrismaClient();
@@ -335,6 +336,7 @@ async function main() {
     create: {
       id: "singleton",
       scoringWeights: JSON.stringify(DEFAULT_WEIGHTS),
+      publicBrand: JSON.stringify(DEFAULT_BRAND),
       placesMonthlyRequestCap: 1000,
       auditConcurrency: 8,
     },

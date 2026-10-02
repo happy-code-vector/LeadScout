@@ -2,6 +2,7 @@ import { NextResponse } from "next/server";
 import { z } from "zod";
 import { prisma } from "@/lib/db";
 import { enqueue } from "@/lib/queue";
+import { publicBrandSchema } from "@/lib/public/brand";
 import { scoringWeightsSchema } from "@/lib/scoring/weights";
 
 const patchSchema = z.object({
@@ -10,6 +11,7 @@ const patchSchema = z.object({
   placesMonthlyRequestCap: z.number().int().min(0).max(100_000).optional(),
   auditConcurrency: z.number().int().min(1).max(32).optional(),
   scoringWeights: scoringWeightsSchema.optional(),
+  publicBrand: publicBrandSchema.optional(),
 });
 
 export async function PATCH(request: Request) {
@@ -19,19 +21,21 @@ export async function PATCH(request: Request) {
     return NextResponse.json({ error: parsed.error.issues[0]?.message }, { status: 400 });
   }
   const d = parsed.data;
-  const { scoringWeights, ...rest } = d;
+  const { scoringWeights, publicBrand, ...rest } = d;
 
   await prisma.settings.upsert({
     where: { id: "singleton" },
     update: {
       ...rest,
       ...(scoringWeights ? { scoringWeights: JSON.stringify(scoringWeights) } : {}),
+      ...(publicBrand ? { publicBrand: JSON.stringify(publicBrand) } : {}),
     },
     create: {
       id: "singleton",
       ...rest,
       ...(scoringWeights ? { scoringWeights: JSON.stringify(scoringWeights) } : {}),
       scoringWeights: scoringWeights ? JSON.stringify(scoringWeights) : "{}",
+      ...(publicBrand ? { publicBrand: JSON.stringify(publicBrand) } : {}),
     },
   });
 

@@ -5,6 +5,7 @@ import { SettingsClient } from "./settings-client";
 import { AccountCard } from "./account-card";
 import { isPlacesConfigured, isPostalEnabled } from "@/lib/env";
 import { hasEncryptionKey } from "@/lib/crypto";
+import { getBrand } from "@/lib/public/brand";
 import { DEFAULT_WEIGHTS } from "@/lib/scoring/weights";
 
 export const dynamic = "force-dynamic";
@@ -41,6 +42,7 @@ export default async function SettingsPage() {
         placesCap={settings?.placesMonthlyRequestCap ?? 1000}
         auditConcurrency={settings?.auditConcurrency ?? 8}
         weights={weights}
+        brand={await getBrand()}
         mailboxes={mailboxes.map((m) => ({
           ...m,
           warmupStartDate: m.warmupStartDate?.toISOString() ?? null,
