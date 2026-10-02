@@ -40,8 +40,8 @@ export async function setStatus(formData: FormData): Promise<void> {
     await enqueue("score.sweep", {});
   }
 
-  revalidatePath(`/leads/${parsed.data.businessId}`);
-  revalidatePath("/leads");
+  revalidatePath(`/app/leads/${parsed.data.businessId}`);
+  revalidatePath("/app/leads");
 }
 
 export async function saveNotes(formData: FormData): Promise<void> {
@@ -52,7 +52,7 @@ export async function saveNotes(formData: FormData): Promise<void> {
     update: { notes, lastActivityAt: new Date() },
     create: { businessId, notes },
   });
-  revalidatePath(`/leads/${businessId}`);
+  revalidatePath(`/app/leads/${businessId}`);
 }
 
 const contactSchema = z.object({
@@ -81,5 +81,5 @@ export async function addContact(formData: FormData): Promise<void> {
   // A manually added email may change reachability — rescore.
   await enqueue("score.sweep", {});
 
-  revalidatePath(`/leads/${businessId}`);
+  revalidatePath(`/app/leads/${businessId}`);
 }

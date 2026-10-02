@@ -55,8 +55,8 @@ export async function saveCategory(formData: FormData): Promise<void> {
       },
     });
   }
-  revalidatePath("/categories");
-  revalidatePath("/discover");
+  revalidatePath("/app/categories");
+  revalidatePath("/app/discover");
 }
 
 export async function deleteCategory(formData: FormData): Promise<void> {
@@ -68,6 +68,6 @@ export async function deleteCategory(formData: FormData): Promise<void> {
     );
   }
   await prisma.category.delete({ where: { id } });
-  revalidatePath("/categories");
-  revalidatePath("/discover");
+  revalidatePath("/app/categories");
+  revalidatePath("/app/discover");
 }

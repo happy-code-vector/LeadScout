@@ -107,7 +107,7 @@ export default async function DashboardPage() {
                 return (
                   <Link
                     key={lead.id}
-                    href={`/leads/${lead.business.id}`}
+                    href={`/app/leads/${lead.business.id}`}
                     className="flex flex-wrap items-baseline justify-between gap-2 rounded-md px-2 py-1.5 text-sm hover:bg-muted/60"
                   >
                     <span>
@@ -184,7 +184,7 @@ export default async function DashboardPage() {
       <Card className="mt-4">
         <CardHeader className="flex-row items-center justify-between space-y-0">
           <CardTitle className="text-base">Top leads</CardTitle>
-          <Link href="/leads" className="text-sm text-muted-foreground hover:text-foreground">
+          <Link href="/app/leads" className="text-sm text-muted-foreground hover:text-foreground">
             View all →
           </Link>
         </CardHeader>
@@ -211,7 +211,7 @@ export default async function DashboardPage() {
                   return (
                     <TableRow key={b.id}>
                       <TableCell>
-                        <Link href={`/leads/${b.id}`} className="font-medium hover:underline">
+                        <Link href={`/app/leads/${b.id}`} className="font-medium hover:underline">
                           {b.name}
                         </Link>
                       </TableCell>

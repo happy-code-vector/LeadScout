@@ -30,7 +30,7 @@ export function SigninForm() {
         }
         return;
       }
-      window.location.href = "/";
+      window.location.href = "/app";
     } catch {
       setError("Could not reach the server — check your connection and try again.");
     } finally {

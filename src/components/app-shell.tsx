@@ -21,15 +21,15 @@ import { cn } from "@/lib/utils";
 type ShellUser = { email: string; role?: string };
 
 const NAV = [
-  { href: "/", label: "Dashboard", icon: LayoutDashboard },
-  { href: "/discover", label: "Discover", icon: Radar },
-  { href: "/leads", label: "Leads", icon: Users },
-  { href: "/campaigns", label: "Campaigns", icon: Megaphone },
-  { href: "/call-queue", label: "Call Queue", icon: Phone },
-  { href: "/templates", label: "Templates", icon: FileText },
-  { href: "/categories", label: "Categories", icon: Tags },
-  { href: "/analytics", label: "Analytics", icon: BarChart3 },
-  { href: "/settings", label: "Settings", icon: Settings },
+  { href: "/app", label: "Dashboard", icon: LayoutDashboard },
+  { href: "/app/discover", label: "Discover", icon: Radar },
+  { href: "/app/leads", label: "Leads", icon: Users },
+  { href: "/app/campaigns", label: "Campaigns", icon: Megaphone },
+  { href: "/app/call-queue", label: "Call Queue", icon: Phone },
+  { href: "/app/templates", label: "Templates", icon: FileText },
+  { href: "/app/categories", label: "Categories", icon: Tags },
+  { href: "/app/analytics", label: "Analytics", icon: BarChart3 },
+  { href: "/app/settings", label: "Settings", icon: Settings },
 ];
 
 export function AppShell({
@@ -43,7 +43,7 @@ export function AppShell({
   const nav = user?.role === "ROOT"
     ? [
         ...NAV,
-        { href: "/admin/users", label: "Access", icon: ShieldCheck },
+        { href: "/app/admin/users", label: "Access", icon: ShieldCheck },
       ]
     : NAV;
 
@@ -64,7 +64,7 @@ export function AppShell({
         <nav className="flex flex-1 flex-col gap-0.5 px-3 pb-4">
           {nav.map(({ href, label, icon: Icon }) => {
             const active =
-              href === "/" ? pathname === "/" : pathname.startsWith(href);
+              href === "/app" ? pathname === "/app" : pathname.startsWith(href);
             return (
               <Link
                 key={href}
@@ -82,6 +82,9 @@ export function AppShell({
             );
           })}
         </nav>
+        <Link href="/" className="mx-3 mb-2 flex items-center gap-1.5 rounded-lg px-2 py-1.5 text-xs text-muted-foreground transition-colors hover:bg-sidebar-accent/60 hover:text-sidebar-accent-foreground">
+          View public site ↗
+        </Link>
         {user ? (
           <div className="border-t px-4 py-3">
             <div className="truncate text-xs text-muted-foreground">{user.email}</div>

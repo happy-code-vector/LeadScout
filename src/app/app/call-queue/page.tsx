@@ -52,7 +52,7 @@ export default async function CallQueuePage() {
                 <CardContent className="space-y-3 py-4">
                   <div className="flex flex-wrap items-center justify-between gap-2">
                     <div>
-                      <Link href={`/leads/${b.id}`} className="font-medium hover:underline">
+                      <Link href={`/app/leads/${b.id}`} className="font-medium hover:underline">
                         {b.name}
                       </Link>
                       <span className="ml-2 text-sm text-muted-foreground">{b.category.name}</span>

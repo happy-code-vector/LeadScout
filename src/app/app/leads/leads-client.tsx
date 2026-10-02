@@ -69,13 +69,13 @@ export function LeadsClient({
     if (!value || value === "ALL") params.delete(key);
     else params.set(key, value);
     params.delete("page");
-    startTransition(() => router.push(`/leads?${params.toString()}`));
+    startTransition(() => router.push(`/app/leads?${params.toString()}`));
   }
 
   function goToPage(p: number) {
     const params = new URLSearchParams(searchParams.toString());
     params.set("page", String(p));
-    startTransition(() => router.push(`/leads?${params.toString()}`));
+    startTransition(() => router.push(`/app/leads?${params.toString()}`));
   }
 
   async function bulkAction(action: "set_status" | "dnc" | "add_to_campaign", status?: string, campaignId?: string) {
@@ -253,7 +253,7 @@ export function LeadsClient({
                       />
                     </TableCell>
                     <TableCell>
-                      <Link href={`/leads/${r.businessId}`} className="font-medium hover:underline">
+                      <Link href={`/app/leads/${r.businessId}`} className="font-medium hover:underline">
                         {r.name}
                       </Link>
                       {r.websiteUri && (

@@ -67,7 +67,7 @@ export default async function LeadDetailPage({
   return (
     <>
       <div className="mb-4">
-        <Link href="/leads" className="inline-flex items-center gap-1 text-sm text-muted-foreground hover:text-foreground">
+        <Link href="/app/leads" className="inline-flex items-center gap-1 text-sm text-muted-foreground hover:text-foreground">
           <ArrowLeft className="size-3.5" />
           Back to leads
         </Link>
