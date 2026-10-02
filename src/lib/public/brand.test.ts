@@ -4,7 +4,16 @@ import { DEFAULT_BRAND, parseBrand } from "./brand";
 describe("parseBrand", () => {
   it("parses a full brand and fills missing optional fields", () => {
     const b = parseBrand(JSON.stringify({ name: "X LLC" }));
-    expect(b).toEqual({ name: "X LLC", tagline: "", email: "", phone: "", address: "" });
+    expect(b).toEqual({
+      name: "X LLC",
+      tagline: "",
+      email: "",
+      phone: "",
+      address: "",
+      googleRating: "",
+      googleReviewCount: 0,
+      googleMapsUrl: "",
+    });
   });
   it("falls back to the default on garbage", () => {
     expect(parseBrand("not json")).toEqual(DEFAULT_BRAND);

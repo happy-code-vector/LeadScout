@@ -11,6 +11,7 @@ import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Separator } from "@/components/ui/separator";
 import type { ScoringWeights } from "@/lib/scoring/weights";
+import type { PublicBrand } from "@/lib/public/brand";
 
 interface MailboxRow {
   id: string;
@@ -41,7 +42,7 @@ export function SettingsClient({
   placesCap: number;
   auditConcurrency: number;
   weights: ScoringWeights;
-  brand: { name: string; tagline: string; email: string; phone: string; address: string };
+  brand: PublicBrand;
   mailboxes: MailboxRow[];
   connections: Record<string, string>;
 }) {
@@ -51,7 +52,12 @@ export function SettingsClient({
   const [placesCap, setPlacesCap] = useState(initialCap);
   const [auditConcurrency, setAuditConcurrency] = useState(initialConcurrency);
   const [weights, setWeights] = useState<ScoringWeights>(initialWeights);
-  const [brand, setBrand] = useState(initialBrand);
+  // Text inputs hold strings; googleReviewCount is a number in the schema, so keep it
+  // as a string in state and coerce with Number() || 0 on save.
+  const [brand, setBrand] = useState<Omit<PublicBrand, "googleReviewCount"> & { googleReviewCount: string }>({
+    ...initialBrand,
+    googleReviewCount: String(initialBrand.googleReviewCount),
+  });
   const [busy, setBusy] = useState("");
 
   const [mailbox, setMailbox] = useState({
@@ -192,7 +198,16 @@ export function SettingsClient({
               </div>
             ))}
           </div>
-          <Button size="sm" disabled={busy === "brand"} onClick={() => void patch({ publicBrand: brand }, "brand", "Brand saved")}>
+          <div className="grid gap-3 md:grid-cols-2">
+            {([["googleRating", "Google rating (e.g. 5.0)"], ["googleReviewCount", "Google review count"], ["googleMapsUrl", "Google Maps URL"]] as const).map(([key, label]) => (
+              <div key={key} className="grid gap-1">
+                <Label htmlFor={`b-${key}`} className="text-xs">{label}</Label>
+                <Input id={`b-${key}`} className="h-8" type={key === "googleReviewCount" ? "number" : "text"} value={brand[key]}
+                  onChange={(e) => setBrand({ ...brand, [key]: e.target.value })} />
+              </div>
+            ))}
+          </div>
+          <Button size="sm" disabled={busy === "brand"} onClick={() => void patch({ publicBrand: { ...brand, googleReviewCount: Number(brand.googleReviewCount) || 0 } }, "brand", "Brand saved")}>
             Save brand
           </Button>
         </CardContent>

@@ -8,6 +8,9 @@ export const publicBrandSchema = z.object({
   email: z.string().max(160).default(""),
   phone: z.string().max(40).default(""),
   address: z.string().max(200).default(""),
+  googleRating: z.string().max(10).default(""),
+  googleReviewCount: z.number().int().min(0).max(100_000).default(0),
+  googleMapsUrl: z.string().max(300).default(""),
 });
 export type PublicBrand = z.infer<typeof publicBrandSchema>;
 
@@ -17,6 +20,9 @@ export const DEFAULT_BRAND: PublicBrand = {
   email: "",
   phone: "",
   address: "",
+  googleRating: "",
+  googleReviewCount: 0,
+  googleMapsUrl: "",
 };
 
 export function parseBrand(raw: string | null | undefined): PublicBrand {

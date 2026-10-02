@@ -380,6 +380,7 @@ model Inquiry {
   email         String
   phone         String?
   company       String?
+  businessType  String?
   website       String?
   message       String?
   // CONTACT_FORM | AUDIT_CTA
@@ -416,6 +417,7 @@ model CaseStudy {
   // JSON array of { label: string, value: string }
   metrics    String   @default("[]")
   businessId String?
+  siteUrl    String?
   published  Boolean  @default(false)
   order      Int      @default(0)
   createdAt  DateTime @default(now())
