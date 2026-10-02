@@ -14,6 +14,7 @@ interface StudyRow {
   metrics: string; // JSON [{label, value}]
   published: boolean;
   order: number;
+  businessId: string | null;
   businessName: string | null;
 }
 
@@ -50,6 +51,7 @@ export function CaseStudiesClient({ studies }: { studies: StudyRow[] }) {
           <CardContent className="py-4">
             <form action={saveCaseStudy} id={`edit-${s.id}`}>
               <input type="hidden" name="id" value={s.id} />
+              <input type="hidden" name="businessId" value={s.businessId ?? ""} />
               <div className="grid gap-3 md:grid-cols-[1.5fr_2fr]">
                 <div className="grid gap-1">
                   <Label className="text-xs">Title{s.businessName ? ` (${s.businessName})` : ""}</Label>

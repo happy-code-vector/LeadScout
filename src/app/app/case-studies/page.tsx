@@ -39,6 +39,7 @@ export default async function CaseStudiesPage() {
           metrics: JSON.stringify(fromJsonArray(s.metrics)),
           published: s.published,
           order: s.order,
+          businessId: s.businessId,
           businessName: s.businessId ? (businessNames.get(s.businessId) ?? null) : null,
         }))}
       />
