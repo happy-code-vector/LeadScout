@@ -26,4 +26,12 @@ describe("validateInquiryInput", () => {
     expect(validateInquiryInput({ ...good, message: "x".repeat(4001) }, 5_000).ok).toBe(false);
     expect(validateInquiryInput({ ...good, source: "SMS" }, 5_000).ok).toBe(false);
   });
+  it("accepts and preserves an optional business type", () => {
+    const r = validateInquiryInput({ ...good, businessType: "Contractor or home services" }, 5_000);
+    expect(r.ok).toBe(true);
+    if (r.ok) expect(r.value.businessType).toBe("Contractor or home services");
+  });
+  it("rejects an over-long business type", () => {
+    expect(validateInquiryInput({ ...good, businessType: "x".repeat(61) }, 5_000).ok).toBe(false);
+  });
 });

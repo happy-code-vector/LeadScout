@@ -27,6 +27,7 @@ export async function POST(request: Request) {
       phone: result.value.phone || null,
       company: result.value.company || null,
       website: website || null,
+      businessType: result.value.businessType || null,
       message: result.value.message || null,
       source: result.value.source,
       auditReportId: result.value.auditReportId || null,

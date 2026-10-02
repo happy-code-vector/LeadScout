@@ -7,6 +7,7 @@ const payloadSchema = z.object({
   phone: z.string().trim().max(40).optional(),
   company: z.string().trim().max(120).optional(),
   website: z.string().trim().max(300).optional(),
+  businessType: z.string().trim().max(60).optional(),
   message: z.string().trim().max(4_000).optional(),
   source: inquirySourceSchema.default("CONTACT_FORM"),
   auditReportId: z.string().max(64).optional(),

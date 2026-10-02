@@ -35,5 +35,9 @@ export async function POST(request: Request) {
       findings: toJson(result.findings),
     },
   });
-  return NextResponse.json({ id: report.id });
+  return NextResponse.json({
+    id: report.id,
+    websiteClass: result.websiteClass,
+    finding: result.findings[0] ?? null,
+  });
 }
