@@ -17,6 +17,7 @@ import {
 import { Separator } from "@/components/ui/separator";
 import { Textarea } from "@/components/ui/textarea";
 import { addContact, saveNotes, setStatus } from "./actions";
+import { createCaseStudyFromLead } from "../../case-studies/actions";
 
 export const dynamic = "force-dynamic";
 
@@ -252,6 +253,13 @@ export default async function LeadDetailPage({
               </div>
               <Button type="submit" size="sm" variant="outline">Update</Button>
             </form>
+
+            {lead?.status === "WON" && (
+              <form action={createCaseStudyFromLead}>
+                <input type="hidden" name="businessId" value={business.id} />
+                <Button type="submit" variant="outline" size="sm">Publish as case study</Button>
+              </form>
+            )}
 
             <form action={saveNotes} className="grid gap-1">
               <input type="hidden" name="businessId" value={business.id} />
