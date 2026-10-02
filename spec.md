@@ -2,6 +2,8 @@
 
 A web app that finds small local businesses with no website or an outdated one, scores them by how likely they are to buy a website, and runs outreach in either manual or automatic mode. The owner builds the websites personally. The first market is New York City, and the design must extend to any US city without code changes.
 
+It has two faces in one codebase and one deploy: an unauthenticated public site at the root (landing, free website-audit tool, contact, results) that feeds inbound leads into the same pipeline, and the authenticated manager back-office under `/app/*`.
+
 This file is the source of truth. Build phase by phase (see "Build phases"). Stop at the end of each phase, run its acceptance checks, and report results before continuing.
 
 ---
@@ -34,6 +36,7 @@ This file is the source of truth. Build phase by phase (see "Build phases"). Sto
    - For every other business, clear the Places-sourced fields after 30 days and keep only `placeId`, the audit, and the score. The next discovery run refills them.
 6. All secrets come from env vars. Never commit `.env`.
 7. Scoring weights, category propensities, rate limits, and templates live in the database and can be edited in the UI. Do not hardcode them.
+8. The public surface is hostile-input territory. The only internet-exposed endpoints are `POST /api/public/audit` and `POST /api/public/contact`: they validate all input, rate-limit per IP, and never expose LeadScout internals (tiers, scores, placeIds) in any public page or payload. URLs submitted to the audit tool pass an SSRF guard — public DNS targets only, ports 80/443 only, redirects followed manually with each hop re-validated.
 
 ---
 
@@ -269,7 +272,9 @@ Nothing is sent. The owner logs activity by hand.
 
 ---
 
-## UI pages
+## UI pages (manager back-office)
+
+All of these live under `/app/*` behind auth; the root namespace belongs to the public site (see the next section).
 
 1. **Dashboard**:
    - Leads by tier
@@ -336,6 +341,53 @@ There is no auth in phase 1 (single user, local). Deployment uses Auth.js with e
 
 ---
 
+## Client-facing site (the public face)
+
+The public site sells the owner's services; its free audit tool is the lead magnet — a prospect grades their own website with the same engine the back-office uses, then hands over their contact details. Inbound submissions land in the same pipeline as cold outreach, flagged and linked, and are never fed to cold sequences.
+
+### Routing and layout
+
+- Manager pages move to `/app/*` (`/app/leads`, `/app/discover`, …) with permanent redirects from the old paths. The middleware protects `/app/**` and `/api/**` (except `/api/public/*`, `/api/auth/*`, `/api/dev/*`).
+- Manager APIs stay at `/api/*`; the only internet-exposed endpoints are `POST /api/public/audit` and `POST /api/public/contact`.
+- Public pages get their own layout (marketing header/footer, no sidebar). `/signin`, `/signup`, `/u/[token]`, and `/dev/*` are unchanged.
+
+### Brand (Settings-driven)
+
+- `Settings.publicBrand` JSON: `{ name, tagline, email, phone, address, socials }`, seeded as "AppHub LLC". A rebrand is a settings edit. Page copy lives in one content file (`src/content/public-site.ts`).
+
+### Public pages
+
+1. **Landing `/`**: hero with dual CTA ("Check my site — free" → `/audit`, "See the work" → `/results`), services (new sites, rebuilds, care plans), how-it-works, founder block, results teaser (published case studies only — hidden when there are none), contact CTA, footer with the legal name.
+2. **`/contact`**: inquiry form (name, email, company, website, message) → `Inquiry` with source `CONTACT_FORM`.
+3. **`/results`**: published case studies in order; empty state stays graceful.
+4. SEO: metadata, OG tags, robots.txt, sitemap covering the public routes.
+
+### Free audit tool (`/audit`)
+
+1. The visitor enters a URL — no email required.
+2. `POST /api/public/audit` validates it: http/https only, ports 80/443 only, DNS-resolved with every private/loopback/link-local/CGNAT address blocked (SSRF guard; redirects followed manually, each hop re-validated).
+3. A light variant of the audit engine runs synchronously — homepage + sitemap only, no contact-page crawling, no Wayback — with the same tested classification.
+4. The report renders on a shareable `/audit/[id]` page (unguessable id, `noindex`): a verdict card plus the plain-English findings. No tiers, scores, or placeIds anywhere public.
+5. The CTA ("want this fixed?") takes name + email (+ optional phone) → `Inquiry` with source `AUDIT_CTA`, linked to the report. When the audited URL matches a known Business (by website host), the inquiry records that link.
+6. Rate limits: per-IP sliding window (5/hour) and a global daily cap (200 audits/day).
+
+### Inbound pipeline
+
+- **Inquiry**: `name`, `email`, `phone?`, `company?`, `website?`, `message?`, `source` (`CONTACT_FORM` | `AUDIT_CTA`), `auditReportId?`, `businessId?`, `status` (`NEW` | `CONTACTED` | `CONVERTED` | `DISMISSED`), `createdAt`. Both public forms carry a honeypot and a time-trap.
+- Manager side: `/app/inquiries` plus a Dashboard card. **Convert** creates a Business (`placeId: "inbound:<cuid>"`), an `INBOUND`-source Contact, and a Lead at `QUEUED` with the audit summary in its notes; the Inquiry becomes `CONVERTED`.
+
+### Case studies
+
+- **CaseStudy**: `title`, `summary`, `metrics` (JSON array of `{label, value}`), `businessId?`, `published`, `order`, `createdAt`. CRUD at `/app/case-studies`, plus "create from lead" on WON lead details.
+
+### Data model delta
+
+`Settings.publicBrand`; new `Inquiry`, `AuditReport`, `CaseStudy`; `ContactSource` gains `INBOUND`. No changes to the automation tables.
+
+Full design: docs/superpowers/specs/2026-10-02-public-face-design.md
+
+---
+
 ## Environment variables (`.env.example`)
 
 ```
@@ -376,6 +428,21 @@ Mailbox credentials are entered in the UI, not in env vars.
 7. **Postal (optional)** and **Places 30-day refresh job.**
 8. **Deploy prep.**
    - Build: Auth.js, Railway/Render config for web + worker with a persistent volume for the SQLite file, and a README with setup steps.
+9. **Public/private split.**
+   - Build: move every manager page under `/app/*`, permanent redirects from the old paths, the one-rule middleware, the public layout shell. No feature change.
+   - Accept when: every manager page works at its new URL, old URLs return 301s, unsigned requests to `/app/**` redirect to signin, and the full test suite passes.
+10. **Public skeleton.**
+   - Build: landing, `/contact`, `/results`; brand from `Settings.publicBrand`; the content file; SEO metadata, robots.txt, sitemap.
+   - Accept when: the landing renders signed-out with the brand pulled from Settings, the contact form creates an Inquiry, and `/results` handles zero case studies gracefully.
+11. **Audit tool.**
+   - Build: `/audit` form, `/audit/[id]` report, `AuditReport` model, light audit path, SSRF guard, rate limits.
+   - Accept when: auditing a real outdated site shows its findings on a public report page; SSRF attempts against private ranges and redirect hops are refused (unit-tested); no internals leak into any public payload.
+12. **Inbound pipeline.**
+   - Build: `/app/inquiries`, Dashboard inquiries card, convert-to-lead, business matching by website host.
+   - Accept when: an audit CTA submission appears as an Inquiry, converts to a QUEUED lead with the audit summary in notes, and auto-links when the URL matches a known business.
+13. **Case studies.**
+   - Build: `CaseStudy` model, `/app/case-studies` CRUD, create-from-lead, public `/results` wiring, landing teaser.
+   - Accept when: a published case study appears on `/results` and in the landing teaser, and the empty state stays clean.
 
 ## Conventions
 
