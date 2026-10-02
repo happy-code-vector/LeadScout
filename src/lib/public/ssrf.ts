@@ -18,12 +18,27 @@ function isIpv4(s: string): boolean {
   return /^\d+\.\d+\.\d+\.\d+$/.test(s);
 }
 
+// Reconstruct the dotted quad carried by two hex hextets (HI:LO), as produced
+// by the WHATWG URL parser's IPv6 re-serialization (e.g. ::ffff:7f00:1).
+function hextetsToDottedQuad(hi: string, lo: string): string {
+  const h = parseInt(hi, 16);
+  const l = parseInt(lo, 16);
+  return `${(h >> 8) & 0xff}.${h & 0xff}.${(l >> 8) & 0xff}.${l & 0xff}`;
+}
+
 export function ipIsPrivate(ip: string): boolean {
   const v = ip.trim().toLowerCase();
   if (v.includes(":")) {
     if (v === "::1" || v === "::") return true;
     const mapped = v.match(/^::ffff:(\d+\.\d+\.\d+\.\d+)$/);
     if (mapped) return ipIsPrivate(mapped[1]);
+    // IPv4-mapped in hex form (WHATWG URLs re-serialize dotted literals to hex):
+    // ::ffff:HI:LO or 0:0:0:0:0:ffff:HI:LO — recurse on the recovered quad.
+    const hexMapped = v.match(/^(?:::ffff|0:0:0:0:0:ffff):([0-9a-f]{1,4}):([0-9a-f]{1,4})$/);
+    if (hexMapped) return ipIsPrivate(hextetsToDottedQuad(hexMapped[1], hexMapped[2]));
+    // IPv4-compatible ::HI:LO (exactly two hextets after ::) — same recovery.
+    const compat = v.match(/^::([0-9a-f]{1,4}):([0-9a-f]{1,4})$/);
+    if (compat) return ipIsPrivate(hextetsToDottedQuad(compat[1], compat[2]));
     if (v.startsWith("fc") || v.startsWith("fd")) return true; // fc00::/7 ULA
     if (/^fe[89ab]/.test(v)) return true; // fe80::/10 link-local
     return false;
@@ -74,5 +89,7 @@ export async function assertPublicHttpUrl(raw: string, resolve: Resolver = defau
   if (addresses.some((a) => ipIsPrivate(a))) {
     throw new PublicUrlError("that domain resolves to a private address");
   }
+  url.username = "";
+  url.password = "";
   return url;
 }

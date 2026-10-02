@@ -6,7 +6,7 @@ type Resolver_like = (h: string) => Promise<string[]>;
 const priv: Resolver_like = async () => ["10.0.0.5"];
 
 describe("ipIsPrivate", () => {
-  it.each(["10.0.0.1", "10.255.1.1", "172.16.0.1", "172.31.255.255", "192.168.1.1", "127.0.0.1", "0.0.0.0", "169.254.169.254", "100.64.0.1", "::1", "::", "fc00::1", "fd12::1", "fe80::1", "::ffff:127.0.0.1", "not-an-ip"])("%s is private/blocked", (ip) => {
+  it.each(["10.0.0.1", "10.255.1.1", "172.16.0.1", "172.31.255.255", "192.168.1.1", "127.0.0.1", "0.0.0.0", "169.254.169.254", "100.64.0.1", "::1", "::", "fc00::1", "fd12::1", "fe80::1", "::ffff:127.0.0.1", "::ffff:7f00:1", "::7f00:1", "0:0:0:0:0:ffff:a00:5", "not-an-ip"])("%s is private/blocked", (ip) => {
     expect(ipIsPrivate(ip)).toBe(true);
   });
   it.each(["93.184.216.34", "8.8.8.8", "172.32.0.1", "100.128.0.1", "2606:4700::1111"])("%s is public", (ip) => {
@@ -28,6 +28,9 @@ describe("assertPublicHttpUrl", () => {
     ["http://127.0.0.1", "private"],
     ["http://192.168.1.10", "private"],
     ["https://example.com:6379", "port"],
+    ["http://[::ffff:127.0.0.1]", "mapped-v4 dotted"],
+    ["http://[::ffff:7f00:1]", "mapped-v4 hex"],
+    ["http://[::a00:5]", "v4-compatible hex"],
   ])("rejects %s", async (raw) => {
     await expect(assertPublicHttpUrl(raw, pub)).rejects.toBeInstanceOf(PublicUrlError);
   });
