@@ -1,15 +1,14 @@
-// src/middleware.ts
 import NextAuth from "next-auth";
 import { authConfig } from "../auth.config";
 
 /**
- * Auth gate for deployments (AUTH_ENABLED=true + AUTH_SECRET). Local dev
- * stays open. Always public: Auth.js endpoints, signup/signin pages, the
- * one-click unsubscribe link (CAN-SPAM: no login), and the dev inbox tools.
- * /admin/* additionally requires the ROOT role.
+ * Auth gate for deployments (AUTH_ENABLED=true + AUTH_SECRET). Public pages
+ * are open; only the manager areas (/app/** and /api/**, minus the public
+ * islands) require a session. Always public: auth endpoints, signup/signin,
+ * the one-click unsubscribe link, the dev tools, and /api/public/*.
  */
 
-const PUBLIC_PREFIXES = ["/api/auth", "/api/dev", "/u/", "/dev/", "/signin", "/signup"];
+const PUBLIC_PREFIXES = ["/api/auth", "/api/dev", "/api/public", "/u/", "/dev/", "/signin", "/signup"];
 
 const { auth } = NextAuth(authConfig);
 
@@ -17,10 +16,12 @@ export default auth((req) => {
   if (process.env.AUTH_ENABLED !== "true") return;
 
   const path = req.nextUrl.pathname;
-  if (PUBLIC_PREFIXES.some((p) => path.startsWith(p))) return;
+  const isManagerArea = path.startsWith("/app") || path.startsWith("/api");
+  if (PUBLIC_PREFIXES.some((p) => path.startsWith(p)) || !isManagerArea) return;
+
   if (req.auth) {
-    if (path.startsWith("/admin") && req.auth.user?.role !== "ROOT") {
-      return Response.redirect(new URL("/", req.url));
+    if (path.startsWith("/app/admin") && req.auth.user?.role !== "ROOT") {
+      return Response.redirect(new URL("/app", req.url));
     }
     return;
   }
