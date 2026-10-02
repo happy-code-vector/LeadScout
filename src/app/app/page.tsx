@@ -16,7 +16,7 @@ export default async function DashboardPage() {
   startOfDay.setHours(0, 0, 0, 0);
   const weekAgo = new Date(Date.now() - 7 * 24 * 60 * 60_000);
 
-  const [scores, leadStatuses, businesses, callTasksDue, repliesToday, topLeads, repliedLeads] =
+  const [scores, leadStatuses, businesses, callTasksDue, repliesToday, topLeads, repliedLeads, newInquiries] =
     await Promise.all([
       prisma.score.groupBy({ by: ["tier"], _count: { tier: true } }),
       prisma.lead.groupBy({ by: ["status"], _count: { status: true } }),
@@ -47,6 +47,8 @@ export default async function DashboardPage() {
           },
         },
       }),
+      // Inbound inquiries from the public site (contact form + free site checks).
+      prisma.inquiry.count({ where: { status: "NEW" } }),
     ]);
 
   const tierCounts = new Map(scores.map((s) => [s.tier, s._count.tier]));
@@ -93,6 +95,14 @@ export default async function DashboardPage() {
             <p className="text-xs text-muted-foreground">new replies today</p>
           </CardContent>
         </Card>
+        <Link href="/app/inquiries" className="block">
+          <Card className="transition-colors hover:border-primary/40">
+            <CardContent className="py-4">
+              <div className="text-2xl font-semibold tabular-nums">{newInquiries}</div>
+              <p className="text-xs text-muted-foreground">new inquiries — inbound from the public site</p>
+            </CardContent>
+          </Card>
+        </Link>
       </div>
 
       <div className="mt-4 grid gap-4 lg:grid-cols-2">

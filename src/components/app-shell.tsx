@@ -5,6 +5,7 @@ import { usePathname } from "next/navigation";
 import {
   BarChart3,
   FileText,
+  Inbox,
   LayoutDashboard,
   LogOut,
   Megaphone,
@@ -24,6 +25,7 @@ const NAV = [
   { href: "/app", label: "Dashboard", icon: LayoutDashboard },
   { href: "/app/discover", label: "Discover", icon: Radar },
   { href: "/app/leads", label: "Leads", icon: Users },
+  { href: "/app/inquiries", label: "Inquiries", icon: Inbox },
   { href: "/app/campaigns", label: "Campaigns", icon: Megaphone },
   { href: "/app/call-queue", label: "Call Queue", icon: Phone },
   { href: "/app/templates", label: "Templates", icon: FileText },
