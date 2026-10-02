@@ -386,6 +386,25 @@ The public site sells the owner's services; its free audit tool is the lead magn
 
 Full design: docs/superpowers/specs/2026-10-02-public-face-design.md
 
+### Start-a-project wizard and proof (public v2)
+
+Decision: **no self-serve checkout and no published prices.** Pricing is discussed on a free call and invoiced after — a trust line ("simple fixed quote, agreed before any work starts") replaces the pricing section. Geo landing pages (`/websites/[area]`) are deferred until ad campaigns exist. Based on murasaki.ai's paid-funnel pattern (`/long-island-websites` + `/start`).
+
+**Wizard `/start`** (replaces `/contact`, which becomes a permanent redirect; the landing's "Get in touch" points here; the audit CTA links in as `/start?url=…&report=…`):
+
+1. One question per screen, back-navigation, progress feel: business-type chips (Restaurant or café · Contractor or home services · Retail shop · Health/beauty/fitness · Professional services · Something else) + free text → "Does your business have a website right now?" (yes/no, URL when yes) → business name → contact name → email → phone (optional) → optional "What do you want your website to do?".
+2. Honeypot + time-trap from mount (same rules as the contact endpoint).
+3. When a URL is given, the client fires the existing `POST /api/public/audit` in the background — **never blocking submission**: a slow or failed audit is simply omitted.
+4. Submit → `POST /api/public/contact` (existing validation/rate limits), extended with `businessType`; the report id attaches via the existing `auditReportId`.
+5. End screen: reply-within-one-business-day promise, "free 15-minute call, simple fixed quote agreed before any work starts", the reviews badge, and — when the background audit finished — a personalized line: verdict + top finding + "that's the first thing we'd fix".
+6. `Inquiry` gains `businessType String?`; the manager inquiries list shows it.
+
+**Portfolio cards:** `CaseStudy` gains `siteUrl String?` (migration); the manager editor gains the field; `/results` and the landing teaser render cards linking to the live sites (`target="_blank" rel="noreferrer"`). No screenshots — the live site is the proof.
+
+**Reviews badge:** `publicBrand` gains `googleRating`, `googleReviewCount`, `googleMapsUrl` (editable in Settings; badge renders only when rating and URL are set) — shown on the landing and the wizard end screen.
+
+**FAQ + trust copy:** `src/content/public-site.ts` gains an FAQ block (what's included, who builds it, what happens after the call, pricing model) rendered on the landing before the closing CTA.
+
 ---
 
 ## Environment variables (`.env.example`)
@@ -443,6 +462,12 @@ Mailbox credentials are entered in the UI, not in env vars.
 13. **Case studies.**
    - Build: `CaseStudy` model, `/app/case-studies` CRUD, create-from-lead, public `/results` wiring, landing teaser.
    - Accept when: a published case study appears on `/results` and in the landing teaser, and the empty state stays clean.
+14. **Start-a-project wizard.**
+   - Build: `/start` multi-step wizard with background audit, `Inquiry.businessType` migration, contact-endpoint extension, `/contact` redirect, landing + audit-CTA entry points.
+   - Accept when: a full wizard run creates an Inquiry with business type and (when the URL audit finished) a linked report; the audit CTA pre-fills; submission never waits on the audit; `/contact` 301s; honeypot/time-trap and rate limits still enforced.
+15. **Proof and trust.**
+   - Build: `CaseStudy.siteUrl` + editor field + linked cards; reviews badge in brand Settings + landing + wizard end screen; FAQ/trust copy section.
+   - Accept when: a case study with a site URL renders as a live-linked card on `/results` and the teaser; the badge appears only when configured; the FAQ section renders from the content file.
 
 ## Conventions
 
