@@ -1,3 +1,4 @@
+import Link from "next/link";
 import { prisma } from "@/lib/db";
 
 export const dynamic = "force-dynamic";
@@ -15,7 +16,7 @@ export default async function ResultsPage() {
         <h1 className="text-3xl font-semibold tracking-tight">Results</h1>
         <p className="mt-4 text-muted-foreground">
           The first projects are in flight. Check back soon — or be one of them:{" "}
-          <a href="/audit" className="underline underline-offset-4">start with a free site check</a>.
+          <Link href="/audit" className="underline underline-offset-4">start with a free site check</Link>.
         </p>
       </div>
     );
