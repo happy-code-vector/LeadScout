@@ -11,7 +11,7 @@ export async function PublicShell({ children }: { children: React.ReactNode }) {
           <nav className="flex items-center gap-6 text-sm text-muted-foreground">
             <Link href="/audit" className="hover:text-foreground">Free site check</Link>
             <Link href="/results" className="hover:text-foreground">Results</Link>
-            <Link href="/contact" className="hover:text-foreground">Contact</Link>
+            <Link href="/start" className="hover:text-foreground">Start a project</Link>
             <Link href="/audit" className="rounded-lg bg-primary px-3 py-1.5 text-primary-foreground hover:bg-primary/90">Check my site</Link>
           </nav>
         </div>
@@ -22,7 +22,7 @@ export async function PublicShell({ children }: { children: React.ReactNode }) {
           <span>© {new Date().getFullYear()} {brand.name}{brand.address ? ` · ${brand.address}` : ""}</span>
           <span className="flex gap-4">
             <Link href="/audit" className="hover:text-foreground">Free site check</Link>
-            <Link href="/contact" className="hover:text-foreground">Contact</Link>
+            <Link href="/start" className="hover:text-foreground">Start a project</Link>
           </span>
         </div>
       </footer>

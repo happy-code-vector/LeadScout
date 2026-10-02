@@ -17,6 +17,7 @@ interface InquiryRow {
   company: string;
   website: string;
   message: string;
+  businessType: string;
   source: string;
   status: string;
   auditClass: string | null;
@@ -106,6 +107,7 @@ export function InquiriesClient({ inquiries }: { inquiries: InquiryRow[] }) {
                 </TableCell>
                 <TableCell>
                   <Badge variant="secondary">{i.source === "AUDIT_CTA" ? "site check" : "contact form"}</Badge>
+                  {i.businessType && <Badge variant="outline" className="ml-1">{i.businessType}</Badge>}
                   {i.auditClass && <Badge variant="outline" className="ml-1">{i.auditClass.replace(/_/g, " ").toLowerCase()}</Badge>}
                   {i.businessId && <Badge variant="outline" className="ml-1">known business</Badge>}
                 </TableCell>

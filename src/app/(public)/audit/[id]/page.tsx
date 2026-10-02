@@ -2,7 +2,6 @@ import { notFound } from "next/navigation";
 import { prisma } from "@/lib/db";
 import { fromJsonArray } from "@/lib/domain";
 import { getBrand } from "@/lib/public/brand";
-import { CtaForm } from "./cta-form";
 
 export const dynamic = "force-dynamic";
 export const metadata = { title: "Your site check", robots: { index: false, follow: false } };
@@ -44,9 +43,14 @@ export default async function AuditReportPage({ params }: { params: Promise<{ id
       <div className="mt-10 rounded-xl border bg-muted/30 p-6">
         <h2 className="font-semibold">Want this fixed?</h2>
         <p className="mt-1 text-sm text-muted-foreground">
-          {brand.name} rebuilds sites like this for a fixed price. Leave your details and we&apos;ll talk — reply within one business day.
+          {brand.name} rebuilds sites like this for a simple fixed quote, agreed on a free call before any work starts.
         </p>
-        <div className="mt-4"><CtaForm auditReportId={report.id} website={report.url} /></div>
+        <a
+          href={`/start?url=${encodeURIComponent(report.url)}&report=${report.id}`}
+          className="mt-4 inline-flex items-center rounded-lg bg-primary px-5 py-2.5 text-sm font-medium text-primary-foreground hover:bg-primary/90"
+        >
+          Start a project →
+        </a>
       </div>
       <p className="mt-6 text-xs text-muted-foreground">Checked {report.checkedAt.toLocaleString()} · Shareable link · {brand.name}</p>
     </div>

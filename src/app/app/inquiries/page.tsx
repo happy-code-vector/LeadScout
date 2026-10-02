@@ -17,6 +17,7 @@ export default async function InquiriesPage() {
         inquiries={inquiries.map((i) => ({
           id: i.id, name: i.name, email: i.email, phone: i.phone ?? "", company: i.company ?? "",
           website: i.website ?? i.auditReport?.url ?? "", message: i.message ?? "",
+          businessType: i.businessType ?? "",
           source: i.source, status: i.status,
           auditClass: i.auditReport?.websiteClass ?? null, auditId: i.auditReport?.id ?? null,
           businessId: i.businessId ?? null,

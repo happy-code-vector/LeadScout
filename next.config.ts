@@ -7,10 +7,13 @@ const MANAGER_ROUTES = [
 
 const nextConfig: NextConfig = {
   async redirects() {
-    return MANAGER_ROUTES.flatMap((r) => [
-      { source: `/${r}`, destination: `/app/${r}`, permanent: true },
-      { source: `/${r}/:path*`, destination: `/app/${r}/:path*`, permanent: true },
-    ]);
+    return [
+      ...MANAGER_ROUTES.flatMap((r) => [
+        { source: `/${r}`, destination: `/app/${r}`, permanent: true },
+        { source: `/${r}/:path*`, destination: `/app/${r}/:path*`, permanent: true },
+      ]),
+      { source: "/contact", destination: "/start", permanent: true },
+    ];
   },
 };
 

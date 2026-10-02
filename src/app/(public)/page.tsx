@@ -75,7 +75,7 @@ export default async function LandingPage() {
         <div className="mx-auto max-w-5xl px-6 py-16 text-center">
           <h2 className="text-2xl font-semibold tracking-tight">Work with one person, start to finish</h2>
           <p className="mx-auto mt-3 max-w-2xl text-muted-foreground">{CONTENT.founder}</p>
-          <Link href="/contact" className="mt-6 inline-block rounded-lg bg-primary px-5 py-2.5 font-medium text-primary-foreground hover:bg-primary/90">Get in touch</Link>
+          <Link href="/start" className="mt-6 inline-block rounded-lg bg-primary px-5 py-2.5 font-medium text-primary-foreground hover:bg-primary/90">Get in touch</Link>
         </div>
       </section>
     </div>
