@@ -5,6 +5,7 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Textarea } from "@/components/ui/textarea";
+import { sameSiteHost } from "@/lib/public/site-match";
 
 const BUSINESS_TYPES = [
   "Restaurant or café",
@@ -68,8 +69,12 @@ export function Wizard({ prefill, reviews }: { prefill: Prefill; reviews: Review
     website: prefill.url ?? "",
   });
   // Background audit of the visitor's URL (never blocking; best-effort).
-  const [audit, setAudit] = useState<{ id?: string; websiteClass?: string; finding?: string } | null>(
-    prefill.report ? { id: prefill.report, websiteClass: prefill.reportClass, finding: prefill.reportFinding } : null,
+  // `url` is the address the audit ran on — submit only cites the report
+  // when the submitted website still matches it.
+  const [audit, setAudit] = useState<{ id?: string; websiteClass?: string; finding?: string; url?: string } | null>(
+    prefill.report
+      ? { id: prefill.report, websiteClass: prefill.reportClass, finding: prefill.reportFinding, url: prefill.url ?? undefined }
+      : null,
   );
   // Ref mirror of `audit` so submit() and guards see a late-arriving audit id
   // without depending on a re-render having happened.
@@ -90,7 +95,7 @@ export function Wizard({ prefill, reviews }: { prefill: Prefill; reviews: Review
       .then((r) => (r.ok ? r.json() : Promise.reject(new Error("audit failed"))))
       .then((j: { id?: string; websiteClass?: string; finding?: string | null }) => {
         if (!j.id) return;
-        const next = { id: j.id, websiteClass: j.websiteClass, finding: j.finding ?? undefined };
+        const next = { id: j.id, websiteClass: j.websiteClass, finding: j.finding ?? undefined, url };
         auditRef.current = next;
         setAudit(next);
       })
@@ -132,10 +137,13 @@ export function Wizard({ prefill, reviews }: { prefill: Prefill; reviews: Review
           company: a.businessName,
           website: a.website || undefined,
           businessType: a.businessType || undefined,
-          message: a.message || undefined,
+          message: [a.whatDoYouDo.trim(), a.message.trim()].filter(Boolean).join("\n\n") || undefined,
           company_extra: "",
           source: "CONTACT_FORM",
-          auditReportId: auditRef.current?.id ?? undefined,
+          auditReportId:
+            auditRef.current?.id && sameSiteHost(a.website, auditRef.current.url ?? "")
+              ? auditRef.current.id
+              : undefined,
           elapsedMs: Date.now() - loadedAt.current,
         }),
       });
@@ -202,7 +210,19 @@ export function Wizard({ prefill, reviews }: { prefill: Prefill; reviews: Review
         <h1 className="text-2xl font-semibold tracking-tight">Does your business have a website right now?</h1>
         <div className="mt-6 flex gap-3">
           {(["yes", "no"] as const).map((v) => (
-            <button key={v} type="button" onClick={() => setA({ ...a, hasWebsite: v })}
+            <button
+              key={v} type="button"
+              onClick={() => {
+                if (v === "no") {
+                  // No site means no audit: clear the url and any stale
+                  // audit so it can't ride along with the submission.
+                  auditRef.current = null;
+                  setAudit(null);
+                  setA({ ...a, hasWebsite: "no", website: "" });
+                } else {
+                  setA({ ...a, hasWebsite: "yes" });
+                }
+              }}
               className={`rounded-full border px-6 py-2 text-sm capitalize transition-colors ${a.hasWebsite === v ? "border-primary bg-primary text-primary-foreground" : "hover:bg-muted"}`}>
               {v === "yes" ? "Yes, we have one" : "No, this is our first"}
             </button>

@@ -25,5 +25,4 @@ export const CONTENT = {
     { q: "I already have a website.", a: "Great — run the free site check first. You'll see exactly what it's doing well and what it's quietly getting wrong, and we can talk about a rebuild or just the fixes." },
   ],
   founder: "You work directly with the person designing and building your site — no account managers, no junior handoffs, no agency overhead.",
-  contactBlurb: "Tell us about your business and what you want your website to do. You'll get an honest assessment and a clear next step — no pressure, no jargon.",
 } as const;
