@@ -71,13 +71,16 @@ export function Wizard({ prefill, reviews }: { prefill: Prefill; reviews: Review
   const [audit, setAudit] = useState<{ id?: string; websiteClass?: string; finding?: string } | null>(
     prefill.report ? { id: prefill.report, websiteClass: prefill.reportClass, finding: prefill.reportFinding } : null,
   );
+  // Ref mirror of `audit` so submit() and guards see a late-arriving audit id
+  // without depending on a re-render having happened.
+  const auditRef = useRef(audit);
   const auditInFlight = useRef(false);
   const [submitting, setSubmitting] = useState(false);
   const [done, setDone] = useState(false);
   const [error, setError] = useState<string | null>(null);
 
   function fireBackgroundAudit(url: string) {
-    if (auditInFlight.current || audit?.id || !url.trim()) return;
+    if (auditInFlight.current || auditRef.current?.id || !url.trim()) return;
     auditInFlight.current = true;
     fetch("/api/public/audit", {
       method: "POST",
@@ -86,7 +89,10 @@ export function Wizard({ prefill, reviews }: { prefill: Prefill; reviews: Review
     })
       .then((r) => (r.ok ? r.json() : Promise.reject(new Error("audit failed"))))
       .then((j: { id?: string; websiteClass?: string; finding?: string | null }) => {
-        if (j.id) setAudit({ id: j.id, websiteClass: j.websiteClass, finding: j.finding ?? undefined });
+        if (!j.id) return;
+        const next = { id: j.id, websiteClass: j.websiteClass, finding: j.finding ?? undefined };
+        auditRef.current = next;
+        setAudit(next);
       })
       .catch(() => { /* audit is optional enrichment — ignore */ })
       .finally(() => { auditInFlight.current = false; });
@@ -129,7 +135,7 @@ export function Wizard({ prefill, reviews }: { prefill: Prefill; reviews: Review
           message: a.message || undefined,
           company_extra: "",
           source: "CONTACT_FORM",
-          auditReportId: audit?.id ?? undefined,
+          auditReportId: auditRef.current?.id ?? undefined,
           elapsedMs: Date.now() - loadedAt.current,
         }),
       });
