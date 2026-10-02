@@ -14,6 +14,7 @@ interface StudyRow {
   metrics: string; // JSON [{label, value}]
   published: boolean;
   order: number;
+  siteUrl: string;
   businessId: string | null;
   businessName: string | null;
 }
@@ -23,7 +24,7 @@ export function CaseStudiesClient({ studies }: { studies: StudyRow[] }) {
     <div className="space-y-4">
       <Card>
         <CardContent className="py-4">
-          <form action={saveCaseStudy} className="grid items-end gap-3 md:grid-cols-[1.5fr_2fr_auto]">
+          <form action={saveCaseStudy} className="grid items-end gap-3 md:grid-cols-[1.2fr_1.5fr_1.2fr_auto]">
             <div className="grid gap-1">
               <Label htmlFor="cs-title" className="text-xs">Title</Label>
               <Input id="cs-title" name="title" required maxLength={160} placeholder="Carroll Gardens Plumbing" />
@@ -31,6 +32,10 @@ export function CaseStudiesClient({ studies }: { studies: StudyRow[] }) {
             <div className="grid gap-1">
               <Label htmlFor="cs-summary" className="text-xs">Summary</Label>
               <Input id="cs-summary" name="summary" required maxLength={1000} placeholder="Outdated site rebuilt and launched in two weeks." />
+            </div>
+            <div className="grid gap-1">
+              <Label htmlFor="cs-site" className="text-xs">Live site URL</Label>
+              <Input id="cs-site" name="siteUrl" maxLength={300} placeholder="https://carrollgardensplumbing.com" />
             </div>
             <input type="hidden" name="metrics" value="[]" />
             <Button type="submit">Add draft</Button>
@@ -52,7 +57,7 @@ export function CaseStudiesClient({ studies }: { studies: StudyRow[] }) {
             <form action={saveCaseStudy} id={`edit-${s.id}`}>
               <input type="hidden" name="id" value={s.id} />
               <input type="hidden" name="businessId" value={s.businessId ?? ""} />
-              <div className="grid gap-3 md:grid-cols-[1.5fr_2fr]">
+              <div className="grid gap-3 md:grid-cols-[1.2fr_1.5fr_1.2fr]">
                 <div className="grid gap-1">
                   <Label className="text-xs">Title{s.businessName ? ` (${s.businessName})` : ""}</Label>
                   <Input name="title" defaultValue={s.title} required maxLength={160} />
@@ -60,6 +65,10 @@ export function CaseStudiesClient({ studies }: { studies: StudyRow[] }) {
                 <div className="grid gap-1">
                   <Label className="text-xs">Summary</Label>
                   <Input name="summary" defaultValue={s.summary} required maxLength={1000} />
+                </div>
+                <div className="grid gap-1">
+                  <Label className="text-xs">Live site URL</Label>
+                  <Input name="siteUrl" defaultValue={s.siteUrl} maxLength={300} placeholder="https://carrollgardensplumbing.com" />
                 </div>
               </div>
               <div className="mt-3 grid gap-3 md:grid-cols-[2fr_0.5fr_0.7fr_auto]">

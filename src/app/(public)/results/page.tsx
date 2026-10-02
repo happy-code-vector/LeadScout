@@ -1,14 +1,28 @@
 import Link from "next/link";
 import { prisma } from "@/lib/db";
+import { getBrand } from "@/lib/public/brand";
+import { ReviewsBadge } from "@/components/public/reviews-badge";
 
 export const dynamic = "force-dynamic";
 export const metadata = { title: "Results" };
 
+/** Display host for a case-study link; the raw string when it isn't a parseable URL. */
+function siteHost(url: string): string {
+  try {
+    return new URL(url).hostname;
+  } catch {
+    return url;
+  }
+}
+
 export default async function ResultsPage() {
-  const studies = await prisma.caseStudy.findMany({
-    where: { published: true },
-    orderBy: [{ order: "asc" }, { createdAt: "desc" }],
-  });
+  const [brand, studies] = await Promise.all([
+    getBrand(),
+    prisma.caseStudy.findMany({
+      where: { published: true },
+      orderBy: [{ order: "asc" }, { createdAt: "desc" }],
+    }),
+  ]);
 
   if (studies.length === 0) {
     return (
@@ -25,6 +39,7 @@ export default async function ResultsPage() {
   return (
     <div className="mx-auto max-w-5xl px-6 py-16">
       <h1 className="text-3xl font-semibold tracking-tight">Results</h1>
+      <ReviewsBadge brand={brand} className="mt-3" />
       <div className="mt-10 space-y-6">
         {studies.map((s) => {
           const parsed = (() => {
@@ -41,9 +56,11 @@ export default async function ResultsPage() {
               typeof (m as { label?: unknown }).label === "string" &&
               typeof (m as { value?: unknown }).value === "string",
           );
-          return (
-            <article key={s.id} className="rounded-xl border p-6">
+          const host = s.siteUrl ? siteHost(s.siteUrl) : null;
+          const body = (
+            <>
               <h2 className="text-xl font-semibold">{s.title}</h2>
+              {host ? <p className="mt-1 text-xs text-muted-foreground">{host}</p> : null}
               <p className="mt-2 text-muted-foreground">{s.summary}</p>
               <div className="mt-4 flex flex-wrap gap-6">
                 {metrics.map((m) => (
@@ -53,6 +70,15 @@ export default async function ResultsPage() {
                   </div>
                 ))}
               </div>
+            </>
+          );
+          return s.siteUrl ? (
+            <a key={s.id} href={s.siteUrl} target="_blank" rel="noreferrer" className="block rounded-xl border p-6 transition-colors hover:bg-muted/40">
+              {body}
+            </a>
+          ) : (
+            <article key={s.id} className="rounded-xl border p-6">
+              {body}
             </article>
           );
         })}

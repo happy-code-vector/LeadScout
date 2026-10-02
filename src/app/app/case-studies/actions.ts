@@ -11,6 +11,7 @@ const caseStudySchema = z.object({
   summary: z.string().min(1).max(1_000),
   metrics: z.string().max(4_000).default("[]"), // JSON: [{label, value}]
   businessId: z.string().optional(),
+  siteUrl: z.string().trim().max(300).optional(),
   published: z.coerce.boolean().default(false),
   order: z.coerce.number().int().min(0).max(999).default(0),
 });
@@ -34,6 +35,7 @@ export async function saveCaseStudy(formData: FormData): Promise<void> {
     summary: formData.get("summary"),
     metrics: formData.get("metrics") || "[]",
     businessId: formData.get("businessId") || undefined,
+    siteUrl: formData.get("siteUrl") || undefined,
     published: formData.get("published") === "on" || formData.get("published") === "true",
     order: formData.get("order") || 0,
   });
@@ -43,8 +45,8 @@ export async function saveCaseStudy(formData: FormData): Promise<void> {
   if (!metricsParsed.success) {
     throw new Error("metrics must be a JSON array of {label, value} strings (max 12 items, 60 chars each)");
   }
-  const { id, businessId, ...rest } = parsed.data;
-  const data = { ...rest, metrics: toJson(metricsParsed.data), businessId: businessId ?? null };
+  const { id, businessId, siteUrl, ...rest } = parsed.data;
+  const data = { ...rest, metrics: toJson(metricsParsed.data), businessId: businessId ?? null, siteUrl: siteUrl ?? null };
   if (id) {
     await prisma.caseStudy.update({ where: { id }, data });
   } else {
