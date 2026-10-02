@@ -24,37 +24,51 @@ export async function POST(_request: Request, { params }: { params: Promise<{ id
     create: { slug: "inbound", name: "Inbound", textQuery: "", propensity: 0, active: false },
   });
 
-  const business = await prisma.business.create({
-    data: {
-      placeId: `inbound_${randomUUID()}`,
-      name: inquiry.company || inquiry.name,
-      categoryId: category.id,
-      websiteUri: website,
-    },
-  });
-  await prisma.contact.create({
-    data: {
-      businessId: business.id,
-      type: "EMAIL",
-      value: inquiry.email,
-      source: "INBOUND",
-      verified: true, // they gave it to us voluntarily
-    },
-  });
-  const lead = await prisma.lead.create({
-    data: {
-      businessId: business.id,
-      status: "QUEUED",
-      notes: [
-        `Inbound ${inquiry.source === "AUDIT_CTA" ? "via free site check" : "via contact form"}`,
-        inquiry.auditReport ? `${inquiry.auditReport.websiteClass}: ${findings[0] ?? ""}` : "",
-        inquiry.message ?? "",
-      ].filter(Boolean).join(" — "),
-    },
-  });
-  await prisma.inquiry.update({
-    where: { id },
-    data: { status: "CONVERTED", convertedAt: new Date(), businessId: business.id },
-  });
-  return NextResponse.json({ leadId: lead.id, businessId: business.id });
+  // All four writes in one transaction. The final claim is conditional
+  // (`status != CONVERTED`), so a concurrent convert of the same inquiry
+  // rolls back everything it created.
+  try {
+    const { leadId, businessId } = await prisma.$transaction(async (tx) => {
+      const business = await tx.business.create({
+        data: {
+          placeId: `inbound_${randomUUID()}`,
+          name: inquiry.company || inquiry.name,
+          categoryId: category.id,
+          websiteUri: website,
+        },
+      });
+      await tx.contact.create({
+        data: {
+          businessId: business.id,
+          type: "EMAIL",
+          value: inquiry.email,
+          source: "INBOUND",
+          verified: true, // they gave it to us voluntarily
+        },
+      });
+      const lead = await tx.lead.create({
+        data: {
+          businessId: business.id,
+          status: "QUEUED",
+          notes: [
+            `Inbound ${inquiry.source === "AUDIT_CTA" ? "via free site check" : "via contact form"}`,
+            inquiry.auditReport ? `${inquiry.auditReport.websiteClass}: ${findings[0] ?? ""}` : "",
+            inquiry.message ?? "",
+          ].filter(Boolean).join(" — "),
+        },
+      });
+      const claimed = await tx.inquiry.updateMany({
+        where: { id, status: { not: "CONVERTED" } },
+        data: { status: "CONVERTED", convertedAt: new Date(), businessId: business.id },
+      });
+      if (claimed.count === 0) throw new Error("already converted");
+      return { leadId: lead.id, businessId: business.id };
+    });
+    return NextResponse.json({ leadId, businessId });
+  } catch (err) {
+    if (err instanceof Error && err.message === "already converted") {
+      return NextResponse.json({ error: "already converted" }, { status: 400 });
+    }
+    throw err;
+  }
 }

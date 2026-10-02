@@ -22,7 +22,11 @@ export function validateInquiryInput(
   body: unknown,
   elapsedMs: number,
 ): { ok: true; value: InquiryInput } | { ok: false; error: string } {
-  if (elapsedMs < MIN_ELAPSED_MS) return { ok: false, error: "That was too fast — please try again." };
+  // NaN fails every comparison, so it would sail through the trap — treat
+  // any non-finite elapsedMs as a failure.
+  if (!Number.isFinite(elapsedMs) || elapsedMs < MIN_ELAPSED_MS) {
+    return { ok: false, error: "That was too fast — please try again." };
+  }
   const parsed = payloadSchema.safeParse(body);
   if (!parsed.success) {
     return { ok: false, error: parsed.error.issues[0]?.message ?? "invalid submission" };

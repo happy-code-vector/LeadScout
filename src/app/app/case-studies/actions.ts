@@ -15,6 +15,18 @@ const caseStudySchema = z.object({
   order: z.coerce.number().int().min(0).max(999).default(0),
 });
 
+const metricsSchema = z
+  .array(z.object({ label: z.string().max(60), value: z.string().max(60) }))
+  .max(12);
+
+function jsonOf(raw: string): unknown {
+  try {
+    return JSON.parse(raw);
+  } catch {
+    return undefined; // fails metricsSchema with the friendly error below
+  }
+}
+
 export async function saveCaseStudy(formData: FormData): Promise<void> {
   const parsed = caseStudySchema.safeParse({
     id: formData.get("id") || undefined,
@@ -26,10 +38,13 @@ export async function saveCaseStudy(formData: FormData): Promise<void> {
     order: formData.get("order") || 0,
   });
   if (!parsed.success) throw new Error(parsed.error.issues[0]?.message ?? "invalid case study");
-  // Validate metrics JSON before storing.
-  try { JSON.parse(parsed.data.metrics); } catch { throw new Error("metrics must be valid JSON"); }
-  const { id, metrics, businessId, ...rest } = parsed.data;
-  const data = { ...rest, metrics, businessId: businessId ?? null };
+  // Validate metrics shape (not just JSON-ness) before storing.
+  const metricsParsed = metricsSchema.safeParse(jsonOf(parsed.data.metrics));
+  if (!metricsParsed.success) {
+    throw new Error("metrics must be a JSON array of {label, value} strings (max 12 items, 60 chars each)");
+  }
+  const { id, businessId, ...rest } = parsed.data;
+  const data = { ...rest, metrics: toJson(metricsParsed.data), businessId: businessId ?? null };
   if (id) {
     await prisma.caseStudy.update({ where: { id }, data });
   } else {

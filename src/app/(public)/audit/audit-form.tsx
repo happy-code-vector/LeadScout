@@ -31,15 +31,15 @@ export function AuditForm() {
   }
 
   return (
-    <form onSubmit={submit} className="mx-auto flex max-w-xl flex-col gap-3 sm:flex-row">
+    <form onSubmit={submit} className="mx-auto grid max-w-xl gap-3 sm:grid-cols-[1fr_auto]">
       <Input
         value={url} onChange={(e) => setUrl(e.target.value)}
-        placeholder="yourbusiness.com" inputMode="url" required className="h-11 flex-1"
+        placeholder="yourbusiness.com" inputMode="url" required className="h-11"
       />
       <Button type="submit" size="lg" disabled={busy || !url} className="h-11">
         {busy ? "Checking… (about 15s)" : "Check my site"}
       </Button>
-      {error && <p className="text-sm text-destructive sm:hidden">{error}</p>}
+      {error && <p className="text-sm text-destructive sm:col-span-2">{error}</p>}
     </form>
   );
 }

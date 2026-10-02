@@ -11,9 +11,6 @@ export async function POST(request: Request) {
   if (!auditLimiter.tryAcquire(clientIp(request))) {
     return NextResponse.json({ error: "Too many checks — try again in an hour." }, { status: 429 });
   }
-  if (!auditDailyCap.tryAcquire("global")) {
-    return NextResponse.json({ error: "Daily check limit reached — try again tomorrow." }, { status: 429 });
-  }
   const body = (await request.json().catch(() => null)) as { url?: string } | null;
   let url: URL;
   try {
@@ -23,6 +20,11 @@ export async function POST(request: Request) {
       return NextResponse.json({ error: err.reason }, { status: 400 });
     }
     throw err;
+  }
+  // Global daily cap only after the URL is valid: garbage requests must not
+  // burn the shared 200/day budget.
+  if (!auditDailyCap.tryAcquire("global")) {
+    return NextResponse.json({ error: "Daily check limit reached — try again tomorrow." }, { status: 429 });
   }
   const result = await runLightAudit(url);
   const report = await prisma.auditReport.create({

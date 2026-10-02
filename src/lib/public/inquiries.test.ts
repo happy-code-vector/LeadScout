@@ -11,6 +11,10 @@ describe("validateInquiryInput", () => {
   it("rejects too-fast submissions (time trap)", () => {
     expect(validateInquiryInput({ ...good }, 1_000).ok).toBe(false);
   });
+  it("rejects non-finite elapsedMs instead of bypassing the time trap", () => {
+    expect(validateInquiryInput({ ...good }, Number("abc")).ok).toBe(false);
+    expect(validateInquiryInput({ ...good }, Number.NaN).ok).toBe(false);
+  });
   it("rejects a filled honeypot", () => {
     expect(validateInquiryInput({ ...good, company_extra: "spam" }, 5_000).ok).toBe(false);
   });

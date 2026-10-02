@@ -25,5 +25,7 @@ export const auditDailyCap = new SlidingWindow(200, 24 * 3_600_000);
 
 export function clientIp(req: Request): string {
   const fwd = req.headers.get("x-forwarded-for");
-  return fwd?.split(",")[0]?.trim() || "unknown";
+  // Last hop: Caddy (our proxy) appends the real client IP, so the final
+  // entry is trustworthy — earlier hops are client-spoofable.
+  return fwd?.split(",").pop()?.trim() || "unknown";
 }

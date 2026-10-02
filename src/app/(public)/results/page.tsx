@@ -27,7 +27,20 @@ export default async function ResultsPage() {
       <h1 className="text-3xl font-semibold tracking-tight">Results</h1>
       <div className="mt-10 space-y-6">
         {studies.map((s) => {
-          const metrics = JSON.parse(s.metrics) as { label: string; value: string }[];
+          const parsed = (() => {
+            try {
+              const v = JSON.parse(s.metrics);
+              return Array.isArray(v) ? v : [];
+            } catch {
+              return [];
+            }
+          })();
+          const metrics = parsed.filter(
+            (m): m is { label: string; value: string } =>
+              typeof m === "object" && m !== null &&
+              typeof (m as { label?: unknown }).label === "string" &&
+              typeof (m as { value?: unknown }).value === "string",
+          );
           return (
             <article key={s.id} className="rounded-xl border p-6">
               <h2 className="text-xl font-semibold">{s.title}</h2>

@@ -1,5 +1,5 @@
 import { describe, expect, it } from "vitest";
-import { SlidingWindow } from "./rate-limit";
+import { clientIp, SlidingWindow } from "./rate-limit";
 
 describe("SlidingWindow", () => {
   it("allows up to the limit inside the window, then refuses", () => {
@@ -21,5 +21,15 @@ describe("SlidingWindow", () => {
     expect(w.tryAcquire("a")).toBe(true);
     expect(w.tryAcquire("b")).toBe(true);
     expect(w.tryAcquire("a")).toBe(false);
+  });
+});
+
+describe("clientIp", () => {
+  it("uses the last x-forwarded-for hop (the proxy-appended real client IP)", () => {
+    const req = new Request("http://x", { headers: { "x-forwarded-for": "1.2.3.4, 5.6.7.8" } });
+    expect(clientIp(req)).toBe("5.6.7.8");
+  });
+  it("falls back to unknown without the header", () => {
+    expect(clientIp(new Request("http://x"))).toBe("unknown");
   });
 });

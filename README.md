@@ -101,7 +101,7 @@ Auth (deploy-only): set `AUTH_ENABLED=true`, a long `AUTH_SECRET`, and
 boot (afterward the in-app password always wins and the env values are
 ignored). Sign-in is email/password. Anyone can request access at `/signup`;
 accounts stay `PENDING` until a root approves them under **Access**
-(`/admin/users`). Passwords are changed in Settings → Account. The
+(`/app/admin/users`). Passwords are changed in Settings → Account. The
 unsubscribe endpoint (`/u/…`) always stays public. When deploying this
 change over an older install, set a fresh `AUTH_SECRET` — it invalidates
 any pre-migration sessions, so deleted or still-pending users lose access
